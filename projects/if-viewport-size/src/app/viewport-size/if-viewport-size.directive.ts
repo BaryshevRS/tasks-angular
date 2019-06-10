@@ -1,10 +1,30 @@
-import { Directive } from '@angular/core';
+import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import {debounceTime, distinct, pairwise, takeUntil} from "rxjs/operators";
+import {fromEvent, Subject} from "rxjs";
+import {ViewportSizeService} from "./viewport-size.service";
 
 @Directive({
-  selector: '[appIfViewportSize]'
+  selector: '[ifViewportSize]'
 })
 export class IfViewportSizeDirective {
 
-  constructor() { }
+  // @Input() IfViewportSize: string;
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef,
+    private viewportSize: ViewportSizeService
+  ) {
+  }
+
+  @Input() set ifViewportSize(viewportType: string) {
+    if (this.viewportSize.setViewport(viewportType)) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainer.clear();
+    }
+  }
 
 }
