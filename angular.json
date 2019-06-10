@@ -130,7 +130,135 @@
           }
         }
       }
+    },
+    "if-viewport-size": {
+      "root": "projects/if-viewport-size/",
+      "sourceRoot": "projects/if-viewport-size/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/if-viewport-size",
+            "index": "projects/if-viewport-size/src/index.html",
+            "main": "projects/if-viewport-size/src/main.ts",
+            "polyfills": "projects/if-viewport-size/src/polyfills.ts",
+            "tsConfig": "projects/if-viewport-size/tsconfig.app.json",
+            "assets": [
+              "projects/if-viewport-size/src/favicon.ico",
+              "projects/if-viewport-size/src/assets"
+            ],
+            "styles": [
+              "projects/if-viewport-size/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/if-viewport-size/src/environments/environment.ts",
+                  "with": "projects/if-viewport-size/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "if-viewport-size:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "if-viewport-size:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "if-viewport-size:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/if-viewport-size/src/test.ts",
+            "polyfills": "projects/if-viewport-size/src/polyfills.ts",
+            "tsConfig": "projects/if-viewport-size/tsconfig.spec.json",
+            "karmaConfig": "projects/if-viewport-size/karma.conf.js",
+            "styles": [
+              "projects/if-viewport-size/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/if-viewport-size/src/favicon.ico",
+              "projects/if-viewport-size/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/if-viewport-size/tsconfig.app.json",
+              "projects/if-viewport-size/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "if-viewport-size-e2e": {
+      "root": "projects/if-viewport-size-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/if-viewport-size-e2e/protractor.conf.js",
+            "devServerTarget": "if-viewport-size:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "if-viewport-size:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/if-viewport-size-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
-  "defaultProject": "custom-tabs"
+  "defaultProject": "if-viewport-size"
 }
