@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, HostBinding, OnDestroy} from '@angular/core';
+import {AfterContentInit, Component, ContentChild, HostBinding, OnDestroy, TemplateRef} from '@angular/core';
 import {TabsService} from '../tabs.service';
 import {Subscription} from 'rxjs';
 
@@ -13,6 +13,7 @@ export class TabContentComponent implements AfterContentInit, OnDestroy {
   private subscription: Subscription;
 
   @HostBinding('hidden') hidden = true;
+  @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
   constructor(private tabsService: TabsService) {
   }

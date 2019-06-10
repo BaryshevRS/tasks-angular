@@ -13,8 +13,10 @@
       Tab <b>{{ tab }}</b> title
     </tab-title>
     <tab-content>
-      Tab <b>{{ tab }}</b> content
-      <test [tab]="tab"></test>
+      <ng-template>
+        Tab <b>{{ tab }}</b> content
+        <test [tab]="tab"></test>
+      </ng-template>
     </tab-content>
   </tab>
 </tabs>
