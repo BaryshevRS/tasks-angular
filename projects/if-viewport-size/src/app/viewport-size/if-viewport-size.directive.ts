@@ -21,8 +21,6 @@ export class IfViewportSizeDirective implements OnDestroy {
 
     const initShow = this.viewportSize.setViewport(viewportType);
 
-    console.log('this.viewContainer.length', this.viewContainer.length);
-
     if (initShow) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
