@@ -1,5 +1,6 @@
-import {AfterContentInit, Component, HostBinding, HostListener} from '@angular/core';
+import {AfterContentInit, Component, HostBinding, HostListener, OnDestroy} from '@angular/core';
 import {TabsService} from '../tabs.service';
+import {Subscription} from 'rxjs';
 
 const classActiveTab = 'tabs__title tabs__title--active';
 
@@ -8,21 +9,27 @@ const classActiveTab = 'tabs__title tabs__title--active';
   templateUrl: './tab-title.component.html',
   styleUrls: ['./tab-title.component.css']
 })
-export class TabTitleComponent implements AfterContentInit  {
+export class TabTitleComponent implements AfterContentInit, OnDestroy {
 
-  constructor(private tabsService: TabsService) { }
-
+  private subscription: Subscription;
   public tabIndex: number;
 
-  @HostBinding ('class') activeTab = '';
+  constructor(private tabsService: TabsService) {
+  }
 
-  @HostListener ('click') initTab() {
+  @HostBinding('class') activeTab = '';
+
+  @HostListener('click') initTab() {
     this.tabsService.setTabIndex(this.tabIndex); // set active tab
   }
 
   ngAfterContentInit() {
-    this.tabsService.change.subscribe(tabIndex => {
+    this.subscription = this.tabsService.change.subscribe(tabIndex => {
       this.activeTab = tabIndex === this.tabIndex ? classActiveTab : '';
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

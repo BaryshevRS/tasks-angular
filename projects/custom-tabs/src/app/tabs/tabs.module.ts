@@ -4,7 +4,6 @@ import {TabsComponent} from './tabs.component';
 import {TabComponent} from './tab/tab.component';
 import {TabTitleComponent} from './tab-title/tab-title.component';
 import {TabContentComponent} from './tab-content/tab-content.component';
-import {TabsService} from './tabs.service';
 
 @NgModule({
   declarations: [
@@ -22,9 +21,6 @@ import {TabsService} from './tabs.service';
   imports: [
     CommonModule
   ],
-  providers: [
-    TabsService
-  ]
 })
 export class TabsModule {
 }

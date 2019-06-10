@@ -1,57 +1,50 @@
 import {
   AfterContentInit,
-  AfterViewInit,
-  ChangeDetectorRef,
   Component,
   ContentChild,
-  OnDestroy,
-  OnInit
+  OnDestroy
 } from '@angular/core';
 import {TabTitleComponent} from '../tab-title/tab-title.component';
 import {TabContentComponent} from '../tab-content/tab-content.component';
-import {TabsService} from "../tabs.service";
+import {TabsService} from '../tabs.service';
 
 @Component({
   selector: 'tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.css']
 })
-export class TabComponent implements OnInit, AfterContentInit {
-
-  static tabIndex = -1;
-
-  constructor(private tabsService: TabsService, private ref: ChangeDetectorRef) {
-  }
+export class TabComponent implements AfterContentInit, OnDestroy {
 
   @ContentChild(TabTitleComponent) tabTitleComponent: TabTitleComponent;
   @ContentChild(TabContentComponent) tabContentComponent: TabContentComponent;
 
-  ngOnInit() {
-    TabComponent.tabIndex++;
-  }
+  private tabIndex: number;
 
-  staticTabIndex() {
-    return TabComponent.tabIndex;
+  constructor(private tabsService: TabsService) {
+    this.tabIndex = ++tabsService.tabIndex;
   }
 
   ngAfterContentInit() {
 
-    this.tabTitleComponent.tabIndex = TabComponent.tabIndex;
-    this.tabContentComponent.tabIndex = TabComponent.tabIndex;
+    // set tab index for child component
+    this.tabTitleComponent.tabIndex = this.tabIndex;
+    this.tabContentComponent.tabIndex = this.tabIndex;
 
-    if (!this.tabTitleComponent.activeTab && TabComponent.tabIndex === 0) {
+    if (!this.tabTitleComponent.activeTab) {
       this.tabsService.setTabIndex();
     }
+
   }
 
   ngOnDestroy(): void {
 
+    // if select active tab, then set first tab
     if (this.tabTitleComponent.activeTab) {
       this.tabsService.setTabIndex();
     }
 
-    TabComponent.tabIndex--;
+    --this.tabIndex;
+    this.tabsService.tabIndex = this.tabIndex;
   }
-
 
 }

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TabContentComponent } from './tab-content.component';
-import {TabsService} from "../tabs.service";
+import {TabsService} from '../tabs.service';
 
 describe('TabContentComponent', () => {
   let component: TabContentComponent;

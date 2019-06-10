@@ -1,28 +1,34 @@
-import {AfterContentInit, Component, HostBinding, HostListener, OnInit} from '@angular/core';
+import {AfterContentInit, Component, HostBinding, OnDestroy} from '@angular/core';
 import {TabsService} from '../tabs.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-    selector: 'tab-content',
-    templateUrl: './tab-content.component.html',
-    styleUrls: ['./tab-content.component.css']
+  selector: 'tab-content',
+  templateUrl: './tab-content.component.html',
+  styleUrls: ['./tab-content.component.css']
 })
-export class TabContentComponent implements AfterContentInit {
+export class TabContentComponent implements AfterContentInit, OnDestroy {
 
-    public tabIndex: number;
+  public tabIndex: number;
+  private subscription: Subscription;
 
-    @HostBinding('hidden') hidden = true;
+  @HostBinding('hidden') hidden = true;
 
-    constructor(private tabsService: TabsService) {
-    }
+  constructor(private tabsService: TabsService) {
+  }
 
-    ngAfterContentInit() {
+  ngAfterContentInit() {
 
-        this.tabsService.change.subscribe(tabIndex => {
-            if (tabIndex === this.tabIndex) {
-                this.hidden = false;
-            } else {
-                this.hidden = true;
-            }
-        });
-    }
+    this.subscription = this.tabsService.change.subscribe(tabIndex => {
+      if (tabIndex === this.tabIndex) {
+        this.hidden = false;
+      } else {
+        this.hidden = true;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
