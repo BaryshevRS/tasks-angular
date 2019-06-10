@@ -11,4 +11,5 @@
 }
 .tabs__title--active {
   border-bottom: 2px solid #ff2222;
+  margin-bottom: 5px;
 }
