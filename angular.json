@@ -7,7 +7,7 @@
       "root": "projects/custom-tabs/",
       "sourceRoot": "projects/custom-tabs/src",
       "projectType": "application",
-      "prefix": "app",
+      "prefix": "",
       "schematics": {},
       "architect": {
         "build": {
