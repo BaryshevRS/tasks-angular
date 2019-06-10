@@ -1,27 +1,9 @@
-# C
+# Примеры заданий для Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+1. Форкнуть шаблон приложения и на его основе реализовать табы по указанной в `app.component.html` разметке (в отдельном модуле, в отдельном каталоге). И содержимое, и заголовок должны поддерживать отображение других компонентов/произвольного html. 
 
-## Development server
+По умолчанию активен первый таб. Должна поддерживаться возможность динамически добавить/убрать таб. При удалении активного таба, активным становится первый таб (если остался хотя бы один). Для оформления табов достаточно использовать 3 класса из `styles.css`. Приложение должно работать без `NO_ERRORS_SCHEMA/CUSTOM_ELEMENTS_SCHEMA` в `AppModule`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Bonus: Сделать так, чтобы содержимое табов инициализировалось только при активации таба. Допускается изменение разметки.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Примеры решения
