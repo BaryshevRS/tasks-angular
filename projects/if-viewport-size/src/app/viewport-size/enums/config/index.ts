@@ -1,7 +1,7 @@
 enum ViewportConfigSize {
-  small,
-  medium,
-  large
+  SMALL = 'small',
+  MEDIUM = 'medium',
+  LARGE = 'large'
 }
 
 export default ViewportConfigSize;

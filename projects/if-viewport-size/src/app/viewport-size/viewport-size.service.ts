@@ -1,74 +1,54 @@
-import {fromEvent} from "rxjs";
-import {debounceTime, distinct, pairwise, takeUntil} from "rxjs/operators";
-import ViewportConfigSize from "./enums/config";
-import IConfig from "./interface/config";
+import {fromEvent, Observable} from 'rxjs';
+import {debounceTime, distinct, map} from 'rxjs/operators';
+import ViewportConfigSize from './enums/config';
+import IConfig from './interface/config';
 
 export class ViewportSizeService {
 
   private viewportWidth: number;
   private viewportConfig: IConfig;
-  private unsubscribe$;
 
   constructor(config: IConfig) {
     this.viewportConfig = config;
-
   }
 
-  getViewport() {
-    fromEvent(window, 'resize')
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        // map((e: any) => this.scrollTop()),
-        pairwise(),
-        // filter(positions => this.isScrollingDown(positions)),
-        debounceTime(200),
-        distinct()
-        // filter(_ => this.isScrollingActive()),
-
-      ).subscribe(() => {
-        this.getViewport();
-    })
+  checkViewport(viewportType): Observable<any> {
+    return fromEvent(window, 'resize')
+        .pipe(
+            debounceTime(200),
+            distinct(),
+            map(() => this.setViewport(viewportType))
+        );
   }
 
-  getViewportSize() {
-    const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    console.log('w', w);
-    return w;
-  }
-
-  // small: viewportWidth < config.medium
-// medium: config.medium <= viewportWidth < config.large
-// large: config.large <= viewportWidth
   setViewport(viewportType): boolean {
-    console.log('!IConfig', this.viewportConfig);
-    console.log('!viewportType', viewportType);
-    let show = true;
+    this.viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+    let show = false;
 
     switch (viewportType) {
-      case ViewportConfigSize.small:
-        // if (this.viewportWidth < this.viewportConfig.medium) {
-        //
-        // }
+      case ViewportConfigSize.SMALL:
+        if (this.viewportWidth < this.viewportConfig.medium) {
+          show = true;
+        }
         break;
-      case ViewportConfigSize.medium:
+      case ViewportConfigSize.MEDIUM:
         if (
           this.viewportConfig.medium <= this.viewportWidth &&
           this.viewportWidth < this.viewportConfig.large
         ) {
-
+          show = true;
         }
         break;
-      case ViewportConfigSize.large:
+      case ViewportConfigSize.LARGE:
         if (
-          this.viewportWidth <= this.viewportConfig.large
+          this.viewportWidth >= this.viewportConfig.large
         ) {
-
+          show = true;
         }
-        break;
-      default:
         break;
     }
-
+    console.log('!show', viewportType, show);
     return show;
   }
 }

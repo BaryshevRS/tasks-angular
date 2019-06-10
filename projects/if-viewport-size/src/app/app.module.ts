@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {TestComponent} from './test/test.component';
-import {ViewportSizeModule} from "./viewport-size/viewport-size.module";
+import {ViewportSizeModule} from './viewport-size/viewport-size.module';
 
 
 @NgModule({
@@ -14,8 +14,8 @@ import {ViewportSizeModule} from "./viewport-size/viewport-size.module";
   imports: [
     BrowserModule,
     ViewportSizeModule.forRoot({
-      medium: 768,
-      large: 1024
+      medium: 320,
+      large: 480
     })
   ],
   providers: [],

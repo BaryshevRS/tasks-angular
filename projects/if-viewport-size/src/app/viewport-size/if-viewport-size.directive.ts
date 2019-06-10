@@ -1,14 +1,12 @@
-import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
-import {debounceTime, distinct, pairwise, takeUntil} from "rxjs/operators";
-import {fromEvent, Subject} from "rxjs";
-import {ViewportSizeService} from "./viewport-size.service";
+import {Directive, Input, OnDestroy, TemplateRef, ViewContainerRef} from '@angular/core';
+import {ViewportSizeService} from './viewport-size.service';
+import {takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs';
 
 @Directive({
   selector: '[ifViewportSize]'
 })
-export class IfViewportSizeDirective {
-
-  // @Input() IfViewportSize: string;
+export class IfViewportSizeDirective implements OnDestroy {
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -20,11 +18,39 @@ export class IfViewportSizeDirective {
   }
 
   @Input() set ifViewportSize(viewportType: string) {
-    if (this.viewportSize.setViewport(viewportType)) {
+
+    const initShow = this.viewportSize.setViewport(viewportType);
+
+    console.log('this.viewContainer.length', this.viewContainer.length);
+
+    if (initShow) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();
     }
+
+    this.viewportSize.checkViewport(viewportType)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((show) => {
+
+        if ( !this.viewContainer.length ) {
+          if (show) {
+            this.viewContainer.createEmbeddedView(this.templateRef);
+          } else {
+            this.viewContainer.clear();
+          }
+        } else {
+          if (!show) {
+            this.viewContainer.clear();
+          }
+        }
+
+      });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }
