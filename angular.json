@@ -103,34 +103,6 @@
         }
       }
     },
-    "custom-tabs-e2e": {
-      "root": "projects/custom-tabs-e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/custom-tabs-e2e/protractor.conf.js",
-            "devServerTarget": "custom-tabs:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "custom-tabs:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/custom-tabs-e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "if-viewport-size": {
       "root": "projects/if-viewport-size/",
       "sourceRoot": "projects/if-viewport-size/src",
@@ -231,27 +203,99 @@
         }
       }
     },
-    "if-viewport-size-e2e": {
-      "root": "projects/if-viewport-size-e2e/",
+    "ui-task-tracker": {
+      "root": "projects/ui-task-tracker/",
+      "sourceRoot": "projects/ui-task-tracker/src",
       "projectType": "application",
-      "prefix": "",
+      "prefix": "app",
+      "schematics": {},
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "protractorConfig": "projects/if-viewport-size-e2e/protractor.conf.js",
-            "devServerTarget": "if-viewport-size:serve"
+            "outputPath": "dist/ui-task-tracker",
+            "index": "projects/ui-task-tracker/src/index.html",
+            "main": "projects/ui-task-tracker/src/main.ts",
+            "polyfills": "projects/ui-task-tracker/src/polyfills.ts",
+            "tsConfig": "projects/ui-task-tracker/tsconfig.app.json",
+            "assets": [
+              "projects/ui-task-tracker/src/favicon.ico",
+              "projects/ui-task-tracker/src/assets"
+            ],
+            "styles": [
+              "projects/ui-task-tracker/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
-              "devServerTarget": "if-viewport-size:serve:production"
+              "fileReplacements": [
+                {
+                  "replace": "projects/ui-task-tracker/src/environments/environment.ts",
+                  "with": "projects/ui-task-tracker/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ui-task-tracker:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ui-task-tracker:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ui-task-tracker:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ui-task-tracker/src/test.ts",
+            "polyfills": "projects/ui-task-tracker/src/polyfills.ts",
+            "tsConfig": "projects/ui-task-tracker/tsconfig.spec.json",
+            "karmaConfig": "projects/ui-task-tracker/karma.conf.js",
+            "styles": [
+              "projects/ui-task-tracker/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/ui-task-tracker/src/favicon.ico",
+              "projects/ui-task-tracker/src/assets"
+            ]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "projects/if-viewport-size-e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "projects/ui-task-tracker/tsconfig.app.json",
+              "projects/ui-task-tracker/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]
