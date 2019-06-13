@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../service/auth.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+    public loginForm = new FormGroup({
+        email: new FormControl(''),
+        password: new FormControl(''),
+    });
 
-  ngOnInit() {
-  }
+    constructor(private authService: AuthService) {
+    }
+
+    ngOnInit() {
+    }
+
+    onSubmit() {
+
+        const {email, password} = this.loginForm.value;
+
+        this.authService.login(email, password)
+
+        console.warn(this.loginForm.value);
+        console.warn(email);
+    }
 
 }

@@ -10,21 +10,25 @@ export class AuthService {
   user;
 
   constructor(public  afAuth: AngularFireAuth, public  router: Router) {
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.user = user;
-        localStorage.setItem('user', JSON.stringify(this.user));
-      } else {
-        localStorage.setItem('user', null);
-      }
-    })
+    // this.afAuth.authState.subscribe(user => {
+    //   if (user) {
+    //     this.user = user;
+    //     localStorage.setItem('user', JSON.stringify(this.user));
+    //   } else {
+    //     localStorage.setItem('user', null);
+    //   }
+    // })
+  }
+
+  isAuth() {
+    return this.afAuth.authState;
   }
 
   async login(email: string, password: string) {
 
     try {
       await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['task']);
+      this.router.navigate(['tasks']);
     } catch (e) {
       alert("Error!" + e.message);
     }

@@ -3,10 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {TasksComponent} from "./tasks.component";
 import {TaskComponent} from "./task/task.component";
 import {TaskAddComponent} from "./task-add/task-add.component";
+import {AuthGuard} from "../guard/auth.guard";
 
 
 const routes: Routes = [
-  {path: 'tasks', component: TasksComponent},
+  {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard]},
   {path: 'add', component: TaskAddComponent},
   {path: '', redirectTo: 'tasks', pathMatch: 'full'},
   { path: 'tasks/:id', component: TaskComponent},
