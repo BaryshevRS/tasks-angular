@@ -5,23 +5,47 @@ import {AppComponent} from './app.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {environment} from "../environments/environment";
-import {LoginComponent} from './tasks/login/login.component';
-import {TasksComponent} from './tasks/tasks.component';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {StoreModule} from '@ngrx/store';
+import {reducers, metaReducers} from './store/reducers';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {EffectsModule} from '@ngrx/effects';
+import {AppEffects} from './store/effects/app.effects';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatToolbarModule
+} from "@angular/material";
+import {LoginModule} from "./login/login.module";
+import {TasksModule} from "./tasks/tasks.module";
+import {SettingsModule} from "./settings/settings.module";
+import { RegsComponent } from './regs/regs.component';
+import {RegsModule} from "./regs/regs.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    TasksComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    RegsComponent
   ],
   imports: [
+    LoginModule,
+    RegsModule,
+    TasksModule,
+    SettingsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers, {metaReducers}),
+    !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
+    EffectsModule.forRoot([AppEffects]),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
