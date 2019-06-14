@@ -21,6 +21,7 @@ import {TasksModule} from "./tasks/tasks.module";
 import {SettingsModule} from "./settings/settings.module";
 import { RegsComponent } from './regs/regs.component';
 import {RegsModule} from "./regs/regs.module";
+import {AngularFirestoreModule} from "@angular/fire/firestore";
 
 @NgModule({
   declarations: [
@@ -37,8 +38,13 @@ import {RegsModule} from "./regs/regs.module";
     MatButtonModule,
     MatIconModule,
     BrowserModule,
+
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+
     AppRoutingModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
