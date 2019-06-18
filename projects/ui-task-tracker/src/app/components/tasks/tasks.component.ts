@@ -1,22 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
-@Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
-})
-export class TasksComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-}
+import { PRIORITY } from "../settings/const";
+import { TasksService } from "./services/tasks.service";
+import { Task } from './models/task.model';
+import { DocumentChangeAction } from "@angular/fire/firestore";
+import { Observable } from "rxjs";
 
 export interface PeriodicElement {
   name: string;
@@ -47,3 +36,33 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
   {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 ];
+
+@Component({
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss']
+})
+export class TasksComponent implements OnInit {
+
+  priority: Array<String>;
+  tasks: Observable<DocumentChangeAction<Task[]>[]> | null;
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  constructor(
+    private tasksService: TasksService
+  ) {
+    this.priority = PRIORITY;
+
+    this.tasks = this.tasksService.readTask();
+    console.log('this.tasks', this.tasks);
+  }
+
+  ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+}
+

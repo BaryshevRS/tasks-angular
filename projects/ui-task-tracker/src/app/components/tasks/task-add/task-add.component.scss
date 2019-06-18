@@ -3,3 +3,9 @@
   justify-content: center;
   width: 720px;
 }
+
+.row-justify {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}

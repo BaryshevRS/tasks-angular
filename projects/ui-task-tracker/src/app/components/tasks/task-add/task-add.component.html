@@ -1,48 +1,63 @@
 <div class="task-add-page">
   <div class="content">
 
-
-    <form  (ngSubmit)="onSubmit($event)" [formGroup]="taskFormControl" class="task-add-form">
+    <form (ngSubmit)="onSubmit($event)" [formGroup]="taskFormControl" class="task-add-form">
       <div class="example-container">
         <mat-form-field appearance="fill">
           <mat-label>Название</mat-label>
-          <input formControlName="name" matInput placeholder="Enter your email" required>
+          <input formControlName="name" matInput type="text" placeholder="Название" required>
         </mat-form-field>
       </div>
 
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Описание</mat-label>
-          <input formControlName="description" matInput type="password" placeholder="Password" required>
+          <textarea formControlName="description" matInput placeholder="Описание" required></textarea>
         </mat-form-field>
       </div>
 
-      <!--<mat-form-field>-->
-        <!--<input matInput [matDatepicker]="picker" placeholder="Choose a date">-->
-        <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-        <!--<mat-datepicker #picker></mat-datepicker>-->
-      <!--</mat-form-field>-->
+      <div class="row-justify">
+        <mat-form-field appearance="fill">
+          <mat-label>Планируемое время</mat-label>
+          <input formControlName="plannedTime" matInput type="number" placeholder="Время в часах" >
+        </mat-form-field>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Трудозатраты</mat-label>
+          <input formControlName="usedTime" matInput type="number" placeholder="Трудозатраты" >
+        </mat-form-field>
+      </div>
 
-      <!--      <mat-form-field>
-              <input matInput [matDatepicker]="picker1" placeholder="Angular forms" [formControl]="date">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
+      <div class="row-justify">
+        <mat-form-field>
+          <mat-select placeholder="Статус" formControlName="priority" formControlName="status">
+            <mat-option *ngFor="let s of status" [value]="s">
+              {{s}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-            <mat-form-field>
-              <input matInput [matDatepicker]="picker2" placeholder="Angular forms (w/ deserialization)"
-                     [formControl]="serializedDate">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker1" placeholder="Дата создания" formControlName="createDate">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-            <mat-form-field>
-              <input matInput [matDatepicker]="picker3" placeholder="Value binding" [value]="date.value">
-              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-              <mat-datepicker #picker3></mat-datepicker>
-            </mat-form-field>-->
+      <div>
+        <div>
+          <label id="example-radio-group-label">Приоритет</label>
+        </div>
+        <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            formControlName="priority">
+          <mat-radio-button class="example-radio-button" *ngFor="let p of priority" [value]="p">
+            {{p}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
 
+      <br>
 
       <div class="login-row-submit">
         <button type="submit" mat-raised-button color="primary">Добавить</button>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TasksService } from "../services/tasks.service";
+import { Task } from "../models/task.model";
+import { PRIORITY, STATUS } from "../../settings/const";
 
 @Component({
   selector: 'app-task-add',
@@ -8,25 +11,30 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 })
 export class TaskAddComponent implements OnInit {
 
-//   date = new FormControl(new Date());
-//   serializedDate = new FormControl((new Date()).toISOString());
-// }
+  priority: Array<String>;
+  status: Array<String>;
 
   public taskFormControl: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+
+  constructor(
+    private fb: FormBuilder,
+    private tasksService: TasksService
+  ) {
+
+    this.priority = PRIORITY;
+    this.status = STATUS;
 
     this.taskFormControl = this.fb.group({
-
+      id: null,
       name: [],
       description: [],
-      id: [],
-      create_date: [],
-      planned_time: [],
-      used_time: [],
+      createDate: (new Date()).toISOString(),
+      plannedTime: [],
+      usedTime: [],
       priority: [],
       status: [],
-      uid: [],
+      uid: null
     });
 
   }
@@ -35,9 +43,9 @@ export class TaskAddComponent implements OnInit {
   }
 
   onSubmit() {
-
-    console.log('xx', this.taskFormControl.value);
-
+    const { name, description, plannedTime, createDate, usedTime, priority, status, id, uid } = this.taskFormControl.value;
+    const task: Task = { name, description, plannedTime, createDate, usedTime, priority, status, id, uid };
+    this.tasksService.addTask(task)
   }
 
 }
