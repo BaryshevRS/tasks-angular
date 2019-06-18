@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Task } from '../models/task.model';
-import { User } from "../../../models/users.model";
-import { Observable } from "rxjs";
-import { switchMap, tap, map } from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import {Task} from '../models/task.model';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +14,16 @@ export class TasksService {
   ) {
   }
 
-  // https://github.com/angular/angularfire2/blob/master/docs/firestore/collections.md
   readTask() {
-    return this.afs.collection<Task[]>(`tasks`).snapshotChanges().pipe(
+    let tasksCollection: AngularFirestoreCollection<Task>;
+    tasksCollection = this.afs.collection<Task>('tasks');
+
+    return tasksCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as Task[];
+        console.log('a', a);
+        const data = a.payload.doc.data() as Task;
         const id = a.payload.doc.id;
-        return { id, ...data };
+        return {id, ...data};
       }))
     );
   }
@@ -29,11 +31,11 @@ export class TasksService {
   addTask(task: Task) {
     const taskRef: AngularFirestoreCollection<Task> = this.afs.collection('tasks');
 
-    console.log('task', task)
+    console.log('task', task);
 
     taskRef.add(task)
       .then(credential => {
-        alert('Задача добавлена успешно!')
+        alert('Задача добавлена успешно!');
       })
       .catch(error => this.handleError(error));
   }

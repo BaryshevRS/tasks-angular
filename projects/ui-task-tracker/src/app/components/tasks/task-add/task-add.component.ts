@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TasksService } from "../services/tasks.service";
-import { Task } from "../models/task.model";
-import { PRIORITY, STATUS } from "../../settings/const";
+import { TasksService } from '../services/tasks.service';
+import { Task } from '../models/task.model';
+import { PRIORITY, STATUS } from '../../settings/const';
 
 @Component({
   selector: 'app-task-add',
@@ -11,8 +11,8 @@ import { PRIORITY, STATUS } from "../../settings/const";
 })
 export class TaskAddComponent implements OnInit {
 
-  priority: Array<String>;
-  status: Array<String>;
+  priority: Array<string>;
+  status: Array<string>;
 
   public taskFormControl: FormGroup;
 
@@ -45,7 +45,7 @@ export class TaskAddComponent implements OnInit {
   onSubmit() {
     const { name, description, plannedTime, createDate, usedTime, priority, status, id, uid } = this.taskFormControl.value;
     const task: Task = { name, description, plannedTime, createDate, usedTime, priority, status, id, uid };
-    this.tasksService.addTask(task)
+    this.tasksService.addTask(task);
   }
 
 }
