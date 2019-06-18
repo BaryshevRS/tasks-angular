@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RegsRoutingModule} from "./regs-routing.module";
+import {RegsRoutingModule} from './regs-routing.module';
 
 @NgModule({
   declarations: [],

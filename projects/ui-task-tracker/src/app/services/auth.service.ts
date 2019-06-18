@@ -8,6 +8,7 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import {User} from '../models/users.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ export class AuthService {
     this.user = this.afAuth.authState.pipe(
         switchMap(user => {
           if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
-            return of(null)
+            return of(null);
           }
         })
     );
@@ -49,7 +50,7 @@ export class AuthService {
 
           this.router.navigate(['/tasks']);
           return true;
-          //return this.updateUserData(credential.user);
+          // return this.updateUserData(credential.user);
         })
         .catch(error => this.handleError(error));
   }
@@ -82,4 +83,3 @@ export class AuthService {
     return userRef.set(data);
   }
 }
-

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {EMPTY, Observable, of} from 'rxjs';
-import {AuthService} from "../service/auth.service";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {map, take, tap} from "rxjs/operators";
+import {AuthService} from '../services/auth.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {map, take, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -25,10 +25,10 @@ export class AuthGuard implements CanActivate {
             map(user => !!user),
             tap(loggedIn => {
                 if (!loggedIn) {
-                    console.log('access denied')
+                    console.log('access denied');
                     this.router.navigate(['/login']);
                 }
             })
-        )
+        );
     }
 }
