@@ -11,47 +11,37 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import {LoginModule} from './components/login/login.module';
 import {TasksModule} from './components/tasks/tasks.module';
 import {SettingsModule} from './components/settings/settings.module';
 import {RegsComponent} from './components/regs/regs.component';
 import {RegsModule} from './components/regs/regs.module';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {HeaderComponent} from './components/header/header.component';
 import {metaReducers, reducers} from './stores/reducers';
 import {AppEffects} from './stores/effects/app.effects';
+import { HeaderModule } from "./components/header/header.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         ErrorPageComponent,
-        RegsComponent,
-        HeaderComponent
+        RegsComponent
     ],
     imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HeaderModule,
         LoginModule,
         RegsModule,
         TasksModule,
         SettingsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        BrowserModule,
-
         AngularFirestoreModule,
         AngularFireAuthModule,
-
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFireAuthModule,
-
-        AppRoutingModule,
         StoreModule.forRoot(reducers, {metaReducers}),
         !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
         EffectsModule.forRoot([AppEffects]),
-        BrowserAnimationsModule
+        AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]

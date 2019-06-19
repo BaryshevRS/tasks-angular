@@ -1,9 +1,10 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ErrorPageComponent} from './components/error-page/error-page.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 const appRoutes: Routes = [
-  {path: '**', component: ErrorPageComponent}
+  { path: '', redirectTo: 'tasks', pathMatch: 'full' },
+  { path: '**', component: ErrorPageComponent }
 ];
 
 @NgModule({

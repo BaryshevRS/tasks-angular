@@ -11,7 +11,6 @@ import { PRIORITY } from "../../settings/const";
 })
 export class TasksTableComponent {
 
-
   public priority: Array<string>;
   public dataSource: MatTableDataSource<Task> | null;
   public pageSize: 5;

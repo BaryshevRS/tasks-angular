@@ -306,5 +306,8 @@
       }
     }
   },
-  "defaultProject": "ui-task-tracker"
+  "defaultProject": "ui-task-tracker",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

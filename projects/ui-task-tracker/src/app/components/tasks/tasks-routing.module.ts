@@ -9,10 +9,9 @@ import { TaskEditComponent } from "./task-edit/task-edit.component";
 
 const routes: Routes = [
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
-  { path: 'tasks/add', component: TaskAddComponent },
-  { path: 'tasks/edit/:id', component: TaskEditComponent },
-  { path: '', redirectTo: 'tasks', pathMatch: 'full' },
-  { path: 'tasks/:id', component: TaskComponent },
+  { path: 'tasks/add', component: TaskAddComponent, canActivate: [AuthGuard] },
+  { path: 'tasks/edit/:id', component: TaskEditComponent, canActivate: [AuthGuard] },
+  { path: 'tasks/:id', component: TaskComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
