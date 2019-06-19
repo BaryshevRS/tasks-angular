@@ -15,9 +15,16 @@ import { TaskAddComponent } from './task-add/task-add.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TasksScrumComponent } from './tasks-scrum/tasks-scrum.component';
-import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatRadioModule } from '@angular/material';
+import {
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatButtonToggleModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -45,6 +52,8 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     MatNativeDateModule,
     MatSelectModule,
     MatRadioModule,
+    MatButtonToggleModule,
+    DragDropModule,
     ReactiveFormsModule,
   ],
   exports: [

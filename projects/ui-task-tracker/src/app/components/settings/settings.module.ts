@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SettingsRoutingModule} from './settings-routing.module';
-import {SettingsComponent} from './settings.component';
+import { SettingsRoutingModule } from './settings-routing.module';
+import { SettingsComponent } from './settings.component';
+import { MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -9,7 +10,11 @@ import {SettingsComponent} from './settings.component';
   ],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatButtonModule,
   ]
 })
-export class SettingsModule { }
+export class SettingsModule {
+}
