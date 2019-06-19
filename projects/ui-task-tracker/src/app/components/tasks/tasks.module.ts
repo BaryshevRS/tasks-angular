@@ -17,6 +17,7 @@ import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TasksScrumComponent } from './tasks-scrum/tasks-scrum.component';
 import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatRadioModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TaskAddComponent,
     TasksTableComponent,
     TasksListComponent,
-    TasksScrumComponent
+    TasksScrumComponent,
+    TaskEditComponent
   ],
   imports: [
     CommonModule,

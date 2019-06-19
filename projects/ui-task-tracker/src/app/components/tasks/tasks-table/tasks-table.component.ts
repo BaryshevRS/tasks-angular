@@ -13,7 +13,7 @@ export class TasksTableComponent {
 
 
   public priority: Array<string>;
-  public tasks: MatTableDataSource<Task> | null;
+  public dataSource: MatTableDataSource<Task> | null;
   public pageSize: 5;
 
   displayedColumns: string[] = ['createDate', 'name', 'status', 'priority'];
@@ -27,8 +27,9 @@ export class TasksTableComponent {
     this.priority = PRIORITY;
     // todo отписаться
     this.tasksService.readTask().subscribe((data) => {
-      this.tasks = new MatTableDataSource<Task>(data);
-      this.tasks.paginator = this.paginator
+      this.dataSource = new MatTableDataSource<Task>(data);
+      console.log('this.tasks', data);
+      this.dataSource.paginator = this.paginator
     })
   }
 }

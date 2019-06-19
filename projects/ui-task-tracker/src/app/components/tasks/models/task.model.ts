@@ -6,6 +6,7 @@ export class Task {
     usedTime?: number;
     priority?: number;
     status?: number;
-    id?: number | string;
     uid?: string;
+    id?: number | string;
+    dbIndex?: string
 }

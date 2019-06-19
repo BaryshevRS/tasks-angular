@@ -19,10 +19,9 @@ export class TasksService {
 
     return tasksCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
-        console.log('a', a);
         const data = a.payload.doc.data() as Task;
-        const id = a.payload.doc.id;
-        return { id, ...data };
+        data.dbIndex = a.payload.doc.id;
+        return data;
       }))
     );
   }
