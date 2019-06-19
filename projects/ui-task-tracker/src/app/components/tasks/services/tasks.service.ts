@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
-import {Task} from '../models/task.model';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Task } from '../models/task.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class TasksService {
         console.log('a', a);
         const data = a.payload.doc.data() as Task;
         const id = a.payload.doc.id;
-        return {id, ...data};
+        return { id, ...data };
       }))
     );
   }
