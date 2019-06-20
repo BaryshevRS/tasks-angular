@@ -21,6 +21,7 @@ import {metaReducers, reducers} from './stores/reducers';
 import {AppEffects} from './stores/effects/app.effects';
 import { HeaderModule } from "./components/header/header.module";
 import { effectsList } from "./stores/effects";
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,8 @@ import { effectsList } from "./stores/effects";
         StoreModule.forRoot(reducers, {metaReducers}),
         !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
         EffectsModule.forRoot(effectsList),
-        AppRoutingModule
+        AppRoutingModule,
+        StoreRouterConnectingModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]

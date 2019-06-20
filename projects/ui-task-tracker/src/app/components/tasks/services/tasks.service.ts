@@ -26,6 +26,23 @@ export class TasksService {
     );
   }
 
+  readTaskForId(id: string | number) {
+    let task: AngularFirestoreDocument<Task>;
+    task = this.afs.doc<Task>(`tasks/${id}`);
+
+    return task.snapshotChanges().pipe(
+      map((snap) => {
+        const fromCache = snap.payload.metadata.fromCache;
+        // console.log('dataService: fetchActivities: map fromCache: ', fromCache);
+        const obj = snap.payload.data();
+        obj.id = snap.payload.id;
+        return obj;
+      })
+    );
+
+
+  }
+
   addTask(task: Task) {
     const taskRef: AngularFirestoreCollection<Task> = this.afs.collection('tasks');
 

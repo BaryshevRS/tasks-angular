@@ -4,7 +4,6 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { tasksReducer } from "./tasks.reducer";
-
 export interface State {
 
 }

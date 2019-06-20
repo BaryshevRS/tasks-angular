@@ -31,5 +31,7 @@ export const selectCurrentTaskId = createSelector(
 export const selectCurrentTask = createSelector(
   selectTaskEntities,
   selectCurrentTaskId,
-  (TaskEntities, TaskId) => TaskEntities[TaskId]
+  (TaskEntities, TaskId) => {
+    return TaskEntities ? TaskEntities[TaskId] : null;
+  }
 );

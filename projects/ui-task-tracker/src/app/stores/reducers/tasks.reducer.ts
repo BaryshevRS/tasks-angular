@@ -4,7 +4,7 @@ import { TasksActionsUnion, TasksActionTypes } from "../actions/tasks.actions";
 
 export interface State extends EntityState<Task> {
   // additional entities state properties
-  selectedTaskId: number | null;
+  selectedTaskId: string | number | null;
   loading?: boolean,
   error?: null
 }
@@ -29,8 +29,15 @@ export function tasksReducer(state = initialState, action: TasksActionsUnion): S
         loading: true
       };
 
+    case TasksActionTypes.GetTask:
+      return { ...state, selectedTaskId: action.payload };
+
     case TasksActionTypes.LoadTasks:
       return adapter.addAll(action.payload, state);
+
+    case TasksActionTypes.LoadTask:
+      console.log('action.payload load', action.payload)
+      return state;
 
     case TasksActionTypes.AddTaskSuccess:
       return adapter.addOne(action.payload, state);
