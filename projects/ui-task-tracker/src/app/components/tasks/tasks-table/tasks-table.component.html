@@ -10,7 +10,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr  mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="'/tasks/' + row.dbIndex" ></tr>
+    <tr  mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="'/tasks/' + row.id" ></tr>
   </table>
 
   <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>

@@ -20,6 +20,7 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {metaReducers, reducers} from './stores/reducers';
 import {AppEffects} from './stores/effects/app.effects';
 import { HeaderModule } from "./components/header/header.module";
+import { effectsList } from "./stores/effects";
 
 @NgModule({
     declarations: [
@@ -40,7 +41,7 @@ import { HeaderModule } from "./components/header/header.module";
         AngularFireModule.initializeApp(environment.firebaseConfig),
         StoreModule.forRoot(reducers, {metaReducers}),
         !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
-        EffectsModule.forRoot([AppEffects]),
+        EffectsModule.forRoot(effectsList),
         AppRoutingModule
     ],
     providers: [],

@@ -20,7 +20,7 @@ export class TasksService {
     return tasksCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Task;
-        data.dbIndex = a.payload.doc.id;
+        data.id = a.payload.doc.id;
         return data;
       }))
     );

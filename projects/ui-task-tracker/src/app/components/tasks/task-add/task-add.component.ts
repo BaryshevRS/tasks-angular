@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task.model';
 import { PRIORITY, STATUS } from '../../settings/const';
+import { Store } from "@ngrx/store";
+import { AddTask } from "../../../stores/actions/tasks.actions";
 
 @Component({
   selector: 'app-task-add',
@@ -16,10 +18,10 @@ export class TaskAddComponent implements OnInit {
 
   public taskFormControl: FormGroup;
 
-
   constructor(
     private fb: FormBuilder,
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private store$: Store<any>
   ) {
 
     this.priority = PRIORITY;
@@ -46,6 +48,7 @@ export class TaskAddComponent implements OnInit {
     const { name, description, plannedTime, createDate, usedTime, priority, status, id, uid } = this.taskFormControl.value;
     const task: Task = { name, description, plannedTime, createDate, usedTime, priority, status, id, uid };
     this.tasksService.addTask(task);
+    this.store$.dispatch(new AddTask());
   }
 
 }

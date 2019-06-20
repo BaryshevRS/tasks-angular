@@ -8,5 +8,4 @@ export class Task {
     status?: number;
     uid?: string;
     id?: number | string;
-    dbIndex?: string
 }
