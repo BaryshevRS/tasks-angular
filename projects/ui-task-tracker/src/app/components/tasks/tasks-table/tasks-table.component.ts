@@ -27,22 +27,13 @@ export class TasksTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private tasksService: TasksService,
     private store$: Store<StateTask>
   ) {
-
-    // todo отписаться
-
-    // this.store$.dispatch(new GetTasks());
-
-    // this.tasksService.readTask().subscribe((data) => {
-    //   this.dataSource = new MatTableDataSource<Task>(data);
-    //   console.log('this.tasks', data);
-    //   this.dataSource.paginator = this.paginator
-    // })
   }
 
   ngOnInit(): void {
+
+    // todo отписаться
 
     this.store$.pipe(select(selectAllTasks))
       .pipe(takeUntil(this.unsubscribe$))

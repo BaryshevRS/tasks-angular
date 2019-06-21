@@ -5,7 +5,7 @@ export class Task {
     plannedTime?: number;
     usedTime?: number;
     priority?: number;
-    status?: number;
+    status?: string;
     uid?: string;
     id?: number | string;
 }

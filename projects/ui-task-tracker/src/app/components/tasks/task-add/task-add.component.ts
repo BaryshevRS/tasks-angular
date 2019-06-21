@@ -14,7 +14,7 @@ import { AddTask } from "../../../stores/actions/tasks.actions";
 export class TaskAddComponent implements OnInit {
 
   priority: Array<string>;
-  status: Array<string>;
+  status: any;
 
   public taskFormControl: FormGroup;
 

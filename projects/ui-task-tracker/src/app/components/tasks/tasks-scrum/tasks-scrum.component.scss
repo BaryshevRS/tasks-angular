@@ -1,9 +1,11 @@
 .scrum-board {
   overflow-x: auto;
+  max-width: 1024px;
+  width: 100%;
 }
 
 .example-container {
-  width: 400px;
+  width: 200px;
   max-width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
