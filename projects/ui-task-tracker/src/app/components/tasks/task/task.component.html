@@ -1,50 +1,41 @@
-<div class="task">
-
-  {{task | json}}
+<div *ngIf="task | async as t" class="task">
 
   <div>
-    <button routerLink="/tasks" mat-button>К списку</button>
+    <button routerLink="/tasks" mat-button>Назад</button>
   </div>
 
   <mat-card class="example-card">
 
-    <mat-card-header>
-
-      <mat-card-title>{{task && task.name}}</mat-card-title>
-      <mat-card-subtitle>дата</mat-card-subtitle>
-    </mat-card-header>
+    <!--<mat-card-header>-->
+      <mat-card-title>{{t.name}}</mat-card-title>
+      <mat-card-subtitle>{{t.createDate}}</mat-card-subtitle>
+    <!--</mat-card-header>-->
 
     <mat-card-content>
-      <!--<p><b>{{task.description}}</b></p>-->
+      <p><b>Описание</b></p>
+
       <p>
-        приоритет
-        статус выполнения
-        планируемое время
-        затраченное время
+        {{t.description}}
       </p>
-      <p><b>приоритет</b></p>
+      <p><b>Приоритет</b></p>
       <p>
-        важный
+        {{t.priority}}
       </p>
-      <p><b>статус выполнения</b></p>
+      <p><b>Cтатус выполнения</b></p>
       <p>
-        важный
+        {{t.status}}
       </p>
-      <p><b>статус выполнения</b></p>
+       <p><b>Планируемое время</b></p>
       <p>
-        важный
+        {{t.plannedTime}}
       </p>
-      <p><b>планируемое время</b></p>
+      <p><b>Затраченное время</b></p>
       <p>
-        важный
-      </p>
-      <p><b>затраченное время</b></p>
-      <p>
-        важный
+        {{t.usedTime}}
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button routerLink="/tasks"  mat-button>Редактировать</button>
+      <button routerLink="/tasks/edit/{{t.id}}"  mat-button>Редактировать</button>
     </mat-card-actions>
   </mat-card>
 </div>

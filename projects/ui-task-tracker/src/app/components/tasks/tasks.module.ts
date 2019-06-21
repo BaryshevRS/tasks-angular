@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginModule } from '../login/login.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +24,8 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
+import { TasksScrumModule } from "./tasks-scrum/tasks-scrum.module";
 
 @NgModule({
   declarations: [
@@ -33,13 +34,13 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     TaskAddComponent,
     TasksTableComponent,
     TasksListComponent,
-    TasksScrumComponent,
-    TaskEditComponent
+   // TasksScrumComponent,
+    TaskEditComponent,
+    TasksToolbarComponent
   ],
   imports: [
     CommonModule,
     TasksRoutingModule,
-    LoginModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -53,8 +54,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     MatSelectModule,
     MatRadioModule,
     MatButtonToggleModule,
-    DragDropModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     TasksComponent

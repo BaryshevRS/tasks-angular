@@ -35,7 +35,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
         HeaderModule,
         LoginModule,
         RegsModule,
-        TasksModule,
         SettingsModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
