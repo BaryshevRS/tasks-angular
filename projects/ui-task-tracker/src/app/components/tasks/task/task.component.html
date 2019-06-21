@@ -1,5 +1,7 @@
 <div class="task">
 
+  {{task | json}}
+
   <div>
     <button routerLink="/tasks" mat-button>К списку</button>
   </div>
@@ -8,12 +10,12 @@
 
     <mat-card-header>
 
-      <mat-card-title>название</mat-card-title>
+      <mat-card-title>{{task && task.name}}</mat-card-title>
       <mat-card-subtitle>дата</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <p><b>описание</b></p>
+      <!--<p><b>{{task.description}}</b></p>-->
       <p>
         приоритет
         статус выполнения
@@ -42,7 +44,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Редактировать</button>
+      <button routerLink="/tasks"  mat-button>Редактировать</button>
     </mat-card-actions>
   </mat-card>
 </div>

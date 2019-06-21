@@ -3,9 +3,9 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import * as fromTask from '../reducers/tasks.reducer';
-import { State as tasksState} from "../reducers/tasks.reducer";
+import { StateTask } from "../reducers/tasks.reducer";
 
-export const selectTaskState = createFeatureSelector<tasksState>('tasks');
+export const selectTaskState = createFeatureSelector<StateTask>('tasks');
 
 export const selectTaskIds = createSelector(
   selectTaskState,
@@ -32,6 +32,6 @@ export const selectCurrentTask = createSelector(
   selectTaskEntities,
   selectCurrentTaskId,
   (TaskEntities, TaskId) => {
-    return TaskEntities ? TaskEntities[TaskId] : null;
+    return TaskEntities && TaskId ? TaskEntities[TaskId] : null;
   }
 );

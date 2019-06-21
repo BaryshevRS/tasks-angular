@@ -6,7 +6,6 @@ import { of } from "rxjs";
 import { TasksService } from "../../components/tasks/services/tasks.service";
 import { Task } from "../../components/tasks/models/task.model";
 import { Store } from "@ngrx/store";
-import { State as tasksState } from "../reducers/tasks.reducer";
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { selectCurrentTask } from "../selectors/tasks.selector";
 
@@ -48,6 +47,7 @@ export class TasksEffects {
     }),
     map((action: RouterNavigationAction) => {
       const id = action.payload.routerState.root.firstChild.params.id;
+      console.log('@Effect getTask$');
       return new GetTask(id);
     })
   );
@@ -61,10 +61,11 @@ export class TasksEffects {
     withLatestFrom(this.store$.select(selectCurrentTask)),
     switchMap(([action, taskStore]) => {
 
+      console.log('taskStore', taskStore);
+
       if (!taskStore) {
         return this.tasksService.readTaskForId(action.payload).pipe(
           map((task: Task) => {
-            console.log('taskValue', task);
             return new LoadTask(task);
           }),
           catchError(error => of(new ErrorTasks(error)))

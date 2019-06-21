@@ -1,23 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from "@angular/material";
 import { Task } from "../models/task.model";
 import { TasksService } from "../services/tasks.service";
-import { PRIORITY } from "../../settings/const";
 import { select, Store } from "@ngrx/store";
-import { State } from "../../../stores/reducers";
-import { AddTask, GetTasks } from "../../../stores/actions/tasks.actions";
+import { GetTasks } from "../../../stores/actions/tasks.actions";
 import { selectAllTasks } from "../../../stores/selectors/tasks.selector";
-import * as fromTask from '../../../stores/reducers/tasks.reducer';
+import { StateTask } from "../../../stores/reducers/tasks.reducer";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'app-tasks-table',
   templateUrl: './tasks-table.component.html',
   styleUrls: ['./tasks-table.component.css']
 })
-export class TasksTableComponent implements OnInit {
+export class TasksTableComponent implements OnInit, OnDestroy {
 
   public dataSource: MatTableDataSource<Task> | null;
   public pageSize: 5;
+
+  private unsubscribe$ = new Subject<void>();
 
   displayedColumns: string[] = ['createDate', 'name', 'status', 'priority'];
   displayedColumnsName = { createDate: 'Дата', name: 'Название', status: 'Статус', priority: 'Приоритет' };
@@ -26,12 +28,12 @@ export class TasksTableComponent implements OnInit {
 
   constructor(
     private tasksService: TasksService,
-    private store$: Store<fromTask.State>
+    private store$: Store<StateTask>
   ) {
 
     // todo отписаться
 
-    this.store$.dispatch(new GetTasks());
+    // this.store$.dispatch(new GetTasks());
 
     // this.tasksService.readTask().subscribe((data) => {
     //   this.dataSource = new MatTableDataSource<Task>(data);
@@ -43,10 +45,17 @@ export class TasksTableComponent implements OnInit {
   ngOnInit(): void {
 
     this.store$.pipe(select(selectAllTasks))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        console.log('data', data)
+        console.log('TasksTableComponent', data)
           this.dataSource = new MatTableDataSource<Task>(data);
           this.dataSource.paginator = this.paginator
         })
   }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
 }
