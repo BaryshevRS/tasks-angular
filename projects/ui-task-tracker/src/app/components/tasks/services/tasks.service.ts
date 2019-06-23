@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Task } from '../models/task.model';
-import { map } from 'rxjs/operators';
-import { Observable } from "rxjs";
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ export class TasksService {
     tasksCollection = this.afs.collection<Task>('tasks');
 
     return tasksCollection.snapshotChanges().pipe(
+      tap((test) => console.log('readTask')),
       map(actions => actions.map(a => {
-        console.log('readTask');
         const data = a.payload.doc.data() as Task;
         data.id = a.payload.doc.id;
         return data;
@@ -29,7 +29,7 @@ export class TasksService {
   }
 
   readTaskForId(id: string | number): Observable<Task>  {
-    let task: AngularFirestoreDocument<Task> = this.afs.doc<Task>(`tasks/${id}`);
+    const task: AngularFirestoreDocument<Task> = this.afs.doc<Task>(`tasks/${id}`);
 
     return task.snapshotChanges().pipe(
       map((snap) => {

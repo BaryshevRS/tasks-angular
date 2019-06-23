@@ -4,10 +4,9 @@ import { TasksComponent } from './tasks.component';
 import { TaskComponent } from './task/task.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { AuthGuard } from '../../guards/auth.guard';
-import { TaskEditComponent } from "./task-edit/task-edit.component";
-import { TasksScrumComponent } from "./tasks-scrum/tasks-scrum.component";
-import { TasksListComponent } from "./tasks-list/tasks-list.component";
-import { TasksTableComponent } from "./tasks-table/tasks-table.component";
+import { TaskEditComponent } from './task-edit/task-edit.component';
+import { TasksListComponent } from './tasks-list/tasks-list.component';
+import { TasksTableComponent } from './tasks-table/tasks-table.component';
 
 const routes: Routes = [
   {

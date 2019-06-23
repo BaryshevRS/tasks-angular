@@ -1,37 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { STATUS } from "../../settings/const";
-import { select, Store } from "@ngrx/store";
-import { StateTask } from "../../../stores/reducers/tasks.reducer";
-import { selectAllTasks } from "../../../stores/selectors/tasks.selector";
-import { map, switchMap, takeUntil } from "rxjs/operators";
-import { MatTableDataSource } from "@angular/material";
-import { Task } from "../models/task.model";
-import { Observable, Subject } from "rxjs";
+import { STATUS } from '../../settings/const';
+import { select, Store } from '@ngrx/store';
+import { StateTask } from '../../../stores/reducers/tasks.reducer';
+import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material';
+import { Task } from '../models/task.model';
+import { Observable, of, Subject } from 'rxjs';
+import { Dictionary } from '@ngrx/entity';
 
 @Component({
   selector: 'app-tasks-scrum',
   templateUrl: './tasks-scrum.component.html',
   styleUrls: ['./tasks-scrum.component.scss']
 })
-export class TasksScrumComponent implements OnInit {
+export class TasksScrumComponent implements OnInit, OnDestroy {
 
   private statuses: Map<string, string>;
   private unsubscribe$ = new Subject<void>();
-  private tasks: any;
-  private mapTask: Map<string, Task>;
+  private tasks: Observable<any>;
 
   constructor(
     private store$: Store<StateTask>
   ) {
   }
 
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
 
   done = [
     'Get up',
@@ -41,40 +35,38 @@ export class TasksScrumComponent implements OnInit {
     'Walk dog'
   ];
 
-  success = [
-    'Get up2',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
   ngOnInit(): void {
-
-    // todo отписаться
-    // todo убрать 15 повторов вызова сервиса
 
     this.statuses = STATUS;
 
-/*    this.tasks = this.store$.pipe(select(selectAllTasks)).pipe(
-      switchMap((tasks: Task[]) => {
+    this.tasks = this.store$.pipe(select(selectAllTasks)).pipe(
+      switchMap(
+        (tasks: Task[]) => {
 
-        // tasks.map(task => {
-        //   console.log('task', task);
-        //   this.mapTask.set(task.status, task)
-        // });
-        //
-        // console.log('mapTask', this.mapTask);
+          const tabs = tasks.reduce((a, task: Task) => { // Dictionary<string>
 
-        return tasks;
-      })
-    )
-      // .pipe(takeUntil(this.unsubscribe$))
-      // .subscribe((data) => {
-      //   console.log('TasksTableComponent', data)
-      //   this.dataSource = new MatTableDataSource<Task>(data);
-      //   this.dataSource.paginator = this.paginator
-      // })*/
+            const x = {};
+            x[task.status] = task;
+
+            if (Object.keys(a).length === 0) {
+              a[task.status] = task;
+            } else {
+              a = {
+              ...a, [task.status] : task
+              };
+            }
+
+
+            return a;
+
+          }, {});
+
+          console.log('tabs', tabs);
+          return of(tabs);
+        }
+      )
+    );
+
   }
 
   ngOnDestroy(): void {
