@@ -21,8 +21,8 @@ export class TasksTableComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  displayedColumns: string[] = ['createDate', 'name', 'status', 'priority'];
-  displayedColumnsName = { createDate: 'Дата', name: 'Название', status: 'Статус', priority: 'Приоритет' };
+  private displayedColumns: string[] = ['createDate', 'name', 'status', 'priority'];
+  private displayedColumnsName = { createDate: 'Дата', name: 'Название', status: 'Статус', priority: 'Приоритет' };
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -33,15 +33,13 @@ export class TasksTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    // todo отписаться
-
     this.store$.pipe(select(selectAllTasks))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
         console.log('TasksTableComponent', data);
         this.dataSource = new MatTableDataSource<Task>(data);
         this.dataSource.paginator = this.paginator;
-        });
+      });
   }
 
   ngOnDestroy(): void {

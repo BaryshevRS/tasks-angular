@@ -12,7 +12,6 @@ import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskComponent } from './task/task.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
-import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TasksScrumComponent } from './tasks-scrum/tasks-scrum.component';
 import {
   MatDatepickerModule,
@@ -26,6 +25,7 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
 import { TasksScrumModule } from './tasks-scrum/tasks-scrum.module';
+import { OrderByPipe } from '../../pipes/order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -33,10 +33,10 @@ import { TasksScrumModule } from './tasks-scrum/tasks-scrum.module';
     TaskComponent,
     TaskAddComponent,
     TasksTableComponent,
-    TasksListComponent,
    // TasksScrumComponent,
     TaskEditComponent,
-    TasksToolbarComponent
+    TasksToolbarComponent,
+    OrderByPipe
   ],
   imports: [
     CommonModule,
