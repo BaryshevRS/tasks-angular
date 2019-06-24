@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../models/task.model';
 import { select, Store } from "@ngrx/store";
 import { selectCurrentTask } from "../../../stores/selectors/tasks.selector";
-import { StateTask } from "../../../stores/reducers/tasks.reducer";
+import { StateTasks } from "../../../stores/reducers/tasks.reducer";
 import { Observable } from "rxjs";
 
 @Component({
@@ -15,7 +15,7 @@ export class TaskComponent implements OnInit {
   private task: Observable<Task>;
 
   constructor(
-    private store$: Store<StateTask>
+    private store$: Store<StateTasks>
   ) {
   }
 

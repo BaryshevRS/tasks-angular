@@ -2,7 +2,7 @@ import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from "@ng
 import { Task } from '../../components/tasks/models/task.model';
 import { TasksActionsUnion, TasksActionTypes } from "../actions/tasks.actions";
 
-export interface StateTask extends EntityState<Task> {
+export interface StateTasks extends EntityState<Task> {
   // additional entities state properties
   selectedTaskId: string | number | null;
   loading?: boolean,
@@ -11,14 +11,14 @@ export interface StateTask extends EntityState<Task> {
 
 export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>();
 
-export const initialState: StateTask = adapter.getInitialState({
+export const initialState: StateTasks = adapter.getInitialState({
   // additional entity state properties
   selectedTaskId: null,
   ids: [],
   entities: null
 });
 
-export function tasksReducer(state = initialState, action: TasksActionsUnion): StateTask {
+export function TasksReducer(state = initialState, action: TasksActionsUnion): StateTasks {
   switch (action.type) {
 
     case TasksActionTypes.GetTasks:
@@ -49,7 +49,7 @@ export function tasksReducer(state = initialState, action: TasksActionsUnion): S
   }
 }
 
-export const getSelectedTaskId = (state: StateTask) => state.selectedTaskId;
+export const getSelectedTaskId = (state: StateTasks) => state.selectedTaskId;
 
 // get the selectors
 const {

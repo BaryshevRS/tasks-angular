@@ -3,7 +3,7 @@ import { Resolve } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { select, Store } from "@ngrx/store";
 import { Task } from '../components/tasks/models/task.model';
-import { StateTask } from "../stores/reducers/tasks.reducer";
+import { StateTasks } from "../stores/reducers/tasks.reducer";
 import { selectCurrentTask } from "../stores/selectors/tasks.selector";
 import { map, take, tap } from "rxjs/operators";
 
@@ -13,7 +13,7 @@ import { map, take, tap } from "rxjs/operators";
 @Injectable()
 export class TaskResolver implements Resolve<Task> {
   constructor(
-    private store$: Store<StateTask>
+    private store$: Store<StateTasks>
   ) {
   }
 

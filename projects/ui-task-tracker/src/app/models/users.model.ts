@@ -4,7 +4,3 @@ export interface User {
     photoURL?: string;
     displayName?: string;
 }
-
-export interface IUsers {
-    users: User[];
-}

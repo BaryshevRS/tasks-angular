@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PRIORITY } from '../settings/const';
 import { Store } from '@ngrx/store';
-import { StateTask } from '../../stores/reducers/tasks.reducer';
+import { StateTasks } from '../../stores/reducers/tasks.reducer';
 import { GetTasks } from '../../stores/actions/tasks.actions';
 
 @Component({
@@ -14,9 +14,9 @@ export class TasksComponent implements OnInit {
   public priority: Array<string>;
 
   constructor(
-    private store$: Store<StateTask>
+    private store$: Store<StateTasks>
   ) {
-    this.priority = PRIORITY;
+    // this.priority = PRIORITY;
   }
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@ import { TasksService } from "../services/tasks.service";
 import { select, Store } from "@ngrx/store";
 import { GetTasks } from "../../../stores/actions/tasks.actions";
 import { selectAllTasks } from "../../../stores/selectors/tasks.selector";
-import { StateTask } from "../../../stores/reducers/tasks.reducer";
+import { StateTasks } from "../../../stores/reducers/tasks.reducer";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -27,7 +27,7 @@ export class TasksTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private store$: Store<StateTask>
+    private store$: Store<StateTasks>
   ) {
   }
 

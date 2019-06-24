@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Vie
 import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { STATUS } from '../../settings/const';
 import { select, Store } from '@ngrx/store';
-import { StateTask } from '../../../stores/reducers/tasks.reducer';
+import { StateTasks } from '../../../stores/reducers/tasks.reducer';
 import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Task } from '../models/task.model';
@@ -23,7 +23,7 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   tasksItem: Dictionary<string>;
 
   constructor(
-    private store$: Store<StateTask>
+    private store$: Store<StateTasks>
   ) {
   }
 
