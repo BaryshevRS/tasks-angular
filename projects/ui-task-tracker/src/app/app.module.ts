@@ -19,8 +19,8 @@ import {RegsModule} from './components/regs/regs.module';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {metaReducers, reducers} from './stores/reducers';
 import {AppEffects} from './stores/effects/app.effects';
-import { HeaderModule } from "./components/header/header.module";
-import { effectsList } from "./stores/effects";
+import { HeaderModule } from './components/header/header.module';
+import { effectsList } from './stores/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({

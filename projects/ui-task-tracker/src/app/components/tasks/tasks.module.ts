@@ -23,9 +23,9 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
-import { DragDropModule } from "@angular/cdk/drag-drop";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
-import { TasksScrumModule } from "./tasks-scrum/tasks-scrum.module";
+import { TasksScrumModule } from './tasks-scrum/tasks-scrum.module';
 
 @NgModule({
   declarations: [

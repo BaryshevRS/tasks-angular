@@ -7,12 +7,14 @@ import { AuthGuard } from '../../guards/auth.guard';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { TasksResolver } from './resolver/tasks-resolver.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: TasksComponent,
     canActivate: [AuthGuard],
+    resolve: [TasksResolver],
     children: [
       { path: '', component: TasksTableComponent},
       { path: 'scrum', loadChildren: './tasks-scrum/tasks-scrum.module#TasksScrumModule' },

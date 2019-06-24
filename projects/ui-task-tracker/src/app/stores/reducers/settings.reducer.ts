@@ -1,5 +1,5 @@
-import { SettingsActions, SettingsActionTypes } from "../actions/settings.actions";
-import { Priorities, Statuses } from "../../components/settings/models/settings.model";
+import { SettingsActions, SettingsActionTypes } from '../actions/settings.actions';
+import { Priorities, Statuses } from '../../components/settings/models/settings.model';
 
 export interface StateSettings {
   priorities: Priorities;

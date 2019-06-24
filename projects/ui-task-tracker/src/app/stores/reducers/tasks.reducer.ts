@@ -1,12 +1,12 @@
-import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from "@ngrx/entity";
+import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Task } from '../../components/tasks/models/task.model';
-import { TasksActionsUnion, TasksActionTypes } from "../actions/tasks.actions";
+import { TasksActionsUnion, TasksActionTypes } from '../actions/tasks.actions';
 
 export interface StateTasks extends EntityState<Task> {
   // additional entities state properties
   selectedTaskId: string | number | null;
-  loading?: boolean,
-  error?: null
+  loading?: boolean;
+  error?: null;
 }
 
 export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>();

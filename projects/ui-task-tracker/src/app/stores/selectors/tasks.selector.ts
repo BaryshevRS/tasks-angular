@@ -3,7 +3,7 @@ import {
   createFeatureSelector,
 } from '@ngrx/store';
 import * as fromTask from '../reducers/tasks.reducer';
-import { StateTasks } from "../reducers/tasks.reducer";
+import { StateTasks } from '../reducers/tasks.reducer';
 
 export const selectTaskState = createFeatureSelector<StateTasks>('tasks');
 

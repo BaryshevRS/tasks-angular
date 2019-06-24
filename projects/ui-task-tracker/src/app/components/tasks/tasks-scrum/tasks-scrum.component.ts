@@ -18,7 +18,7 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private statuses: Map<string, string>;
   private unsubscribe$ = new Subject<void>();
-  private tasks: Subscribable<Dictionary<string>>
+  private tasks: Subscribable<Dictionary<string>>;
   private dropArray: any;
   tasksItem: Dictionary<string>;
 
@@ -39,7 +39,7 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
         (tasks: Task[]) => {
           const tabs: Dictionary<string> = tasks.reduce((a, task: Task) => {
 
-            a[task.status] = (<Array<Task>>(a[task.status] || []));
+            a[task.status] = ((a[task.status] || []) as Array<Task>);
             a[task.status].push(task);
             return { ...a, ...{ [task.status]: a[task.status] } };
 
@@ -79,6 +79,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dropList.map(item => {
       item.connectedTo = this.dropList.toArray();
       return item;
-    })
+    });
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../models/task.model';
-import { select, Store } from "@ngrx/store";
-import { selectCurrentTask } from "../../../stores/selectors/tasks.selector";
-import { StateTasks } from "../../../stores/reducers/tasks.reducer";
-import { Observable } from "rxjs";
+import { select, Store } from '@ngrx/store';
+import { selectCurrentTask } from '../../../stores/selectors/tasks.selector';
+import { StateTasks } from '../../../stores/reducers/tasks.reducer';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task',
@@ -20,7 +20,7 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.task = <Observable<Task>>this.store$.pipe(select(selectCurrentTask));
+    this.task = this.store$.pipe(select(selectCurrentTask)) as Observable<Task>;
   }
 
 }

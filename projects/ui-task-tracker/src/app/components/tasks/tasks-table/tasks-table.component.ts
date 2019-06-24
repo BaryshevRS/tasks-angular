@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatTableDataSource } from "@angular/material";
-import { Task } from "../models/task.model";
-import { TasksService } from "../services/tasks.service";
-import { select, Store } from "@ngrx/store";
-import { GetTasks } from "../../../stores/actions/tasks.actions";
-import { selectAllTasks } from "../../../stores/selectors/tasks.selector";
-import { StateTasks } from "../../../stores/reducers/tasks.reducer";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Task } from '../models/task.model';
+import { TasksService } from '../services/tasks.service';
+import { select, Store } from '@ngrx/store';
+import { GetTasks } from '../../../stores/actions/tasks.actions';
+import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
+import { StateTasks } from '../../../stores/reducers/tasks.reducer';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tasks-table',
@@ -38,10 +38,10 @@ export class TasksTableComponent implements OnInit, OnDestroy {
     this.store$.pipe(select(selectAllTasks))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((data) => {
-        console.log('TasksTableComponent', data)
-          this.dataSource = new MatTableDataSource<Task>(data);
-          this.dataSource.paginator = this.paginator
-        })
+        console.log('TasksTableComponent', data);
+        this.dataSource = new MatTableDataSource<Task>(data);
+        this.dataSource.paginator = this.paginator;
+        });
   }
 
   ngOnDestroy(): void {

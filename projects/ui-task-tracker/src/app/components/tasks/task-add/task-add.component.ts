@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task.model';
 import { PRIORITY, STATUS } from '../../settings/const';
-import { Store } from "@ngrx/store";
-import { AddTask } from "../../../stores/actions/tasks.actions";
+import { Store } from '@ngrx/store';
+import { AddTask } from '../../../stores/actions/tasks.actions';
 
 @Component({
   selector: 'app-task-add',
