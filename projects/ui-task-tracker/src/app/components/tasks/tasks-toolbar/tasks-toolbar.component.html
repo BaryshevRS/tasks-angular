@@ -1,10 +1,10 @@
 <div class="toolbar">
   <mat-form-field>
-    <mat-label>Статус</mat-label>
-    <mat-select required>
+    <mat-label>Приоритет</mat-label>
+    <mat-select >
       <mat-option>По умолчанию</mat-option>
       <mat-option
-          *ngFor="let status of (settings | async).statuses | keyvalue | orderBy: null : 'value' : 'order';
+          *ngFor="let status of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order';
             trackBy: trackByFn"
           [value]="status.key"
       >

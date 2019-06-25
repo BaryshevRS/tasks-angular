@@ -24,12 +24,12 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
     case TasksActionTypes.GetTasks:
     case TasksActionTypes.AddTask:
     case TasksActionTypes.UpdateTask:
-      console.log('GetTasks');
+    case TasksActionTypes.UpdateStatusTask:
+    case TasksActionTypes.UpdateTaskSuccess:
       return {
         ...state,
         loading: true
       };
-
     case TasksActionTypes.GetTask:
       return { ...state, selectedTaskId: action.payload };
 

@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { ErrorTasks, GetTask, LoadTask, LoadTasks, TasksActionTypes } from '../actions/tasks.actions';
+import {
+  ErrorTasks,
+  GetTask,
+  LoadTask,
+  LoadTasks,
+  UpdateStatusTask,
+  TasksActionTypes,
+  GetTasks,
+} from '../actions/tasks.actions';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TasksService } from '../../components/tasks/services/tasks.service';
@@ -26,7 +34,7 @@ export class TasksEffects {
   * */
   @Effect()
   loadTasks$ = this.actions$.pipe(
-    ofType(TasksActionTypes.GetTasks),
+    ofType<GetTasks>(TasksActionTypes.GetTasks),
     switchMap(() => {
         return this.tasksService.readTask().pipe(
           map((tasks: Task[]) => new LoadTasks(tasks)),
@@ -76,4 +84,27 @@ export class TasksEffects {
 
     })
   );
+
+  /*
+  * Update task for store and db
+  * */
+  @Effect()
+  UpdateTask$ = this.actions$.pipe(
+    ofType<UpdateStatusTask>(TasksActionTypes.UpdateStatusTask),
+    switchMap((action) => {
+
+      console.log('UpdateTask$', action);
+      if(action.payload.status) {
+        return this.tasksService.updateStatusTask(action.payload.id, action.payload.status)
+          .then(() => {
+              return new LoadTask(action.payload);
+            }
+          ).catch(error => of(new ErrorTasks(error)))
+      } else {
+          return of(new ErrorTasks(null));
+      }
+
+    })
+  );
+
 }

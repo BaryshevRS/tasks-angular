@@ -25,7 +25,8 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
 import { TasksScrumModule } from './tasks-scrum/tasks-scrum.module';
-import { OrderByPipe } from '../../pipes/order-by.pipe';
+import { OrderByPipe } from '../../share/pipes/order-by.pipe';
+import { ShareModule } from '../../share/modules/share.module';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,7 @@ import { OrderByPipe } from '../../pipes/order-by.pipe';
     TasksTableComponent,
    // TasksScrumComponent,
     TaskEditComponent,
-    TasksToolbarComponent,
-    OrderByPipe
+    TasksToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +54,8 @@ import { OrderByPipe } from '../../pipes/order-by.pipe';
     MatSelectModule,
     MatRadioModule,
     MatButtonToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ShareModule
   ],
   exports: [
     TasksComponent

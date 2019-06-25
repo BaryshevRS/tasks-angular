@@ -19,7 +19,6 @@ export class TasksService {
     tasksCollection = this.afs.collection<Task>('tasks');
 
     return tasksCollection.snapshotChanges().pipe(
-      tap((test) => console.log('readTask')),
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Task;
         data.id = a.payload.doc.id;
@@ -33,9 +32,6 @@ export class TasksService {
 
     return task.snapshotChanges().pipe(
       map((snap) => {
-        // const fromCache = snap.payload.metadata.fromCache;
-        // // console.log('dataService: fetchActivities: map fromCache: ', fromCache);
-        console.log('snap', snap);
         const obj = snap.payload.data();
         obj.id = snap.payload.id;
         return obj;
@@ -53,6 +49,10 @@ export class TasksService {
         alert('Задача добавлена успешно!');
       })
       .catch(error => this.handleError(error));
+  }
+
+  updateStatusTask(id, status) {
+    return this.afs.doc<Task>(`tasks/${id}`).update({status});
   }
 
   private handleError(error: Error) {

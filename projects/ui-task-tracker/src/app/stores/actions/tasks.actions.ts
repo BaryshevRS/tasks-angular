@@ -6,6 +6,7 @@ export enum TasksActionTypes {
   GetTask = '[Task] Get Task',
   LoadTasks = '[Task] Load Tasks',
   LoadTask = '[Task] Load Task',
+  UpdateStatusTask = '[Task] Update Status Task',
   AddTask = '[Task] Add Task',
   AddTaskSuccess = '[Task] Add Task Success',
   UpdateTask = '[Task] Update Task',
@@ -42,6 +43,16 @@ export class AddTask implements Action {
 
 export class UpdateTask implements Action {
   readonly type = TasksActionTypes.UpdateTask;
+
+  constructor(public payload: Task) {
+  }
+}
+
+export class UpdateStatusTask implements Action {
+  readonly type = TasksActionTypes.UpdateStatusTask;
+
+  constructor(public payload: Task) {
+  }
 }
 
 export class AddTaskSuccess implements Action {
@@ -58,6 +69,7 @@ export class UpdateTaskSuccess implements Action {
   }
 }
 
+
 export class ErrorTasks implements Action {
   readonly type = TasksActionTypes.ErrorTasks;
   constructor(public payload: any) {
@@ -73,4 +85,5 @@ export type TasksActionsUnion =
   | UpdateTaskSuccess
   | AddTaskSuccess
   | UpdateTask
+  | UpdateStatusTask
   | ErrorTasks;

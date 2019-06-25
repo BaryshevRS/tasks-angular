@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { STATUS } from '../../settings/const';
 import { select, Store } from '@ngrx/store';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
 import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
@@ -10,6 +9,8 @@ import { Observable, of, Subject, Subscribable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
+import { IStatus } from "../../settings/models/settings.model";
+import { GetTasks, UpdateTask, UpdateStatusTask } from "../../../stores/actions/tasks.actions";
 
 @Component({
   selector: 'app-tasks-scrum',
@@ -18,10 +19,9 @@ import { StateSettings } from '../../../stores/reducers/settings.reducer';
 })
 export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private statuses: Map<string, string>;
+  private statuses: Map<string, IStatus>[];
   private unsubscribe$ = new Subject<void>();
   private tasks: Subscribable<Dictionary<string>>;
-  private dropArray: any;
   public tasksItem: Dictionary<string>;
 
   constructor(
@@ -33,12 +33,12 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.statuses = STATUS;
-
     this.tasks = this.store$.pipe(select(selectTaskWithSettings)).pipe(
       takeUntil(this.unsubscribe$),
       switchMap(
         ([tasks, settings]: [TaskView[], StateSettings]) => {
+
+          this.statuses = settings.statuses;
 
           // set color
           if (settings.priorities) {
@@ -49,11 +49,20 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
           }
 
           // set tabs for statuses
-          const tabs: Dictionary<string> = tasks.reduce((a, task: Task) => {
+          let tabs: Dictionary<string> = tasks.reduce((a, task: Task) => {
             a[task.status] = ((a[task.status] || []) as Array<Task>);
             a[task.status].push(task);
             return { ...a, ...{ [task.status]: a[task.status] } };
           }, {});
+
+          // set empty tabs
+          let emptyTabs = {};
+          const tabsKeys = Object.keys(settings.statuses);
+          for (let index in tabsKeys) {
+            emptyTabs[tabsKeys[index]] = [];
+          }
+
+          tabs = {...emptyTabs, ...tabs};
 
           return of(tabs);
         }
@@ -69,10 +78,8 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-
     // console.log('event', event);
-    // console.log('drop', event.container.data, event.previousIndex, event.currentIndex);
-    // console.log('event.previousContainer', event.previousContainer, event.container);
+    // console.log('event.previousContainer', event.container.data, event.currentIndex);
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -81,7 +88,19 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+
+      const task = this.updateStatusTask(
+        event.container.data as unknown as TaskView[],
+        event.currentIndex,
+        event.container.id
+      );
+
+      this.store$.dispatch(new UpdateStatusTask(task));
     }
+  }
+
+  updateStatusTask(tasks: Task[], index: number, id: string) {
+    return { ...tasks[index], status: id};
   }
 
   ngAfterViewInit(): void {
@@ -90,5 +109,9 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
       item.connectedTo = this.dropList.toArray();
       return item;
     });
+  }
+
+  trackByFn(index, item) {
+    return item.key; // unique id corresponding to the item
   }
 }

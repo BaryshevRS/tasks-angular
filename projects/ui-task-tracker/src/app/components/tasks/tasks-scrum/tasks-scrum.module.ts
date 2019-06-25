@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TasksScrumComponent } from './tasks-scrum.component';
 import { TasksScrumRoutingModule } from './tasks-scrum-routing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ShareModule } from "../../../share/modules/share.module";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   imports: [
     CommonModule,
     TasksScrumRoutingModule,
-    DragDropModule
+    DragDropModule,
+    ShareModule
   ],
   exports: [
     TasksScrumComponent

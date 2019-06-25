@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task.model';
-import { PRIORITY, STATUS } from '../../settings/const';
 import { Store } from '@ngrx/store';
 import { AddTask } from '../../../stores/actions/tasks.actions';
 
@@ -24,8 +23,8 @@ export class TaskAddComponent implements OnInit {
     private store$: Store<any>
   ) {
 
-    this.priority = PRIORITY;
-    this.status = STATUS;
+    this.priority = null; //PRIORITY;
+    this.status = null; // STATUS;
 
     this.taskFormControl = this.fb.group({
       id: null,

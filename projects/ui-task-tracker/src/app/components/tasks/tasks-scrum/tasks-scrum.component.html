@@ -1,15 +1,27 @@
 <div class="scrum-board">
 
-  <ng-container *ngFor="let status of statuses | keyvalue">
+  <ng-container
+      *ngFor="let status of statuses | keyvalue | orderBy: null : 'value' : 'order'; trackBy: trackByFn"
+  >
+
     <div class="example-container">
-      <h2>{{statuses.get(status.key)}}</h2>
+      <h2>{{status.value.name}}</h2>
 
       <div
           cdkDropList
+          [id]="status.key"
           [cdkDropListData]="tasksItem[status.key]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-        <div [style.border-left-color]="item.priorityList?.color" class="example-box" *ngFor="let item of tasksItem[status.key]" cdkDrag>
+        <div
+            class="example-box"
+            [style.border-left-color]="item.priorityList?.color"
+
+            *ngFor="let item of tasksItem[status.key] | orderBy: null : 'priorityList' : 'order' ; trackBy: trackByFn"
+
+            cdkDrag
+            [routerLink]="'/tasks/' + item.id"
+        >
           {{item.name}}
         </div>
       </div>
