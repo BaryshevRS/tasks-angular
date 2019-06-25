@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
-import { MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
+import { ShareModule } from "../../share/modules/share.module";
 
 @NgModule({
   declarations: [
@@ -14,6 +21,8 @@ import { MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule
     MatExpansionModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
+    ShareModule
   ]
 })
 export class SettingsModule {

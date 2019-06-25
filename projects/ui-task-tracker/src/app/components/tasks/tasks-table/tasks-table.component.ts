@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Task, TaskView } from '../models/task.model';
-import { TasksService } from '../services/tasks.service';
 import { select, Store } from '@ngrx/store';
-import { GetTasks } from '../../../stores/actions/tasks.actions';
-import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +11,7 @@ import { StateSettings } from '../../../stores/reducers/settings.reducer';
 @Component({
   selector: 'app-tasks-table',
   templateUrl: './tasks-table.component.html',
-  styleUrls: ['./tasks-table.component.css']
+  styleUrls: ['./tasks-table.component.scss']
 })
 export class TasksTableComponent implements OnInit, OnDestroy {
 

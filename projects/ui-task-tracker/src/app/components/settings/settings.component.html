@@ -2,31 +2,96 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Personal data
+        Приоритеты
       </mat-panel-title>
       <mat-panel-description>
-        Type your name and age
+
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-form-field>
-      <input matInput placeholder="First name">
-    </mat-form-field>
+    <div class="setting-container">
 
-    <mat-form-field>
-      <input matInput placeholder="Age">
-    </mat-form-field>
+    <div
+        class="setting-block"
+        *ngFor="let setting of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order' ;
+        trackBy: trackByFn"
+    >
+      <h3>
+        {{setting.value.name}}
+      </h3>
+      <div class="setting-block-row">
+
+        <mat-checkbox></mat-checkbox>
+
+        <mat-form-field>
+          <input matInput type="number" [value]="setting.value.order" placeholder="Порядок">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [value]="setting.key" placeholder="Ключ">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [value]="setting.value.name" placeholder="Название">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [value]="setting.value.color" placeholder="Цвет">
+        </mat-form-field>
+      </div>
+
+    </div>
+      <button mat-raised-button color="primary">Добавить</button>
+    </div>
+
   </mat-expansion-panel>
+
+  <!--//-->
+
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Self aware panel
+        Статусы
       </mat-panel-title>
       <mat-panel-description>
-        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
+
+
+    <div class="setting-container">
+
+      <div
+          class="setting-block"
+          *ngFor="let setting of (settings | async).statuses | keyvalue | orderBy: null : 'value' : 'order' ;
+        trackBy: trackByFn"
+      >
+        <h3>
+          {{setting.value.name}}
+        </h3>
+        <div class="setting-block-row">
+
+          <mat-form-field>
+            <input matInput type="number" [value]="setting.value.order" placeholder="Порядок">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [value]="setting.key" placeholder="Ключ">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput [value]="setting.value.name" placeholder="Название">
+          </mat-form-field>
+
+
+        </div>
+
+      </div>
+      <button mat-raised-button color="primary">Добавить</button>
+      <button mat-raised-button color="accent">Сохранить</button>
+    </div>
+
+
   </mat-expansion-panel>
 </mat-accordion>

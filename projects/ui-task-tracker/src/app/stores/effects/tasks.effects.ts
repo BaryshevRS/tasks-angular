@@ -51,7 +51,11 @@ export class TasksEffects {
   getTask$ = this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_NAVIGATION),
     filter((action: RouterNavigationAction) => {
-      return action.payload.routerState.root.firstChild.firstChild.params.id;
+      const path = action.payload.routerState.root.firstChild;
+      if(path && path.firstChild) {
+        return path.firstChild.params.id;
+      }
+      return false;
     }),
     map((action: RouterNavigationAction) => {
       const id = action.payload.routerState.root.firstChild.firstChild.params.id;

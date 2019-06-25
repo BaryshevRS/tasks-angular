@@ -1,8 +1,9 @@
-<div class="task">
 
-  <div>
+  <div class="back">
     <button routerLink="/tasks" mat-button>Назад</button>
   </div>
+
+  <div class="task">
 
   <ng-container *ngIf="settings | async as s">
 
@@ -10,7 +11,7 @@
 
       <!--<mat-card-header>-->
       <mat-card-title>{{t.name}}</mat-card-title>
-      <mat-card-subtitle>{{t.createDate | date: 'dd/MM/yy hh:mm:ss'}}</mat-card-subtitle>
+      <mat-card-subtitle>{{t.createDate | date: 'dd/MM/yy HH:mm'}}</mat-card-subtitle>
       <!--</mat-card-header>-->
 
       <mat-card-content>
@@ -29,13 +30,14 @@
         </p>
         <p><b>Планируемое время</b></p>
         <p>
-          {{t.plannedTime}}
+          {{t.plannedTime}} ч.
         </p>
         <p><b>Затраченное время</b></p>
         <p>
-          {{t.usedTime}}
+          {{t.usedTime}} ч.
         </p>
       </mat-card-content>
+
       <mat-card-actions>
         <button routerLink="/tasks/edit/{{t.id}}" mat-button>Редактировать</button>
       </mat-card-actions>

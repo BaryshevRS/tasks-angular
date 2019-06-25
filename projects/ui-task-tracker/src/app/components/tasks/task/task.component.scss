@@ -1,6 +1,9 @@
-.task {
+:host {
   width: 100%;
-  max-width: 720px;
+}
+
+.task {
+  margin-top: 10px;
   justify-content: center;
   display: flex;
   flex-wrap: wrap;

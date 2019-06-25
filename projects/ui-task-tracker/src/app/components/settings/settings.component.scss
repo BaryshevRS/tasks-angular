@@ -1,0 +1,21 @@
+:host {
+  width: 100%;
+}
+
+.setting-container {
+  margin: 0px auto 0px;
+}
+
+.setting-block {
+  width: 100%;
+
+  mat-form-field {
+    margin: 0 5px;
+    width: 100%;
+  }
+}
+
+.setting-block-row {
+  width: 100%;
+  display: flex;
+}

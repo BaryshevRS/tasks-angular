@@ -10,7 +10,7 @@
           <ng-container *ngSwitchCase="'createDate'">
             <td [style.border-left]="'3px solid '+ element.priorityList?.color"
                 mat-cell
-                *matCellDef="let element"> {{element[col] | date: 'dd/MM/yy hh:mm:ss'}} </td>
+                *matCellDef="let element"> {{element[col] | date: 'dd/MM/yy HH:mm'}} </td>
           </ng-container>
 
           <ng-container *ngSwitchDefault>
