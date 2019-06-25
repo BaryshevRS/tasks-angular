@@ -1,43 +1,48 @@
-<div *ngIf="task | async as t" class="task">
+<div class="task">
 
   <div>
     <button routerLink="/tasks" mat-button>Назад</button>
   </div>
 
-  <mat-card class="example-card">
+  <ng-container *ngIf="settings | async as s">
 
-    <!--<mat-card-header>-->
+    <mat-card *ngIf="task | async as t" class="example-card">
+
+      <!--<mat-card-header>-->
       <mat-card-title>{{t.name}}</mat-card-title>
-      <mat-card-subtitle>{{t.createDate}}</mat-card-subtitle>
-    <!--</mat-card-header>-->
+      <mat-card-subtitle>{{t.createDate | date: 'dd/MM/yy hh:mm:ss'}}</mat-card-subtitle>
+      <!--</mat-card-header>-->
 
-    <mat-card-content>
-      <p><b>Описание</b></p>
+      <mat-card-content>
+        <p><b>Описание</b></p>
 
-      <p>
-        {{t.description}}
-      </p>
-      <p><b>Приоритет</b></p>
-      <p>
-        {{t.priority}}
-      </p>
-      <p><b>Cтатус выполнения</b></p>
-      <p>
-        {{t.status}}
-      </p>
-       <p><b>Планируемое время</b></p>
-      <p>
-        {{t.plannedTime}}
-      </p>
-      <p><b>Затраченное время</b></p>
-      <p>
-        {{t.usedTime}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button routerLink="/tasks/edit/{{t.id}}"  mat-button>Редактировать</button>
-    </mat-card-actions>
-  </mat-card>
+        <p>
+          {{t.description}}
+        </p>
+        <p><b>Приоритет</b></p>
+        <p [style.color]="s.priorities[t.priority].color">
+          {{s.priorities[t.priority].name}}
+        </p>
+        <p><b>Cтатус выполнения</b></p>
+        <p>
+          {{s.statuses[t.status].name}}
+        </p>
+        <p><b>Планируемое время</b></p>
+        <p>
+          {{t.plannedTime}}
+        </p>
+        <p><b>Затраченное время</b></p>
+        <p>
+          {{t.usedTime}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button routerLink="/tasks/edit/{{t.id}}" mat-button>Редактировать</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </ng-container>
+
 </div>
 
 

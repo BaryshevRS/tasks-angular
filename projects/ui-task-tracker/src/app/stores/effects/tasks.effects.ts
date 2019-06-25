@@ -43,10 +43,10 @@ export class TasksEffects {
   getTask$ = this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_NAVIGATION),
     filter((action: RouterNavigationAction) => {
-      return action.payload.routerState.root.firstChild.routeConfig.path === 'tasks/:id';
+      return action.payload.routerState.root.firstChild.firstChild.params.id;
     }),
     map((action: RouterNavigationAction) => {
-      const id = action.payload.routerState.root.firstChild.params.id;
+      const id = action.payload.routerState.root.firstChild.firstChild.params.id;
       console.log('@Effect getTask$');
       return new GetTask(id);
     })

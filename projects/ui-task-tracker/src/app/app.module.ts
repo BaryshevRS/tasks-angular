@@ -24,6 +24,10 @@ import { effectsList } from './stores/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { OrderByPipe } from './pipes/order-by.pipe';
 
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+registerLocaleData(localeRu, 'ru');
+
 @NgModule({
     declarations: [
         AppComponent,

@@ -5,9 +5,11 @@ import { select, Store } from '@ngrx/store';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
 import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Task } from '../models/task.model';
+import { Task, TaskView } from '../models/task.model';
 import { Observable, of, Subject, Subscribable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
+import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
+import { StateSettings } from '../../../stores/reducers/settings.reducer';
 
 @Component({
   selector: 'app-tasks-scrum',
@@ -20,7 +22,7 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   private unsubscribe$ = new Subject<void>();
   private tasks: Subscribable<Dictionary<string>>;
   private dropArray: any;
-  tasksItem: Dictionary<string>;
+  public tasksItem: Dictionary<string>;
 
   constructor(
     private store$: Store<StateTasks>
@@ -33,16 +35,24 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.statuses = STATUS;
 
-    this.tasks = this.store$.pipe(select(selectAllTasks)).pipe(
+    this.tasks = this.store$.pipe(select(selectTaskWithSettings)).pipe(
       takeUntil(this.unsubscribe$),
       switchMap(
-        (tasks: Task[]) => {
-          const tabs: Dictionary<string> = tasks.reduce((a, task: Task) => {
+        ([tasks, settings]: [TaskView[], StateSettings]) => {
 
+          // set color
+          if (settings.priorities) {
+            tasks.map(task => {
+              task.priorityList = settings.priorities[task.priority];
+              return task;
+            });
+          }
+
+          // set tabs for statuses
+          const tabs: Dictionary<string> = tasks.reduce((a, task: Task) => {
             a[task.status] = ((a[task.status] || []) as Array<Task>);
             a[task.status].push(task);
             return { ...a, ...{ [task.status]: a[task.status] } };
-
           }, {});
 
           return of(tabs);

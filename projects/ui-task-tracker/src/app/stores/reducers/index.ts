@@ -3,10 +3,12 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import { TasksReducer } from './tasks.reducer';
-import { SettingsReducer } from './settings.reducer';
-export interface State {
+import { StateTasks, TasksReducer } from './tasks.reducer';
+import { SettingsReducer, StateSettings } from './settings.reducer';
 
+export interface State {
+  tasks: StateTasks,
+  settings: StateSettings;
 }
 
 export const reducers: ActionReducerMap<State> = {

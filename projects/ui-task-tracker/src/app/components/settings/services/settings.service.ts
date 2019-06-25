@@ -22,7 +22,7 @@ export class SettingsService {
     return settingsCollection.snapshotChanges().pipe(
       tap((test) => console.log('readSettings', test)),
       map(actions => {
-        let settings = new Settings();
+        const settings = new Settings();
         actions.map(a => settings[a.payload.doc.id] = a.payload.doc.data());
         console.log('settings', settings);
         return settings;

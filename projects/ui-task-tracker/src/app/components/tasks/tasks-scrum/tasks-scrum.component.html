@@ -9,7 +9,7 @@
           [cdkDropListData]="tasksItem[status.key]"
           class="example-list"
           (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of tasksItem[status.key]" cdkDrag>
+        <div [style.border-left-color]="item.priorityList?.color" class="example-box" *ngFor="let item of tasksItem[status.key]" cdkDrag>
           {{item.name}}
         </div>
       </div>
