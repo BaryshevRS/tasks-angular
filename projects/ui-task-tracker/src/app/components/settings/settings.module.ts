@@ -6,10 +6,10 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatExpansionModule,
-  MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
 import { ShareModule } from "../../share/modules/share.module";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { ShareModule } from "../../share/modules/share.module";
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
     ShareModule
   ]
 })

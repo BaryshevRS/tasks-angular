@@ -20,14 +20,14 @@ export class SettingsService {
     settingsCollection = this.afs.collection<Settings>('settings');
 
     return settingsCollection.snapshotChanges().pipe(
-      tap((test) => console.log('readSettings', test)),
+     // tap((test) => console.log('readSettings', test)),
       map(actions => {
         const settings = new Settings();
         actions.map(a => settings[a.payload.doc.id] = a.payload.doc.data());
-        console.log('settings', settings);
+        // console.log('settings', settings);
         return settings;
       }),
-      tap((test) => console.log('readSettings2', test)),
+      // tap((test) => console.log('readSettings2', test)),
     );
   }
 }
