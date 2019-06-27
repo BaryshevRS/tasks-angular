@@ -1,4 +1,4 @@
-import { SettingsActions, SettingsActionTypes } from '../actions/settings.actions';
+import { SettingsActionsUnion, SettingsActionTypes } from '../actions/settings.actions';
 import { Priorities, Statuses } from '../../components/settings/models/settings.model';
 
 export interface StateSettings {
@@ -11,7 +11,7 @@ export const initialState: StateSettings = {
   statuses: null
 };
 
-export function SettingsReducer(state = initialState, action: SettingsActions): StateSettings {
+export function SettingsReducer(state = initialState, action: SettingsActionsUnion): StateSettings {
   switch (action.type) {
 
     case SettingsActionTypes.GetSettings:

@@ -46,9 +46,11 @@ export class SettingsComponent implements OnInit {
 
   setPrioritiesForm(settings) {
     let priorities = [];
-    for (let i in settings.priorities) {
-      const priority: IPriorityRow = { ...new PriorityRow(), ...settings.priorities[i], key: i };
-      priorities.push(priority);
+    for (const i in settings.priorities) {
+      if (settings.priorities[i]) {
+        const priority: IPriorityRow = { ...new PriorityRow(), ...settings.priorities[i], key: i };
+        priorities.push(priority);
+      }
     }
 
     priorities.sort((a, b) => a.order - b.order);
@@ -61,10 +63,12 @@ export class SettingsComponent implements OnInit {
 
   setStatusesForm(settings) {
     let statuses = [];
-    for (let i in settings.statuses) {
+    for (const i in settings.statuses) {
       // add all properties
-      const status: IStatusRow = { ...new StatusRow(), ...settings.statuses[i], key: i };
-      statuses.push(status);
+      if (settings.statuses[i]) {
+        const status: IStatusRow = { ...new StatusRow(), ...settings.statuses[i], key: i };
+        statuses.push(status);
+      }
     }
 
     statuses.sort((a, b) => a.order - b.order);

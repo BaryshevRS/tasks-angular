@@ -18,7 +18,7 @@ export class GetSettings implements Action {
 
 export class LoadSettings implements Action {
   readonly type = SettingsActionTypes.LoadSettings;
-  constructor(public payload: SessionUnion) {
+  constructor(public payload: Settings) {
   }
 }
 
@@ -28,7 +28,7 @@ export class UpdateSettings implements Action {
   }
 }
 
-export type SettingsActions =
+export type SettingsActionsUnion =
   | LoadSettings
   | GetSettings
   | UpdateSettings

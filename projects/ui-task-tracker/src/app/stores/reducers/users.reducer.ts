@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UsersActionTypes } from '../actions/users.actions';
+import { UsersActionsUnion, UsersActionTypes } from '../actions/users.actions';
 import { IUser } from '../../components/users/models/users.model';
 
 
@@ -11,7 +11,7 @@ export const initialState: StateUsers = {
   profile: null
 };
 
-export function UsersReducer(state = initialState, action: Action): StateUsers {
+export function UsersReducer(state = initialState, action: UsersActionsUnion): StateUsers {
   switch (action.type) {
 
     case UsersActionTypes.SignOutUserSuccess:

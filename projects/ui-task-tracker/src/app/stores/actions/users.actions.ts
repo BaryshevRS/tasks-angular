@@ -33,7 +33,7 @@ export class ErrorUsers implements Action {
   readonly type = UsersActionTypes.ErrorUsers;
 }
 
-export type UsersActions =
+export type UsersActionsUnion =
   | LoginUser
   | LoginUserSuccess
   | SignOutUser

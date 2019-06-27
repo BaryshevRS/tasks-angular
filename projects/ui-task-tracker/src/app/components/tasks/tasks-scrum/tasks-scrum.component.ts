@@ -61,7 +61,9 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
           const emptyTabs = {};
           const tabsKeys = Object.keys(settings.statuses);
           for (const index in tabsKeys) {
-            emptyTabs[tabsKeys[index]] = [];
+            if (tabsKeys[index]) {
+              emptyTabs[tabsKeys[index]] = [];
+            }
           }
 
           tabs = {...emptyTabs, ...tabs};
