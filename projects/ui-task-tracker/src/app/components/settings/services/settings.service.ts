@@ -44,7 +44,7 @@ export class SettingsService {
 
     console.log('values[id]', values[id]);
 
-    let updateVal = {};
+    const updateVal = {};
     values[id].map(a => {
       const u = {...a};
       delete u.checked;

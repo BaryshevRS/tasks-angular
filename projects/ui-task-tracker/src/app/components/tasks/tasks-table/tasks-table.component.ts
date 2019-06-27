@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
-import { Priority, Status } from "../../settings/models/settings.model";
+import { Priority, Status } from '../../settings/models/settings.model';
 
 @Component({
   selector: 'app-tasks-table',

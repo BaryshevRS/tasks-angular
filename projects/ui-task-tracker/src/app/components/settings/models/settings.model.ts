@@ -1,4 +1,4 @@
-import { Validators } from "@angular/forms";
+import { Validators } from '@angular/forms';
 
 export interface IStatus {
   name: string;
@@ -16,7 +16,7 @@ export class Status implements IStatus {
   order: number;
 
   constructor() {
-    return { order: 0, name: '-' }
+    return { order: 0, name: '-' };
   }
 }
 
@@ -26,7 +26,7 @@ export class Priority implements IPriority {
   order: number;
 
   constructor() {
-    return { color: '#666666', order: 0, name: '-' }
+    return { color: '#666666', order: 0, name: '-' };
   }
 }
 
@@ -68,7 +68,7 @@ export class PriorityRow implements IPriorityRow {
       name: [name || this.name, [Validators.required]],
       order: [order || this.order, [Validators.required]],
       checked: [checked || this.checked, [Validators.required]]
-    }
+    };
   }
 }
 
@@ -95,6 +95,6 @@ export class StatusRow implements IStatusRow {
       name: [name || this.name, [Validators.required]],
       order: [order || this.order, [Validators.required]],
       checked: [checked || this.checked, [Validators.required]]
-    }
+    };
   }
 }

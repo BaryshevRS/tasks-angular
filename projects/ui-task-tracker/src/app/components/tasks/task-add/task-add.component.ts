@@ -23,7 +23,7 @@ export class TaskAddComponent implements OnInit {
     private store$: Store<any>
   ) {
 
-    this.priority = null; //PRIORITY;
+    this.priority = null; // PRIORITY;
     this.status = null; // STATUS;
 
     this.taskFormControl = this.fb.group({

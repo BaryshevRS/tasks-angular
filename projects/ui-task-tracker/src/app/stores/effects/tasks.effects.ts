@@ -52,7 +52,7 @@ export class TasksEffects {
     ofType<RouterNavigationAction>(ROUTER_NAVIGATION),
     filter((action: RouterNavigationAction) => {
       const path = action.payload.routerState.root.firstChild;
-      if(path && path.firstChild) {
+      if (path && path.firstChild) {
         return path.firstChild.params.id;
       }
       return false;
@@ -98,12 +98,12 @@ export class TasksEffects {
     switchMap((action) => {
 
       console.log('UpdateTask$', action);
-      if(action.payload.status) {
+      if (action.payload.status) {
         return this.tasksService.updateStatusTask(action.payload.id, action.payload.status)
           .then(() => {
               return new LoadTask(action.payload);
             }
-          ).catch(error => of(new ErrorTasks(error)))
+          ).catch(error => of(new ErrorTasks(error)));
       } else {
           return of(new ErrorTasks(null));
       }

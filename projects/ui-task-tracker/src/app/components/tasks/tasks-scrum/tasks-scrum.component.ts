@@ -9,8 +9,8 @@ import { Observable, of, Subject, Subscribable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
-import { IStatus, Priority } from "../../settings/models/settings.model";
-import { GetTasks, UpdateTask, UpdateStatusTask } from "../../../stores/actions/tasks.actions";
+import { IStatus, Priority } from '../../settings/models/settings.model';
+import { GetTasks, UpdateTask, UpdateStatusTask } from '../../../stores/actions/tasks.actions';
 
 @Component({
   selector: 'app-tasks-scrum',
@@ -58,9 +58,9 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
           }, {});
 
           // set empty tabs for isset statuses
-          let emptyTabs = {};
+          const emptyTabs = {};
           const tabsKeys = Object.keys(settings.statuses);
-          for (let index in tabsKeys) {
+          for (const index in tabsKeys) {
             emptyTabs[tabsKeys[index]] = [];
           }
 

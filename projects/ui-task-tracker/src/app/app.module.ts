@@ -11,7 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginModule } from './components/login/login.module';
+import { LoginModule } from './components/users/login/login.module';
 import { SettingsModule } from './components/settings/settings.module';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { metaReducers, reducers } from './stores/reducers';

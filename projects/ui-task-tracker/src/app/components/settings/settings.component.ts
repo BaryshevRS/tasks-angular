@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { StateSettings } from "../../stores/reducers/settings.reducer";
-import { IPriorityRow, IStatusRow, PriorityRow, StatusRow } from "./models/settings.model";
-import { UpdateSettings } from "../../stores/actions/settings.actions";
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { StateSettings } from '../../stores/reducers/settings.reducer';
+import { IPriorityRow, IStatusRow, PriorityRow, StatusRow } from './models/settings.model';
+import { UpdateSettings } from '../../stores/actions/settings.actions';
 
 @Component({
   selector: 'app-settings',
@@ -94,7 +94,7 @@ export class SettingsComponent implements OnInit {
   add(e, index: number, name: string) {
     e.preventDefault();
 
-    if(name === 'priorities') {
+    if (name === 'priorities') {
       (this.settingsFormControl[index].get(name) as FormArray).push(this.fb.group(new PriorityRow().formModel()));
     } else {
       (this.settingsFormControl[index].get(name) as FormArray).push(this.fb.group(new StatusRow().formModel()));

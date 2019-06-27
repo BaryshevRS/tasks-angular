@@ -8,8 +8,8 @@ import {
   MatExpansionModule,
   MatInputModule
 } from '@angular/material';
-import { ShareModule } from "../../share/modules/share.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ShareModule } from '../../share/modules/share.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [

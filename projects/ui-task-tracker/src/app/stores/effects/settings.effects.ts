@@ -10,8 +10,8 @@ import {
   SettingsActions,
   ErrorSetting
 } from '../actions/settings.actions';
-import { SessionUnion } from "../../components/settings/models/settings.model";
-import { Store } from "@ngrx/store";
+import { SessionUnion } from '../../components/settings/models/settings.model';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class SettingsEffects implements OnInitEffects {
@@ -23,16 +23,12 @@ export class SettingsEffects implements OnInitEffects {
   ) {
   }
 
-  ngrxOnInitEffects(): SettingsActions {
-    return new GetSettings();
-  }
-
   @Effect()
   loadTasks$ = this.actions$.pipe(
     ofType(SettingsActionTypes.GetSettings),
     switchMap((settings) => {
         return this.settingsService.readSettings().pipe(
-          tap((settings) => console.log('settings!', settings)),
+          // tap((settings) => console.log('settings!', settings)),
           map((settings: any) => new LoadSettings(settings)),
           catchError(error => of(new ErrorSetting()))
         );
@@ -50,9 +46,13 @@ export class SettingsEffects implements OnInitEffects {
               return new LoadSettings(state);
             }
           )
-        .catch(error => of(new ErrorSetting()))
+        .catch(error => of(new ErrorSetting()));
       }
     )
   );
+
+  ngrxOnInitEffects(): SettingsActions {
+    return new GetSettings();
+  }
 
 }

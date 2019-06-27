@@ -8,24 +8,26 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {User} from '../models/users.model';
+import { IUser } from '../models/users.model';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<User | null>;
+  user: Observable<IUser | null>;
 
   constructor(
       private afAuth: AngularFireAuth,
       private afs: AngularFirestore,
-      private router: Router
+      private router: Router,
+      private _snackBar: MatSnackBar
   ) {
 
     this.user = this.afAuth.authState.pipe(
         switchMap(user => {
           if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+            return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
           } else {
             return of(null);
           }
@@ -37,8 +39,7 @@ export class AuthService {
     return this.afAuth.auth
         .createUserWithEmailAndPassword(email, password)
         .then(credential => {
-
-          return this.updateUserData(credential.user); // if using firestore
+          return this.updateUserData(credential.user);
         })
         .catch(error => this.handleError(error));
   }
@@ -48,32 +49,38 @@ export class AuthService {
         .signInWithEmailAndPassword(email, password)
         .then(credential => {
 
+          console.log('credential', credential);
+
           this.router.navigate(['/tasks']);
           return true;
-          // return this.updateUserData(credential.user);
         })
         .catch(error => this.handleError(error));
   }
 
   signOut() {
-    this.afAuth.auth.signOut().then(() => {
+    return this.afAuth.auth.signOut().then(() => {
       this.router.navigate(['/']);
     });
   }
 
   // If error, console log and notify user
   private handleError(error: Error) {
-    console.error(error);
-    alert('Ошибка авторизации');
+    console.log(error);
+
+    this._snackBar.open('Ошибка авторизации', 'Закрыть', {
+      duration: 2000,
+      verticalPosition: 'top'
+    });
+
   }
 
   // Sets user data to firestore after succesful login
-  private updateUserData(user: User) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(
+  private updateUserData(user: IUser) {
+    const userRef: AngularFirestoreDocument<IUser> = this.afs.doc(
         `users/${user.uid}`
     );
 
-    const data: User = {
+    const data: IUser = {
       uid: user.uid,
       email: user.email || null,
       // displayName: user.displayName || '',

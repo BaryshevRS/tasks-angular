@@ -5,7 +5,7 @@
     <div class="toolbar-container">
       <span [routerLink]="['/']" >UI Task Tracker</span>
 
-      <div>
+      <div *ngIf="(users | async ).profile">
         <button [routerLink]="['/tasks/add']" mat-icon-button aria-label="">
           <mat-icon>add_box</mat-icon>
         </button>
