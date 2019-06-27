@@ -9,7 +9,7 @@ import { Observable, of, Subject, Subscribable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
-import { IStatus } from "../../settings/models/settings.model";
+import { IStatus, Priority } from "../../settings/models/settings.model";
 import { GetTasks, UpdateTask, UpdateStatusTask } from "../../../stores/actions/tasks.actions";
 
 @Component({
@@ -40,10 +40,12 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
           this.statuses = settings.statuses;
 
+          //
+
           // set color
           if (settings.priorities) {
             tasks.map(task => {
-              task.priorityList = settings.priorities[task.priority];
+              task.priorityList = settings.priorities[task.priority] || new Priority();
               return task;
             });
           }
@@ -55,7 +57,7 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
             return { ...a, ...{ [task.status]: a[task.status] } };
           }, {});
 
-          // set empty tabs
+          // set empty tabs for isset statuses
           let emptyTabs = {};
           const tabsKeys = Object.keys(settings.statuses);
           for (let index in tabsKeys) {

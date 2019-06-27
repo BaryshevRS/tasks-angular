@@ -3,7 +3,15 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { Task } from '../../tasks/models/task.model';
 import { map, tap } from 'rxjs/operators';
-import { IPriority, IStatus, Priorities, SessionUnion, Settings, Statuses } from '../models/settings.model';
+import {
+  IPriority,
+  ISessionUnion,
+  IStatus,
+  Priorities,
+  SessionUnion,
+  Settings,
+  Statuses
+} from '../models/settings.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +37,26 @@ export class SettingsService {
       }),
       // tap((test) => console.log('readSettings2', test)),
     );
+  }
+
+  updateSettings(values: SessionUnion) {
+    const id = Object.keys(values)[0];
+
+    console.log('values[id]', values[id]);
+
+    let updateVal = {};
+    values[id].map(a => {
+      const u = {...a};
+      delete u.id;
+      updateVal[u.key] = {...u};
+    });
+
+    const state = {};
+    state[id] = updateVal;
+
+    console.log('updateVal', id, updateVal);
+
+    return this.afs.doc<ISessionUnion>(`settings/${id}`).update(updateVal)
+      .then(() => state);
   }
 }

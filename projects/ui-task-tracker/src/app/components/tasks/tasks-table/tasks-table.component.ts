@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
+import { Priority, Status } from "../../settings/models/settings.model";
 
 @Component({
   selector: 'app-tasks-table',
@@ -41,11 +42,11 @@ export class TasksTableComponent implements OnInit, OnDestroy {
           tasks.map(task => {
 
             if (task.priority) {
-              task.priorityList = settings.priorities[task.priority];
+              task.priorityList = settings.priorities[task.priority] || new Priority();
             }
 
             if (task.status) {
-              task.statusList = settings.statuses[task.status];
+              task.statusList = settings.statuses[task.status] || new Status();
               task.statusName = settings.statuses[task.status].name;
             }
             return task;

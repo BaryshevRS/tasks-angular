@@ -1,10 +1,11 @@
-import { ApplicationRef, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { StateSettings } from "../../stores/reducers/settings.reducer";
-import { IPriorityRow, PriorityRow } from "./models/settings.model";
+import { IPriorityRow, IStatusRow, PriorityRow, StatusRow } from "./models/settings.model";
+import { UpdateSettings } from "../../stores/actions/settings.actions";
 
 @Component({
   selector: 'app-settings',
@@ -13,27 +14,33 @@ import { IPriorityRow, PriorityRow } from "./models/settings.model";
 })
 export class SettingsComponent implements OnInit {
 
-  panelOpenState = false;
+
   settings;
   private unsubscribe$ = new Subject<void>();
 
-  public settingsFormControl: FormGroup;
+  public settingsPanels = [{name: 'Приоритеты', key: 'priorities'}, {name: 'Статусы', key: 'statuses'}];
+  public settingsFormControl: FormGroup[];
 
   constructor(
     private store$: Store<StateSettings>,
-    private fb: FormBuilder,
-    private cdr: ChangeDetectorRef,
-    private _ngZone: NgZone
+    private fb: FormBuilder
   ) {
   }
 
   ngOnInit() {
+
+
+    this.settingsFormControl = null;
+
     this.store$.pipe(select('settings')).pipe(
       takeUntil(this.unsubscribe$),
       switchMap(
         (settings: StateSettings) => {
-          // console.log('settings', settings);
+
+          this.settingsFormControl = [];
+
           this.setPrioritiesForm(settings);
+          this.setStatusesForm(settings);
 
           return of(null);
         }
@@ -51,37 +58,57 @@ export class SettingsComponent implements OnInit {
     priorities.sort((a, b) => a.order - b.order);
     priorities = priorities.map((priority) => this.fb.group(new PriorityRow().formModel(priority)));
 
-    this.settingsFormControl = null;
-    this.settingsFormControl = this.fb.group({
+    this.settingsFormControl[0] = this.fb.group({
       priorities: this.fb.array(priorities)
+    });
+
+
+  }
+
+  setStatusesForm(settings) {
+    let statuses = [];
+    for (let i in settings.statuses) {
+      // add all properties
+      const status: IStatusRow = { ...new StatusRow(), ...settings.statuses[i], key: i };
+      statuses.push(status);
+    }
+
+    statuses.sort((a, b) => a.order - b.order);
+    statuses = statuses.map((priority) => this.fb.group(new StatusRow().formModel(priority)));
+
+    this.settingsFormControl[1] = this.fb.group({
+      statuses: this.fb.array(statuses)
     });
   }
 
-  remove(e) {
+  remove(e, index, name) {
     e.preventDefault();
-    this.removeIndex();
+    this.removeIndex(index, name);
   }
 
+  removeIndex(index: number, name: string) {
+    const settings = (this.settingsFormControl[index].get(name).value as FormArray);
 
-  removeIndex() {
-    const priorities = (this.settingsFormControl.get('priorities').value as FormArray);
-
-    for (let i = 0; i < priorities.length; i++) {
-      if (priorities[i].id) {
-        (this.settingsFormControl.get('priorities') as FormArray).removeAt(i);
-        return this.removeIndex();
+    for (let i = 0; i < settings.length; i++) {
+      if (settings[i].id) {
+        (this.settingsFormControl[index].get(name) as FormArray).removeAt(i);
+        return this.removeIndex(index, name);
       }
     }
   }
 
-  add(e) {
+  add(e, index: number, name: string) {
     e.preventDefault();
-    (this.settingsFormControl.get('priorities') as FormArray).push(this.fb.group(new PriorityRow().formModel()));
+
+    if(name === 'priorities') {
+      (this.settingsFormControl[index].get(name) as FormArray).push(this.fb.group(new PriorityRow().formModel()));
+    } else {
+      (this.settingsFormControl[index].get(name) as FormArray).push(this.fb.group(new StatusRow().formModel()));
+    }
   }
 
-  onSubmit() {
-    // console.log('this.settingsFormControl.value', this.settingsFormControl.value);
-
+  onSubmit(e, index: number, name: string) {
+    this.store$.dispatch(new UpdateSettings( this.settingsFormControl[index].value));
   }
 
 }

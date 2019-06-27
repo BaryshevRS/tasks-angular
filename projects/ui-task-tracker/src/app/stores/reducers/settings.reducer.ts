@@ -20,6 +20,9 @@ export function SettingsReducer(state = initialState, action: SettingsActions): 
     case SettingsActionTypes.LoadSettings:
       return {...state, ...action.payload};
 
+    case SettingsActionTypes.ErrorSetting:
+      return {...state};
+
     default:
       return state;
   }
