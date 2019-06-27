@@ -14,8 +14,9 @@ export interface IPriority {
 export class Status implements IStatus {
   name: string;
   order: number;
+
   constructor() {
-    return {order: 0, name: '-'}
+    return { order: 0, name: '-' }
   }
 }
 
@@ -23,8 +24,9 @@ export class Priority implements IPriority {
   color: string;
   name: string;
   order: number;
+
   constructor() {
-    return {color: '#666666', order: 0, name: '-'}
+    return { color: '#666666', order: 0, name: '-' }
   }
 }
 
@@ -41,7 +43,7 @@ export type ISessionUnion = IStatus | IPriority;
 
 
 export interface IPriorityRow extends IPriority {
-  id: boolean;
+  checked: boolean;
   key: string;
 }
 
@@ -51,27 +53,27 @@ export class PriorityRow implements IPriorityRow {
   public color = '';
   public name = '';
   public order = 0;
-  public id = false;
+  public checked = false;
 
-  constructor(key?, color?, name?, order?, id?) {
+  constructor() {
   }
 
   formModel(data?) {
 
-    const { key = null, color = null, name = null, order = null, id  = null} = data || {};
+    const { key = null, color = null, name = null, order = null, checked  = null} = data;
 
     return {
       key: [key || this.key, [Validators.required]],
       color: [color || this.color, [Validators.required]],
       name: [name || this.name, [Validators.required]],
       order: [order || this.order, [Validators.required]],
-      id: [id || this.id, [Validators.required]]
+      checked: [checked || this.checked, [Validators.required]]
     }
   }
 }
 
 export interface IStatusRow extends IStatus {
-  id: boolean;
+  checked: boolean;
   key: string;
 }
 
@@ -80,20 +82,19 @@ export class StatusRow implements IStatusRow {
   public key = '';
   public name = '';
   public order = 0;
-  public id = false;
+  public checked = false;
 
-  constructor(key?, color?, name?, order?, id?) {
+  constructor() {
   }
 
   formModel(data?) {
-
-    const { key = null, name = null, order = null, id  = null} = data || {};
+    const { key = null, name = null, order = null, checked = null } = data || {};
 
     return {
       key: [key || this.key, [Validators.required]],
       name: [name || this.name, [Validators.required]],
       order: [order || this.order, [Validators.required]],
-      id: [id || this.id, [Validators.required]]
+      checked: [checked || this.checked, [Validators.required]]
     }
   }
 }

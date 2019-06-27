@@ -23,25 +23,31 @@
         <ng-container *ngIf="s.priorities[t.priority]">
           <p><b>Приоритет</b></p>
           <p [style.color]="s.priorities[t.priority]?.color">
-            {{s.priorities[t.priority]?.name}}
+            <i>{{s.priorities[t.priority]?.name}}</i>
           </p>
         </ng-container>
 
-        <ng-container *ngIf="s.priorities[t.status]">
+        <ng-container *ngIf="s.statuses[t.status]">
           <p><b>Cтатус выполнения</b></p>
           <p>
-            {{s.statuses[t.status]?.name}}
+            <i>{{s.statuses[t.status]?.name}}</i>
           </p>
         </ng-container>
 
-        <p><b>Планируемое время</b></p>
-        <p>
-          {{t.plannedTime}} ч.
-        </p>
-        <p><b>Затраченное время</b></p>
-        <p>
-          {{t.usedTime}} ч.
-        </p>
+        <ng-container *ngIf="t.plannedTime">
+          <p><b>Планируемое время</b></p>
+          <p>
+            {{t.plannedTime}} ч.
+          </p>
+        </ng-container>
+
+
+        <ng-container *ngIf="t.usedTime">
+          <p><b>Затраченное время</b></p>
+          <p>
+            {{t.usedTime}} ч.
+          </p>
+        </ng-container>
       </mat-card-content>
 
       <mat-card-actions>

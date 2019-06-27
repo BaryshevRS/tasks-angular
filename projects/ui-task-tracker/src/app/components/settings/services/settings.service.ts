@@ -47,7 +47,7 @@ export class SettingsService {
     let updateVal = {};
     values[id].map(a => {
       const u = {...a};
-      delete u.id;
+      delete u.checked;
       updateVal[u.key] = {...u};
     });
 
@@ -56,7 +56,7 @@ export class SettingsService {
 
     console.log('updateVal', id, updateVal);
 
-    return this.afs.doc<ISessionUnion>(`settings/${id}`).update(updateVal)
+    return this.afs.doc(`settings/${id}`).set(updateVal)
       .then(() => state);
   }
 }

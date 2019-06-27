@@ -14,8 +14,6 @@ import { UpdateSettings } from "../../stores/actions/settings.actions";
 })
 export class SettingsComponent implements OnInit {
 
-
-  settings;
   private unsubscribe$ = new Subject<void>();
 
   public settingsPanels = [{name: 'Приоритеты', key: 'priorities'}, {name: 'Статусы', key: 'statuses'}];
@@ -28,8 +26,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.settingsFormControl = null;
 
     this.store$.pipe(select('settings')).pipe(
@@ -61,8 +57,6 @@ export class SettingsComponent implements OnInit {
     this.settingsFormControl[0] = this.fb.group({
       priorities: this.fb.array(priorities)
     });
-
-
   }
 
   setStatusesForm(settings) {
@@ -90,7 +84,7 @@ export class SettingsComponent implements OnInit {
     const settings = (this.settingsFormControl[index].get(name).value as FormArray);
 
     for (let i = 0; i < settings.length; i++) {
-      if (settings[i].id) {
+      if (settings[i].checked) {
         (this.settingsFormControl[index].get(name) as FormArray).removeAt(i);
         return this.removeIndex(index, name);
       }
