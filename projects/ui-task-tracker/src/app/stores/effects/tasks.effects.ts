@@ -59,7 +59,6 @@ export class TasksEffects {
     }),
     map((action: RouterNavigationAction) => {
       const id = action.payload.routerState.root.firstChild.firstChild.params.id;
-      console.log('@Effect getTask$');
       return new GetTask(id);
     })
   );
@@ -72,10 +71,8 @@ export class TasksEffects {
     ofType<GetTask>(TasksActionTypes.GetTask),
     withLatestFrom(this.store$.select(selectCurrentTask)),
     switchMap(([action, taskStore]) => {
-
-      console.log('taskStore', taskStore);
-
       if (!taskStore) {
+        console.log('@Effect loadTask$');
         return this.tasksService.readTaskForId(action.payload).pipe(
           map((task: Task) => {
             return new LoadTask(task);
@@ -85,7 +82,6 @@ export class TasksEffects {
       } else {
         return of(new LoadTask(taskStore));
       }
-
     })
   );
 

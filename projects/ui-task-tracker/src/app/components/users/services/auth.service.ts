@@ -9,8 +9,8 @@ import {
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IUser } from '../models/users.model';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
-import { ErrorMessage } from '../../../share/classes/errors.class';
+import { Store } from "@ngrx/store";
+import { LoginUserCheck, LoginUserSuccess } from '../../../stores/actions/users.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +21,13 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private store$: Store<any>
   ) {
     this.user = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
+          this.store$.dispatch(new LoginUserCheck(user as IUser));
           return this.afs.doc<IUser>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -44,8 +46,8 @@ export class AuthService {
   }
 
   signOut() {
-    return this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['/']);
+     return this.afAuth.auth.signOut().then(() => {
+      this.router.navigate(['/login']);
     });
   }
 
@@ -55,7 +57,7 @@ export class AuthService {
       .then(credential => {
         return this.updateUserData(credential.user);
       });
-      // .catch(error => this.handleError(error));
+    // .catch(error => this.handleError(error));
   }
 
   // Sets user data to firestore after succesful login

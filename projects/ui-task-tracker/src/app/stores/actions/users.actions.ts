@@ -4,6 +4,7 @@ import { IUser } from '../../components/users/models/users.model';
 export enum UsersActionTypes {
   LoginUser = '[User] Login User',
   LoginUserSuccess = '[User] Login User Success',
+  LoginUserCheck = '[User] Login User Check',
   SignOutUser = '[User] Sign Out User',
   SignOutUserSuccess = '[User] Sign Out User Success',
   ErrorUsers = '[User] Error Users'
@@ -17,6 +18,12 @@ export class LoginUser implements Action {
 
 export class LoginUserSuccess implements Action {
   readonly type = UsersActionTypes.LoginUserSuccess;
+  constructor(public payload: IUser) {
+  }
+}
+
+export class LoginUserCheck implements Action {
+  readonly type = UsersActionTypes.LoginUserCheck;
   constructor(public payload: IUser) {
   }
 }
@@ -36,6 +43,7 @@ export class ErrorUsers implements Action {
 export type UsersActionsUnion =
   | LoginUser
   | LoginUserSuccess
+  | LoginUserCheck
   | SignOutUser
   | SignOutUserSuccess
   | ErrorUsers;

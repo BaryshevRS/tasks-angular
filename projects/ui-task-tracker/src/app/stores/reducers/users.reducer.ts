@@ -20,6 +20,10 @@ export function UsersReducer(state = initialState, action: UsersActionsUnion): S
     case UsersActionTypes.ErrorUsers:
       return { ...state};
 
+    case UsersActionTypes.LoginUserCheck:
+    case UsersActionTypes.LoginUserSuccess:
+      return { ...state, profile: action.payload};
+
     default:
       return state;
   }

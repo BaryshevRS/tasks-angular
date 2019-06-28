@@ -34,8 +34,8 @@ export type Priorities = Map<string, IPriority>[];
 export type Statuses = Map<string, IStatus>[];
 
 export class Settings {
-  priorities: Priorities;
-  statuses: Statuses;
+  public priorities: Priorities = null;
+  public statuses: Statuses = null;
 }
 
 export type SessionUnion = Priorities | Statuses;

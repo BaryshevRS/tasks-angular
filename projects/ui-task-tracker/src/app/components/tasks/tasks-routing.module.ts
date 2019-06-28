@@ -13,7 +13,6 @@ const routes: Routes = [
     path: '',
     component: TasksComponent,
     canActivate: [AuthGuard],
-    resolve: [TasksResolver],
     children: [
       { path: '', component: TasksTableComponent},
       { path: 'scrum', loadChildren: './tasks-scrum/tasks-scrum.module#TasksScrumModule' }
@@ -21,7 +20,7 @@ const routes: Routes = [
   },
   { path: 'add', component: TaskAddComponent, canActivate: [AuthGuard] },
   { path: 'edit/:id', component: TaskEditComponent, canActivate: [AuthGuard] },
-  { path: ':id', component: TaskComponent, canActivate: [AuthGuard], resolve: [] },
+  { path: ':id', component: TaskComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

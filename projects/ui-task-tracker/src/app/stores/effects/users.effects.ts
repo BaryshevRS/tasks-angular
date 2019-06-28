@@ -12,9 +12,11 @@ import {
 } from '../actions/users.actions';
 import { AuthService } from '../../components/users/services/auth.service';
 import { IUser, User } from '../../components/users/models/users.model';
-import { ErrorMessage } from '../../share/classes/errors.class';
-import { ErrorsService } from '../../share/services/errors.service';
+
 import { Action } from '@ngrx/store';
+import { NoteMessageService } from '../../share/services/note-message.service';
+import { NoteMessage } from "../../share/classes/note-message.class";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -23,7 +25,7 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private errorsService: ErrorsService
+    private noteMessageService: NoteMessageService
   ) {
   }
 
@@ -36,16 +38,25 @@ export class UsersEffects {
           return new LoginUserSuccess(new User(user.uid, user.email));
         })
         .catch(error => {
-          this.errorsService.handleError(new ErrorMessage('Ошибка авторизации', 'Закрыть'));
+          this.noteMessageService.handleError(new NoteMessage('Ошибка авторизации', 'Закрыть'));
           return new ErrorUsers();
         });
     })
   );
 
   @Effect()
-  UpdateTask$ = this.actions$.pipe(
+  signOutUser$ = this.actions$.pipe(
     ofType<SignOutUser>(UsersActionTypes.SignOutUser),
-    switchMap(() => of(new SignOutUserSuccess()))
+    switchMap(() => {
+      return this.authService.signOut().then(
+        () => {
+          return new SignOutUserSuccess();
+        })
+        .catch(error => {
+          this.noteMessageService.handleError(new NoteMessage('Ошибка выхода', 'Закрыть'));
+          return new ErrorUsers();
+        });
+    })
   );
 
 }

@@ -5,6 +5,7 @@ import { GetTasks } from '../../../stores/actions/tasks.actions';
 import { Store } from '@ngrx/store';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
 import { Task } from '../models/task.model';
+import { LoadInits } from "../../../stores/actions/inits.actions";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,8 @@ export class TasksResolver implements Resolve<boolean> {
     private store$: Store<StateTasks>
   ) { }
 
-
   resolve(): Observable<boolean> {
-
-    console.log('dispatch GetTasks');
-    this.store$.dispatch(new GetTasks());
-
+    this.store$.dispatch(new LoadInits());
     return of(true);
-
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType, OnInitEffects } from '@ngrx/effects';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 import { SettingsService } from '../../components/settings/services/settings.service';
 import {
   LoadSettings,
@@ -12,26 +12,39 @@ import {
 } from '../actions/settings.actions';
 import { SessionUnion, Settings } from '../../components/settings/models/settings.model';
 import { Store } from '@ngrx/store';
+import { NoteMessage } from "../../share/classes/note-message.class";
+import { ErrorUsers } from "../actions/users.actions";
+import { NoteMessageService } from "../../share/services/note-message.service";
+import { selectCurrentTask } from "../selectors/tasks.selector";
 
 @Injectable()
-export class SettingsEffects implements OnInitEffects {
+export class SettingsEffects  { // implements OnInitEffects
 
   constructor(
     private actions$: Actions,
     private settingsService: SettingsService,
+    private noteMessageService: NoteMessageService,
     private store$: Store<any>
   ) {
   }
 
   @Effect()
-  loadTasks$ = this.actions$.pipe(
+  getSettings$ = this.actions$.pipe(
     ofType(SettingsActionTypes.GetSettings),
-    switchMap((settings) => {
-        return this.settingsService.readSettings().pipe(
-          // tap((settings) => console.log('settings!', settings)),
-          map(sets => new LoadSettings(sets)),
-          catchError(error => of(new ErrorSetting()))
-        );
+    withLatestFrom(this.store$.select('users')),
+    switchMap((settings, users) => {
+
+          return this.settingsService.readSettings().pipe(
+            map(sets => new LoadSettings(sets)),
+            catchError(error => {
+              if (users || true) {
+                return of(new LoadSettings(new Settings()));
+              } else {
+                return of(new ErrorSetting());
+              }
+            })
+          );
+
       }
     )
   );
@@ -46,13 +59,17 @@ export class SettingsEffects implements OnInitEffects {
               return new LoadSettings(state);
             }
           )
-        .catch(error => of(new ErrorSetting()));
+          .catch(error => {
+            this.noteMessageService.handleError(new NoteMessage('Ошибка Обновления', 'Закрыть'));
+            return new ErrorSetting();
+          })
       }
     )
   );
-
+/*
+  // upload after effects init
   ngrxOnInitEffects(): SettingsActionsUnion {
-    return new GetSettings();
-  }
+    // return new GetSettings();
+  }*/
 
 }

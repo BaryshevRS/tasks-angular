@@ -20,14 +20,14 @@
           {{t.description}}
         </p>
 
-        <ng-container *ngIf="s.priorities[t.priority]">
+        <ng-container *ngIf="s.priorities && s.priorities[t.priority]">
           <p><b>Приоритет</b></p>
           <p [style.color]="s.priorities[t.priority]?.color">
-            <i>{{s.priorities[t.priority]?.name}}</i>
+            {{s.priorities[t.priority]?.name}}
           </p>
         </ng-container>
 
-        <ng-container *ngIf="s.statuses[t.status]">
+        <ng-container *ngIf="s.statuses && s.statuses[t.status]">
           <p><b>Cтатус выполнения</b></p>
           <p>
             <i>{{s.statuses[t.status]?.name}}</i>
