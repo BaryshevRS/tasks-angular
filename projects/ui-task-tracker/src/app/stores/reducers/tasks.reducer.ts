@@ -30,14 +30,13 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
         ...state,
         loading: true
       };
+
     case TasksActionTypes.GetTask:
       return { ...state, selectedTaskId: action.payload };
 
     case TasksActionTypes.LoadTasks:
       return adapter.addAll(action.payload, state);
 
-    case TasksActionTypes.AddTaskSuccess:
-    case TasksActionTypes.UpdateTaskSuccess:
     case TasksActionTypes.LoadTask:
       return adapter.upsertOne(action.payload, state);
 

@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, EffectNotification, ofType, OnRunEffects } from '@ngrx/effects';
-import { InitsActionsUnion, InitsActionTypes, LoadInits } from '../actions/inits.actions';
-import { ErrorUsers, LoginUserSuccess, UsersActionTypes } from "../actions/users.actions";
-import { catchError, exhaustMap, flatMap, map, switchMap, takeUntil, tap, withLatestFrom } from "rxjs/operators";
-import { IUser, User } from "../../components/users/models/users.model";
-import { NoteMessage } from "../../share/classes/note-message.class";
-import { Task } from "../../components/tasks/models/task.model";
-import { ErrorTasks, GetTasks, LoadTasks, TasksActionTypes } from "../actions/tasks.actions";
-import { Observable, of } from "rxjs";
+import { ErrorMessage, InitsActionsUnion, InitsActionTypes, LoadInits } from '../actions/inits.actions';
+import { ErrorUsers, LoginUserSuccess, UsersActionTypes } from '../actions/users.actions';
+import { catchError, exhaustMap, flatMap, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
+import { ErrorTasks, GetTasks, LoadTasks, TasksActionTypes } from '../actions/tasks.actions';
+import { Observable, of } from 'rxjs';
 import { GetSettings, SettingsActionTypes } from '../actions/settings.actions';
-import { Store } from "@ngrx/store";
-import { selectTaskWithSettings } from "../selectors/settings.selector";
+import { Store } from '@ngrx/store';
+import { selectTaskWithSettings } from '../selectors/settings.selector';
 
 @Injectable()
 export class InitsEffects implements OnRunEffects {
@@ -27,7 +24,7 @@ export class InitsEffects implements OnRunEffects {
     flatMap(() => {
       return [new GetSettings(), new GetTasks()];
     }),
-    catchError(error => of(new ErrorTasks(error)))
+    catchError(error => of(new ErrorMessage()))
   );
 
   ngrxOnRunEffects(resolvedEffects$: Observable<EffectNotification>) {
@@ -44,14 +41,14 @@ export class InitsEffects implements OnRunEffects {
           return resolvedEffects$.pipe(
             tap(() => console.log('GetSettings')),
             takeUntil(this.actions$.pipe(ofType(SettingsActionTypes.GetSettings)))
-          )
+          );
         }
       )
     );
   }
 
   isEmptyObject(obj) {
-    for (let i in obj) {
+    for (const i in obj) {
       if (obj.hasOwnProperty(i) && obj[i]) {
         return false;
       }

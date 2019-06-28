@@ -7,7 +7,7 @@ import {
   LoadTasks,
   UpdateStatusTask,
   TasksActionTypes,
-  GetTasks,
+  GetTasks, AddTask,
 } from '../actions/tasks.actions';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -16,6 +16,8 @@ import { Task } from '../../components/tasks/models/task.model';
 import { Store } from '@ngrx/store';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { selectCurrentTask } from '../selectors/tasks.selector';
+import { NoteMessageService } from '../../share/services/note-message.service';
+import { NoteMessage } from '../../share/classes/note-message.class';
 
 // import { selectRouteParams } from "../reducers/tasks.reducer";
 
@@ -25,7 +27,8 @@ export class TasksEffects {
   constructor(
     private actions$: Actions,
     private tasksService: TasksService,
-    private store$: Store<any>
+    private store$: Store<any>,
+    private noteMessageService: NoteMessageService
   ) {
   }
 
@@ -86,7 +89,7 @@ export class TasksEffects {
   );
 
   /*
-  * Update task for store and db
+  * Update task for store and db at scrum view
   * */
   @Effect()
   UpdateTask$ = this.actions$.pipe(
@@ -101,10 +104,33 @@ export class TasksEffects {
             }
           ).catch(error => of(new ErrorTasks(error)));
       } else {
-          return of(new ErrorTasks(null));
+        return of(new ErrorTasks(null));
       }
 
     })
   );
+
+  /*
+  * Add new task
+  * */
+
+  @Effect()
+  addTask$ = this.actions$.pipe(
+    ofType<AddTask>(TasksActionTypes.AddTask),
+    switchMap(({ payload }) => {
+
+      console.log('AddTask$', payload);
+
+      return this.tasksService.addTask(payload)
+        .then((credential) => {
+            this.noteMessageService.handleError(new NoteMessage('Задача добавлена успешно.'));
+            return new LoadTask(payload);
+          }
+        ).catch(error => {
+          this.noteMessageService.handleError(new NoteMessage('Ошибка авторизации.'));
+        });
+    })
+  );
+
 
 }

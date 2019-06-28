@@ -39,6 +39,8 @@ export class LoadTask implements Action {
 
 export class AddTask implements Action {
   readonly type = TasksActionTypes.AddTask;
+  constructor(public payload: Task) {
+  }
 }
 
 export class UpdateTask implements Action {

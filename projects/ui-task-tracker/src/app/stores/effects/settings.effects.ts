@@ -12,10 +12,10 @@ import {
 } from '../actions/settings.actions';
 import { SessionUnion, Settings } from '../../components/settings/models/settings.model';
 import { Store } from '@ngrx/store';
-import { NoteMessage } from "../../share/classes/note-message.class";
-import { ErrorUsers } from "../actions/users.actions";
-import { NoteMessageService } from "../../share/services/note-message.service";
-import { selectCurrentTask } from "../selectors/tasks.selector";
+import { NoteMessage } from '../../share/classes/note-message.class';
+import { ErrorUsers } from '../actions/users.actions';
+import { NoteMessageService } from '../../share/services/note-message.service';
+import { selectCurrentTask } from '../selectors/tasks.selector';
 
 @Injectable()
 export class SettingsEffects  { // implements OnInitEffects
@@ -62,7 +62,7 @@ export class SettingsEffects  { // implements OnInitEffects
           .catch(error => {
             this.noteMessageService.handleError(new NoteMessage('Ошибка Обновления', 'Закрыть'));
             return new ErrorSetting();
-          })
+          });
       }
     )
   );

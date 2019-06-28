@@ -15,8 +15,8 @@ import { IUser, User } from '../../components/users/models/users.model';
 
 import { Action } from '@ngrx/store';
 import { NoteMessageService } from '../../share/services/note-message.service';
-import { NoteMessage } from "../../share/classes/note-message.class";
-import { Router } from "@angular/router";
+import { NoteMessage } from '../../share/classes/note-message.class';
+import { Router } from '@angular/router';
 
 
 @Injectable()
@@ -38,7 +38,7 @@ export class UsersEffects {
           return new LoginUserSuccess(new User(user.uid, user.email));
         })
         .catch(error => {
-          this.noteMessageService.handleError(new NoteMessage('Ошибка авторизации', 'Закрыть'));
+          this.noteMessageService.handleError(new NoteMessage('Ошибка авторизации.'));
           return new ErrorUsers();
         });
     })
@@ -53,7 +53,7 @@ export class UsersEffects {
           return new SignOutUserSuccess();
         })
         .catch(error => {
-          this.noteMessageService.handleError(new NoteMessage('Ошибка выхода', 'Закрыть'));
+          this.noteMessageService.handleError(new NoteMessage('Ошибка выхода.'));
           return new ErrorUsers();
         });
     })

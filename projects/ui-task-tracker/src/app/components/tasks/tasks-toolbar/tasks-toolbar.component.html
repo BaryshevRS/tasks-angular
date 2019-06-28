@@ -4,11 +4,11 @@
     <mat-select >
       <mat-option>По умолчанию</mat-option>
       <mat-option
-          *ngFor="let status of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order';
+          *ngFor="let priority of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order';
             trackBy: trackByFn"
-          [value]="status.key"
+          [value]="priority.key"
       >
-        {{status.value.name}}
+        {{priority.value.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>

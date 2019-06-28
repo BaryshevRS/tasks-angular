@@ -41,22 +41,10 @@ export class TasksService {
 
   addTask(task: Task) {
     const taskRef: AngularFirestoreCollection<Task> = this.afs.collection('tasks');
-
-    console.log('task', task);
-
-    taskRef.add(task)
-      .then(credential => {
-        alert('Задача добавлена успешно!');
-      })
-      .catch(error => this.handleError(error));
+    return taskRef.add(task);
   }
 
   updateStatusTask(id, status) {
     return this.afs.doc<Task>(`tasks/${id}`).update({status});
-  }
-
-  private handleError(error: Error) {
-    console.error(error);
-    alert('Ошибка добавления задачи');
   }
 }

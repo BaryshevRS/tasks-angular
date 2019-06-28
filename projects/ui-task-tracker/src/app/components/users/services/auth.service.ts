@@ -9,7 +9,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IUser } from '../models/users.model';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import { LoginUserCheck, LoginUserSuccess } from '../../../stores/actions/users.actions';
 
 @Injectable({

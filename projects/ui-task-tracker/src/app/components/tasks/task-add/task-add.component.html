@@ -1,7 +1,14 @@
+
+<div class="header">
+  <h2>Добавление задачи</h2>
+</div>
+
 <div class="task-add-page">
+
   <div class="content">
 
-    <form (ngSubmit)="onSubmit($event)" [formGroup]="taskFormControl" class="task-add-form">
+    <form (ngSubmit)="onSubmit($event)" [formGroup]="taskAddControl" class="task-add-form">
+
       <div class="example-container">
         <mat-form-field appearance="fill">
           <mat-label>Название</mat-label>
@@ -12,7 +19,7 @@
       <div>
         <mat-form-field appearance="fill">
           <mat-label>Описание</mat-label>
-          <textarea formControlName="description" matInput placeholder="Описание" required></textarea>
+          <textarea formControlName="description" matInput placeholder="Описание"></textarea>
         </mat-form-field>
       </div>
 
@@ -27,40 +34,37 @@
           <input formControlName="usedTime" matInput type="number" placeholder="Трудозатраты" >
         </mat-form-field>
       </div>
-
-<!--      <div class="row-justify">
+      <div class="row-justify">
         <mat-form-field>
-          <mat-select placeholder="Статус" formControlName="priority" formControlName="status">
-            <mat-option *ngFor="let s of status" [value]="s">
-              {{s}}
+          <mat-select placeholder="Статус"   formControlName="status">
+            <mat-option
+                *ngFor="let status of (settings | async).statuses | keyvalue | orderBy: null : 'value' : 'order';
+            trackBy: trackByFn"
+                [value]="status.key"
+            >
+              {{status.value.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker1" placeholder="Дата создания" formControlName="createDate">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-      </div>-->
 
-<!--      <div>
-        <div>
-          <label id="example-radio-group-label">Приоритет</label>
-        </div>
-        <mat-radio-group
-            aria-labelledby="example-radio-group-label"
-            formControlName="priority">
-          <mat-radio-button class="example-radio-button" *ngFor="let p of priority" [value]="p">
-            {{p}}
-          </mat-radio-button>
-        </mat-radio-group>
-      </div>-->
+        <mat-form-field>
+          <mat-select placeholder="Приоритет" formControlName="priority" >
+            <mat-option
+                *ngFor="let priority of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order';
+            trackBy: trackByFn"
+                [value]="priority.key"
+            >
+              {{priority.value.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <br>
 
       <div class="login-row-submit">
-        <button type="submit" mat-raised-button color="primary">Добавить</button>
+        <button [disabled]="!taskAddControl.valid" type="submit" mat-raised-button color="primary">Добавить</button>
       </div>
 
     </form>

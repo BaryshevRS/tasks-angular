@@ -2,7 +2,7 @@ export class NoteMessage {
 
   constructor(
     public message: string,
-    public action: string
+    public action = 'Закрыть'
   ) {
   }
 

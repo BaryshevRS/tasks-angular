@@ -6,7 +6,6 @@ import { TaskAddComponent } from './task-add/task-add.component';
 import { AuthGuard } from '../users/guards/auth.guard';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
-import { TasksResolver } from './resolver/tasks-resolver.resolver';
 
 const routes: Routes = [
   {

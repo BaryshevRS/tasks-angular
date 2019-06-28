@@ -7,6 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TaskEditComponent implements OnInit {
 
+
+  // this.taskFormControl = this.fb.group({
+  //   id: null,
+  //   name: [],
+  //   description: [],
+  //   createDate: (new Date()).toISOString(),
+  //   plannedTime: [],
+  //   usedTime: [],
+  //   priority: [],
+  //   status: [],
+  //   uid: null
+  // });
+
+
   constructor() { }
 
   ngOnInit() {
