@@ -64,7 +64,13 @@
       <br>
 
       <div class="login-row-submit">
-        <button [disabled]="!taskAddControl.valid" type="submit" mat-raised-button color="primary">Добавить</button>
+        <button [disabled]="disabled || !taskAddControl.valid" type="submit" mat-raised-button color="primary">
+          <div class="button-spinner">
+            <mat-spinner *ngIf="disabled" strokeWidth="2" diameter="20"></mat-spinner>
+            <span>Добавить</span>
+          </div>
+        </button>
+
       </div>
 
     </form>

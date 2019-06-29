@@ -7,9 +7,9 @@ import {
   LoadTasks,
   UpdateStatusTask,
   TasksActionTypes,
-  GetTasks, AddTask,
+  GetTasks, AddTask, UpdateTask,
 } from '../actions/tasks.actions';
-import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, delay, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TasksService } from '../../components/tasks/services/tasks.service';
 import { Task } from '../../components/tasks/models/task.model';
@@ -18,8 +18,6 @@ import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { selectCurrentTask } from '../selectors/tasks.selector';
 import { NoteMessageService } from '../../share/services/note-message.service';
 import { NoteMessage } from '../../share/classes/note-message.class';
-
-// import { selectRouteParams } from "../reducers/tasks.reducer";
 
 @Injectable()
 export class TasksEffects {
@@ -48,10 +46,10 @@ export class TasksEffects {
   );
 
   /*
-  * Select route for page task and set current task id in store.
+  * Check id task page.
   * */
   @Effect()
-  getTask$ = this.actions$.pipe(
+  checkRouteTask$ = this.actions$.pipe(
     ofType<RouterNavigationAction>(ROUTER_NAVIGATION),
     filter((action: RouterNavigationAction) => {
       const path = action.payload.routerState.root.firstChild;
@@ -70,12 +68,11 @@ export class TasksEffects {
   * Select current task from store or get from db
   * */
   @Effect()
-  loadTask$ = this.actions$.pipe(
+  getTask$ = this.actions$.pipe(
     ofType<GetTask>(TasksActionTypes.GetTask),
     withLatestFrom(this.store$.select(selectCurrentTask)),
     switchMap(([action, taskStore]) => {
       if (!taskStore) {
-        console.log('@Effect loadTask$');
         return this.tasksService.readTaskForId(action.payload).pipe(
           map((task: Task) => {
             return new LoadTask(task);
@@ -89,14 +86,12 @@ export class TasksEffects {
   );
 
   /*
-  * Update task for store and db at scrum view
+  * Update status task for scrum view
   * */
   @Effect()
-  UpdateTask$ = this.actions$.pipe(
+  updateStatusTask$ = this.actions$.pipe(
     ofType<UpdateStatusTask>(TasksActionTypes.UpdateStatusTask),
     switchMap((action) => {
-
-      console.log('UpdateTask$', action);
       if (action.payload.status) {
         return this.tasksService.updateStatusTask(action.payload.id, action.payload.status)
           .then(() => {
@@ -106,7 +101,6 @@ export class TasksEffects {
       } else {
         return of(new ErrorTasks(null));
       }
-
     })
   );
 
@@ -127,6 +121,31 @@ export class TasksEffects {
           }
         ).catch(error => {
           this.noteMessageService.handleError(new NoteMessage('Ошибка добавления.'));
+          return of(new ErrorTasks(null));
+        });
+    })
+  );
+
+  /*
+  * Update task
+  * */
+
+  @Effect()
+  updateTask$ = this.actions$.pipe(
+    ofType<UpdateTask>(TasksActionTypes.UpdateTask),
+    withLatestFrom(this.store$.select(selectCurrentTask)),
+    switchMap(([{ payload }, task]) => {
+
+      const update = {...task, ...payload};
+
+      return this.tasksService.updateTask(update)
+        .then(() => {
+            this.noteMessageService.handleError(new NoteMessage('Задача успешно обновлена.'));
+            return new LoadTask(update);
+          }
+        ).catch(error => {
+          this.noteMessageService.handleError(new NoteMessage('Ошибка обновления.'));
+          return of(new ErrorTasks(null));
         });
     })
   );

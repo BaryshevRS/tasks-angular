@@ -18,7 +18,7 @@ import {
   MatNativeDateModule,
   MatSelectModule,
   MatRadioModule,
-  MatButtonToggleModule
+  MatButtonToggleModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
@@ -54,8 +54,9 @@ import { ShareModule } from '../../share/modules/share.module';
     MatSelectModule,
     MatRadioModule,
     MatButtonToggleModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
-    ShareModule
+    ShareModule,
   ],
   exports: [
     TasksComponent

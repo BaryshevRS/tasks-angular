@@ -14,8 +14,8 @@ import { StateSettings } from '../../../stores/reducers/settings.reducer';
 })
 export class TaskComponent implements OnInit {
 
-  private task: Observable<Task>;
-  private settings: Observable<Settings>;
+  public task: Observable<Task>;
+  public settings: Observable<Settings>;
 
   constructor(
     private store$: Store<StateTasks>

@@ -1,24 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType, OnInitEffects } from '@ngrx/effects';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 import { SettingsService } from '../../components/settings/services/settings.service';
 import {
   LoadSettings,
-  GetSettings,
   SettingsActionTypes,
-  SettingsActionsUnion,
   ErrorSetting
 } from '../actions/settings.actions';
-import { SessionUnion, Settings } from '../../components/settings/models/settings.model';
+import { Settings } from '../../components/settings/models/settings.model';
 import { Store } from '@ngrx/store';
 import { NoteMessage } from '../../share/classes/note-message.class';
-import { ErrorUsers } from '../actions/users.actions';
 import { NoteMessageService } from '../../share/services/note-message.service';
-import { selectCurrentTask } from '../selectors/tasks.selector';
 
 @Injectable()
-export class SettingsEffects  { // implements OnInitEffects
+export class SettingsEffects  {
 
   constructor(
     private actions$: Actions,
@@ -66,10 +62,4 @@ export class SettingsEffects  { // implements OnInitEffects
       }
     )
   );
-/*
-  // upload after effects init
-  ngrxOnInitEffects(): SettingsActionsUnion {
-    // return new GetSettings();
-  }*/
-
 }

@@ -25,7 +25,6 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
     case TasksActionTypes.AddTask:
     case TasksActionTypes.UpdateTask:
     case TasksActionTypes.UpdateStatusTask:
-    case TasksActionTypes.UpdateTaskSuccess:
       return {
         ...state,
         loading: true
@@ -39,9 +38,6 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
 
     case TasksActionTypes.LoadTask:
       return adapter.upsertOne(action.payload, state);
-
-    case TasksActionTypes.ErrorTasks:
-      return state;
 
     default:
       return state;

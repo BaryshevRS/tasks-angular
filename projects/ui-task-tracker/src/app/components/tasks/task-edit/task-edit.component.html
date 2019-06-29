@@ -1,1 +1,79 @@
-<button routerLink="/tasks" mat-button>Назад</button>
+<button [routerLink]="'/tasks/' + (task | async).id" mat-button>Назад</button>
+
+<div class="header">
+    <h2>Редактирование задачи</h2>
+</div>
+
+<div class="task-edit-page">
+
+    <div class="content">
+
+        <form (ngSubmit)="onSubmit($event)" [formGroup]="taskControl" class="task-add-form">
+
+            <div class="example-container">
+                <mat-form-field appearance="fill">
+                    <mat-label>Название</mat-label>
+                    <input formControlName="name" matInput type="text" placeholder="Название" required>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Описание</mat-label>
+                    <textarea formControlName="description" matInput placeholder="Описание"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="row-justify">
+                <mat-form-field appearance="fill">
+                    <mat-label>Планируемое время</mat-label>
+                    <input formControlName="plannedTime" matInput type="number" placeholder="Время в часах">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Трудозатраты</mat-label>
+                    <input formControlName="usedTime" matInput type="number" placeholder="Трудозатраты">
+                </mat-form-field>
+            </div>
+            <div class="row-justify">
+                <mat-form-field>
+                    <mat-select placeholder="Статус" formControlName="status">
+                        <mat-option
+                                *ngFor="let status of (settings | async).statuses | keyvalue | orderBy: null : 'value' : 'order';
+            trackBy: trackByFn"
+                                [value]="status.key"
+                        >
+                            {{status.value.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select placeholder="Приоритет" formControlName="priority">
+                        <mat-option
+                                *ngFor="
+                                let priority of (settings | async).priorities | keyvalue |
+                                orderBy: null : 'value' : 'order'; trackBy: trackByFn"
+                                [value]="priority.key"
+                        >
+                            {{priority.value.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <br>
+
+            <div class="login-row-submit">
+
+                <button [disabled]="disabled || !taskControl.valid" type="submit" mat-raised-button color="primary">
+                    <div class="button-spinner">
+                        <mat-spinner *ngIf="disabled" strokeWidth="2" diameter="20"></mat-spinner>
+                        <span>Обновить</span>
+                    </div>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

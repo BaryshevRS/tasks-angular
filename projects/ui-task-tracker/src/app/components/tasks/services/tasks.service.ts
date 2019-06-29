@@ -44,6 +44,10 @@ export class TasksService {
     return taskRef.add(task);
   }
 
+  updateTask(task: Task) {
+    return this.afs.doc<Task>(`tasks/${task.id}`).update(task);
+  }
+
   updateStatusTask(id, status) {
     return this.afs.doc<Task>(`tasks/${id}`).update({status});
   }

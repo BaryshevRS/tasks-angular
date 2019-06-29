@@ -21,19 +21,20 @@ export class TaskAddComponent implements OnInit, OnDestroy {
   public settings: Observable<Settings>;
   public taskAddControl: FormGroup;
   private unsubscribe$ = new Subject<void>();
+  private disabled: boolean;
 
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
-    private store$: Store<any>,
-    private note: NoteMessageService,
-    private snackBar: MatSnackBar
+    private store$: Store<any>
   ) {
   }
 
   @ViewChild(FormGroupDirective, { static: true }) form;
 
   ngOnInit() {
+
+    this.disabled = false;
 
     this.taskAddControl = this.fb.group({
       name: ['', Validators.required],
