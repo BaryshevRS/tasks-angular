@@ -9,10 +9,12 @@ export class NoteMessageService {
 
   constructor(
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+  }
 
   public handleError(error: NoteMessage): void {
     const { message, action, config } = error.setSnackBar();
     this.snackBar.open(message, action, config as MatSnackBarConfig);
   }
+
 }

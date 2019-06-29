@@ -71,7 +71,6 @@ export class UpdateTaskSuccess implements Action {
   }
 }
 
-
 export class ErrorTasks implements Action {
   readonly type = TasksActionTypes.ErrorTasks;
   constructor(public payload: any) {

@@ -57,7 +57,6 @@ export class AuthService {
       .then(credential => {
         return this.updateUserData(credential.user);
       });
-    // .catch(error => this.handleError(error));
   }
 
   // Sets user data to firestore after succesful login

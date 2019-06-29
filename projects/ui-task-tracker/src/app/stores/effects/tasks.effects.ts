@@ -117,20 +117,17 @@ export class TasksEffects {
   @Effect()
   addTask$ = this.actions$.pipe(
     ofType<AddTask>(TasksActionTypes.AddTask),
-    switchMap(({ payload }) => {
-
-      console.log('AddTask$', payload);
-
+    withLatestFrom(this.store$.select('users')),
+    switchMap(([{ payload }, { profile }]) => {
       return this.tasksService.addTask(payload)
-        .then((credential) => {
+        .then(() => {
             this.noteMessageService.handleError(new NoteMessage('Задача добавлена успешно.'));
+            payload.uid = profile.uid;
             return new LoadTask(payload);
           }
         ).catch(error => {
-          this.noteMessageService.handleError(new NoteMessage('Ошибка авторизации.'));
+          this.noteMessageService.handleError(new NoteMessage('Ошибка добавления.'));
         });
     })
   );
-
-
 }

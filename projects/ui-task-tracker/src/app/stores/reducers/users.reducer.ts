@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import { UsersActionsUnion, UsersActionTypes } from '../actions/users.actions';
 import { IUser } from '../../components/users/models/users.model';
+import { StateTasks } from './tasks.reducer';
+import { State } from './index';
 
 
 export interface StateUsers {

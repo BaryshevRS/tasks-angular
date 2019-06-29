@@ -37,7 +37,7 @@ export class SettingsEffects  { // implements OnInitEffects
           return this.settingsService.readSettings().pipe(
             map(sets => new LoadSettings(sets)),
             catchError(error => {
-              if (users || true) {
+              if (users) {
                 return of(new LoadSettings(new Settings()));
               } else {
                 return of(new ErrorSetting());

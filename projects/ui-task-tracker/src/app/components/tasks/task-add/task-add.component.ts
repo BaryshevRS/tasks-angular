@@ -8,6 +8,8 @@ import { Settings } from '../../settings/models/settings.model';
 import { StateUsers } from '../../../stores/reducers/users.reducer';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NoteMessageService } from '../../../share/services/note-message.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-task-add',
@@ -23,7 +25,9 @@ export class TaskAddComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private tasksService: TasksService,
-    private store$: Store<any>
+    private store$: Store<any>,
+    private note: NoteMessageService,
+    private snackBar: MatSnackBar
   ) {
   }
 
@@ -45,19 +49,11 @@ export class TaskAddComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const { name, description, plannedTime, createDate, usedTime, priority, status, uid } = this.taskAddControl.value;
-    const task: Task = { name, description, plannedTime, createDate, usedTime, priority, status, uid };
+    const task: Task = { name, description, plannedTime, createDate, usedTime, priority, status };
+    task.createDate = (new Date()).toISOString();
 
-    this.store$.select('users')
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((users: StateUsers) => {
-
-        this.form.resetForm();
-
-        task.createDate = (new Date()).toISOString();
-        task.uid = users.profile.uid;
-
-        this.store$.dispatch(new AddTask(task));
-      });
+    this.form.resetForm();
+    this.store$.dispatch(new AddTask(task));
   }
 
   trackByFn(index, item) {
