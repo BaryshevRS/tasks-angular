@@ -4,7 +4,6 @@
 .task-edit-page {
   display: flex;
   justify-content: center;
-  width: 720px;
   margin: 0 auto;
 }
 
@@ -12,10 +11,16 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  @media screen and (max-width: 960px) {
+    display: block;
+  }
 }
 
 mat-form-field {
-  margin: 0 5px;
+  &:first-child {
+    margin-right: 5px;
+  }
   width: 100%;
 }
 
