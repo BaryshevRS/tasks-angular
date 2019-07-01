@@ -33,8 +33,6 @@ export class SettingsComponent implements OnInit {
       switchMap(
         (settings: StateSettings) => {
 
-          console.log('get settings', settings);
-
           this.settingsFormControl = [];
 
           this.setPrioritiesForm(settings);

@@ -34,12 +34,10 @@ export class InitsEffects implements OnRunEffects {
       exhaustMap(([, [tasks, settings]]) => {
 
           if (this.isEmptyObject(settings) && !(tasks as Array<any>).length) {
-            console.log('LoadInits');
             this.store$.dispatch(new LoadInits());
           }
 
           return resolvedEffects$.pipe(
-            tap(() => console.log('GetSettings')),
             takeUntil(this.actions$.pipe(ofType(SettingsActionTypes.GetSettings)))
           );
         }

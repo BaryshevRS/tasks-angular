@@ -7,7 +7,7 @@ import {
   LoadTasks,
   UpdateStatusTask,
   TasksActionTypes,
-  GetTasks, AddTask, UpdateTask, FilterPriorityTasks,
+  GetTasks, AddTask, UpdateTask, FilterPriorityTasks, AddTaskSuccess,
 } from '../actions/tasks.actions';
 import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -119,7 +119,7 @@ export class TasksEffects {
         .then(() => {
             this.noteMessageService.handleError(new NoteMessage('Задача добавлена успешно.'));
             payload.uid = profile.uid;
-            return new LoadTask(payload);
+            return new AddTaskSuccess();
           }
         ).catch(error => {
           this.noteMessageService.handleError(new NoteMessage('Ошибка добавления.'));

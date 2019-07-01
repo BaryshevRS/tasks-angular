@@ -74,7 +74,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('dropList', this.dropList.toArray());
     this.dropList.map(item => {
       item.connectedTo = this.dropList.toArray();
       return item;
@@ -87,9 +86,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    // console.log('event', event);
-    // console.log('event.previousContainer', event.container.data, event.currentIndex);
-
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

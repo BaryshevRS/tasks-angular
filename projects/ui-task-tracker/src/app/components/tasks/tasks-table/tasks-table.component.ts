@@ -35,7 +35,6 @@ export class TasksTableComponent implements OnInit, OnDestroy {
     this.store$.pipe(select(selectTaskWithSettings))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(([tasks, settings]: [TaskView[], StateSettings]) => {
-        console.log('TasksTableComponent', settings);
 
         if (settings.priorities && settings.statuses) {
           tasks.map(task => {

@@ -1,23 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../models/task.model';
 import { UpdateTask } from '../../../stores/actions/tasks.actions';
-import { Observable } from 'rxjs';
+import { Observable, pipe, Subject } from 'rxjs';
 import { Settings } from '../../settings/models/settings.model';
 import { select, Store } from '@ngrx/store';
 import { selectCurrentTask } from '../../../stores/selectors/tasks.selector';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-task-edit',
   templateUrl: './task-edit.component.html',
   styleUrls: ['./task-edit.component.scss']
 })
-export class TaskEditComponent implements OnInit {
+export class TaskEditComponent implements OnInit, OnDestroy {
 
   public task: Observable<Task>;
   public settings: Observable<Settings>;
   public taskControl: FormGroup;
   public disabled: boolean;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +30,8 @@ export class TaskEditComponent implements OnInit {
 
   ngOnInit() {
     this.settings = this.store$.select('settings');
-    this.task = this.store$.pipe(select(selectCurrentTask)) as Observable<Task>;
+    this.task = (this.store$.pipe(select(selectCurrentTask)) as Observable<Task>)
+      .pipe(takeUntil(this.unsubscribe$));
 
     this.task.subscribe((task) => {
       const { name, description, plannedTime, usedTime, priority, status } = task;
@@ -53,6 +56,11 @@ export class TaskEditComponent implements OnInit {
 
   trackByFn(index, item) {
     return item.key;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

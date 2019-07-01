@@ -33,8 +33,6 @@ export class SettingsService {
   updateSettings(values: SessionUnion) {
     const id = Object.keys(values)[0];
 
-    console.log('values[id]', values[id]);
-
     const updateVal = {};
     values[id].map(a => {
       const u = {...a};
@@ -44,8 +42,6 @@ export class SettingsService {
 
     const state = {};
     state[id] = updateVal;
-
-    console.log('updateVal', id, updateVal);
 
     return this.afs.doc(`settings/${id}`).set(updateVal)
       .then(() => state);

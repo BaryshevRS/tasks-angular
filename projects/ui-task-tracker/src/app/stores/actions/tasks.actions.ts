@@ -7,8 +7,9 @@ export enum TasksActionTypes {
   LoadTasks = '[Task] Load Tasks',
   LoadTask = '[Task] Load Task',
   UpdateStatusTask = '[Task] Update Status Task',
-  AddTask = '[Task] Add Task',
   UpdateTask = '[Task] Update Task',
+  AddTask = '[Task] Add Task',
+  AddTaskSuccess = '[Task] Add Task Success',
   ErrorTasks = '[Task] Error Tasks',
   FilterPriorityTasks = '[Task] Filter Priority Tasks',
   SetViewTasks = '[Task] Set View Tasks'
@@ -16,6 +17,10 @@ export enum TasksActionTypes {
 
 export class GetTasks implements Action {
   readonly type = TasksActionTypes.GetTasks;
+}
+
+export class AddTaskSuccess implements Action {
+  readonly type = TasksActionTypes.AddTaskSuccess;
 }
 
 export class GetTask implements Action {
@@ -81,6 +86,7 @@ export type TasksActionsUnion =
   | GetTasks
   | GetTask
   | AddTask
+  | AddTaskSuccess
   | UpdateTask
   | UpdateStatusTask
   | ErrorTasks

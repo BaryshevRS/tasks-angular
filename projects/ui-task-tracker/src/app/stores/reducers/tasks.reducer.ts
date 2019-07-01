@@ -5,7 +5,7 @@ import { LoadInits } from '../actions/inits.actions';
 
 export interface StateTasks extends EntityState<Task> {
   // additional entities state properties
-  selectedTaskId: string | number | null;
+  selectId: string | number | null;
   loading?: boolean;
   error?: null;
   filters: {
@@ -18,7 +18,7 @@ export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>();
 
 export const initialState: StateTasks = adapter.getInitialState({
   // additional entity state properties
-  selectedTaskId: null,
+  selectId: null,
   ids: [],
   entities: null,
   filters: {
@@ -39,16 +39,19 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
         loading: true
       };
 
+    case TasksActionTypes.AddTaskSuccess:
+      return {
+        ...state,
+        loading: false
+      };
+
     case TasksActionTypes.GetTask:
-      return { ...state, selectedTaskId: action.payload };
+      return { ...state, selectId: action.payload };
 
     case TasksActionTypes.LoadTasks:
       return adapter.addAll(action.payload, state);
 
     case TasksActionTypes.LoadTask:
-
-      console.log('!!!action.payload', action.payload);
-
       return adapter.upsertOne(action.payload, state);
 
     case TasksActionTypes.FilterPriorityTasks:
@@ -62,7 +65,7 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
   }
 }
 
-export const getSelectedTaskId = (state: StateTasks) => state.selectedTaskId;
+export const getSelectedTaskId = (state: StateTasks) => state.selectId;
 
 // get the selectors
 const {
