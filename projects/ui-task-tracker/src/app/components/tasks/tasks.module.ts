@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TasksComponent } from './tasks.component';
@@ -22,11 +22,9 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
-import { TasksScrumModule } from './tasks-scrum/tasks-scrum.module';
-import { OrderByPipe } from '../../share/pipes/order-by.pipe';
 import { ShareModule } from '../../share/modules/share.module';
+import { getRuPaginatorIntl } from "../../ru-paginator-intl";
 
 @NgModule({
   declarations: [
@@ -34,7 +32,6 @@ import { ShareModule } from '../../share/modules/share.module';
     TaskComponent,
     TaskAddComponent,
     TasksTableComponent,
-   // TasksScrumComponent,
     TaskEditComponent,
     TasksToolbarComponent
   ],
@@ -60,6 +57,9 @@ import { ShareModule } from '../../share/modules/share.module';
   ],
   exports: [
     TasksComponent
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getRuPaginatorIntl() }
   ]
 })
 export class TasksModule {

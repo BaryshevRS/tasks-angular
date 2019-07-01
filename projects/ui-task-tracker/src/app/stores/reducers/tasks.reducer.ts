@@ -1,12 +1,17 @@
 import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Task } from '../../components/tasks/models/task.model';
 import { TasksActionsUnion, TasksActionTypes } from '../actions/tasks.actions';
+import { LoadInits } from "../actions/inits.actions";
 
 export interface StateTasks extends EntityState<Task> {
   // additional entities state properties
   selectedTaskId: string | number | null;
   loading?: boolean;
   error?: null;
+  filters: {
+    priority: string | null
+  },
+  viewScrum: boolean
 }
 
 export const adapter: EntityAdapter<Task> = createEntityAdapter<Task>();
@@ -15,7 +20,11 @@ export const initialState: StateTasks = adapter.getInitialState({
   // additional entity state properties
   selectedTaskId: null,
   ids: [],
-  entities: null
+  entities: null,
+  filters: {
+    priority: null
+  },
+  viewScrum: false
 });
 
 export function TasksReducer(state = initialState, action: TasksActionsUnion): StateTasks {
@@ -38,6 +47,12 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
 
     case TasksActionTypes.LoadTask:
       return adapter.upsertOne(action.payload, state);
+
+    case TasksActionTypes.FilterPriorityTasks:
+      return {...state, filters: {priority: action.payload}}
+
+    case TasksActionTypes.SetViewTasks:
+      return {...state, viewScrum: action.payload}
 
     default:
       return state;

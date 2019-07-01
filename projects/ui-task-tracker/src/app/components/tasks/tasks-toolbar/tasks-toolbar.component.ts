@@ -1,12 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
-import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
-import { takeUntil } from 'rxjs/operators';
-import { Task } from '../models/task.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { FilterPriorityTasks, SetViewTasks } from '../../../stores/actions/tasks.actions';
 
 @Component({
   selector: 'app-tasks-toolbar',
@@ -17,8 +13,6 @@ export class TasksToolbarComponent implements OnInit {
 
   public colorButton = 'left';
 
-  private unsubscribe$ = new Subject<void>();
-
   public settings;
 
   constructor(
@@ -28,30 +22,24 @@ export class TasksToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.router.url.includes('/scrum')) {
       this.colorButton = 'right';
     }
 
     this.settings = this.store$.pipe(select('settings'));
+  }
 
-    //     .pipe(takeUntil(this.unsubscribe$))
-    //     .subscribe((settings) => {
-    //       console.log('TasksToolbarComponent', settings);
-    //
-    //     });
-    // }
+  changePriority(e = null) {
+    this.store$.dispatch(new FilterPriorityTasks(e));
+  }
 
-    // ngOnDestroy(): void {
-    //   this.unsubscribe$.next();
-    //   this.unsubscribe$.complete();
-    // }
-
+  setView(view = false) {
+    // viewScrum
+    this.store$.dispatch(new SetViewTasks(view));
   }
 
   trackByFn(index, item) {
-    // console.log('item', item);
-    return item.key; // unique id corresponding to the item
+    return item.key;
   }
 
 }

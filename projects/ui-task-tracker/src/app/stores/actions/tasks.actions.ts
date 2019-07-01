@@ -10,6 +10,8 @@ export enum TasksActionTypes {
   AddTask = '[Task] Add Task',
   UpdateTask = '[Task] Update Task',
   ErrorTasks = '[Task] Error Tasks',
+  FilterPriorityTasks = '[Task] Filter Priority Tasks',
+  SetViewTasks = '[Task] Set View Tasks'
 }
 
 export class GetTasks implements Action {
@@ -61,6 +63,18 @@ export class ErrorTasks implements Action {
   }
 }
 
+export class FilterPriorityTasks implements Action {
+  readonly type = TasksActionTypes.FilterPriorityTasks;
+  constructor(public payload: string | null) {
+  }
+}
+
+export class SetViewTasks implements Action {
+  readonly type = TasksActionTypes.SetViewTasks;
+  constructor(public payload: boolean) {
+  }
+}
+
 export type TasksActionsUnion =
   | LoadTasks
   | LoadTask
@@ -69,4 +83,6 @@ export type TasksActionsUnion =
   | AddTask
   | UpdateTask
   | UpdateStatusTask
-  | ErrorTasks;
+  | ErrorTasks
+  | FilterPriorityTasks
+  | SetViewTasks;

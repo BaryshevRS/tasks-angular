@@ -7,7 +7,7 @@ import {
   LoadTasks,
   UpdateStatusTask,
   TasksActionTypes,
-  GetTasks, AddTask, UpdateTask,
+  GetTasks, AddTask, UpdateTask, FilterPriorityTasks,
 } from '../actions/tasks.actions';
 import { catchError, delay, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -15,9 +15,11 @@ import { TasksService } from '../../components/tasks/services/tasks.service';
 import { Task } from '../../components/tasks/models/task.model';
 import { Store } from '@ngrx/store';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
-import { selectCurrentTask } from '../selectors/tasks.selector';
+import { selectCurrentTask, selectTaskEntities, selectTaskState, selectFiltersTask } from '../selectors/tasks.selector';
 import { NoteMessageService } from '../../share/services/note-message.service';
 import { NoteMessage } from '../../share/classes/note-message.class';
+import { State } from "../reducers";
+import { StateTasks } from "../reducers/tasks.reducer";
 
 @Injectable()
 export class TasksEffects {
@@ -25,7 +27,7 @@ export class TasksEffects {
   constructor(
     private actions$: Actions,
     private tasksService: TasksService,
-    private store$: Store<any>,
+    private store$: Store<State>,
     private noteMessageService: NoteMessageService
   ) {
   }
@@ -34,10 +36,11 @@ export class TasksEffects {
   * Select all task from db
   * */
   @Effect()
-  loadTasks$ = this.actions$.pipe(
-    ofType<GetTasks>(TasksActionTypes.GetTasks),
-    switchMap(() => {
-        return this.tasksService.readTask().pipe(
+  getTasks$ = this.actions$.pipe(
+    ofType<GetTasks | FilterPriorityTasks>(TasksActionTypes.GetTasks, TasksActionTypes.FilterPriorityTasks),
+    withLatestFrom(this.store$.select(selectFiltersTask)),
+    switchMap(([,priority]) => {
+        return this.tasksService.readTask(priority).pipe(
           map((tasks: Task[]) => new LoadTasks(tasks)),
           catchError(error => of(new ErrorTasks(error)))
         );

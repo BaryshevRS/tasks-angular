@@ -1,16 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { select, Store } from '@ngrx/store';
 import { StateTasks } from '../../../stores/reducers/tasks.reducer';
-import { selectAllTasks } from '../../../stores/selectors/tasks.selector';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { Task, TaskView } from '../models/task.model';
-import { Observable, of, Subject, Subscribable } from 'rxjs';
+import { of, Subject, Subscribable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity';
 import { selectTaskWithSettings } from '../../../stores/selectors/settings.selector';
 import { StateSettings } from '../../../stores/reducers/settings.reducer';
 import { IStatus, Priority } from '../../settings/models/settings.model';
-import { GetTasks, UpdateTask, UpdateStatusTask } from '../../../stores/actions/tasks.actions';
+import { UpdateStatusTask } from '../../../stores/actions/tasks.actions';
 
 @Component({
   selector: 'app-tasks-scrum',
@@ -39,8 +38,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
         ([tasks, settings]: [TaskView[], StateSettings]) => {
 
           this.statuses = settings.statuses;
-
-          //
 
           // set color
           if (settings.priorities) {
@@ -116,6 +113,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   trackByFn(index, item) {
-    return item.key; // unique id corresponding to the item
+    return item.key;
   }
 }

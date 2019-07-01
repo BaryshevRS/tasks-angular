@@ -14,9 +14,16 @@ export class TasksService {
   ) {
   }
 
-  readTask(): Observable<Task[]> {
+  readTask(priority = null): Observable<Task[]> {
+
     let tasksCollection: AngularFirestoreCollection<Task>;
+
     tasksCollection = this.afs.collection<Task>('tasks');
+
+    if (priority) {
+      console.log('priority', priority);
+      tasksCollection = this.afs.collection('tasks', ref => ref.where('priority', '==', priority));
+    }
 
     return tasksCollection.snapshotChanges().pipe(
       map(actions => actions.map(a => {
@@ -27,7 +34,7 @@ export class TasksService {
     );
   }
 
-  readTaskForId(id: string | number): Observable<Task>  {
+  readTaskForId(id: string | number): Observable<Task> {
     const task: AngularFirestoreDocument<Task> = this.afs.doc<Task>(`tasks/${id}`);
 
     return task.snapshotChanges().pipe(
@@ -49,6 +56,6 @@ export class TasksService {
   }
 
   updateStatusTask(id, status) {
-    return this.afs.doc<Task>(`tasks/${id}`).update({status});
+    return this.afs.doc<Task>(`tasks/${id}`).update({ status });
   }
 }
