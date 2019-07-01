@@ -18,7 +18,7 @@ import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { selectCurrentTask, selectFiltersTask } from '../selectors/tasks.selector';
 import { NoteMessageService } from '../../share/services/note-message.service';
 import { NoteMessage } from '../../share/classes/note-message.class';
-import { State } from "../reducers";
+import { State } from '../reducers';
 
 @Injectable()
 export class TasksEffects {
@@ -38,7 +38,7 @@ export class TasksEffects {
   getTasks$ = this.actions$.pipe(
     ofType<GetTasks | FilterPriorityTasks>(TasksActionTypes.GetTasks, TasksActionTypes.FilterPriorityTasks),
     withLatestFrom(this.store$.select(selectFiltersTask)),
-    switchMap(([,priority]) => {
+    switchMap(([, priority]) => {
         return this.tasksService.readTask(priority).pipe(
           map((tasks: Task[]) => new LoadTasks(tasks)),
           catchError(error => of(new ErrorTasks(error)))

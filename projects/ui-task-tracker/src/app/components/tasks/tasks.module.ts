@@ -24,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { TasksToolbarComponent } from './tasks-toolbar/tasks-toolbar.component';
 import { ShareModule } from '../../share/modules/share.module';
-import { getRuPaginatorIntl } from "../../ru-paginator-intl";
+import { getRuPaginatorIntl } from '../../ru-paginator-intl';
 
 @NgModule({
   declarations: [
