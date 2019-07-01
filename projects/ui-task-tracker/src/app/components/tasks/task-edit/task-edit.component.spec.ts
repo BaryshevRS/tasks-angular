@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskEditComponent } from './task-edit.component';
+import { TasksModule } from "../tasks.module";
+import { StoreModule } from "@ngrx/store";
+import { metaReducers, reducers } from "../../../stores/reducers";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('TaskEditComponent', () => {
   let component: TaskEditComponent;
@@ -8,7 +12,11 @@ describe('TaskEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskEditComponent ]
+      imports: [
+        TasksModule,
+        RouterTestingModule,
+        StoreModule.forRoot(reducers, { metaReducers }),
+      ]
     })
     .compileComponents();
   }));

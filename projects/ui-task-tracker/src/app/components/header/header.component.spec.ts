@@ -1,7 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import {Router} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { StoreModule } from "@ngrx/store";
+import { metaReducers, reducers } from "../../stores/reducers";
+import { MatButtonModule, MatIconModule, MatToolbarModule } from "@angular/material";
+import { HeaderModule } from "./header.module";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -9,8 +14,11 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-      imports: [Router]
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot(reducers, { metaReducers }),
+        HeaderModule
+      ]
     })
     .compileComponents();
   }));

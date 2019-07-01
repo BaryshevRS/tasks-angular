@@ -4,7 +4,6 @@ import { Task } from '../models/task.model';
 import { UpdateTask } from '../../../stores/actions/tasks.actions';
 import { Observable } from 'rxjs';
 import { Settings } from '../../settings/models/settings.model';
-import { TasksService } from '../services/tasks.service';
 import { select, Store } from '@ngrx/store';
 import { selectCurrentTask } from '../../../stores/selectors/tasks.selector';
 
@@ -22,7 +21,6 @@ export class TaskEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private tasksService: TasksService,
     private store$: Store<any>
   ) {
     this.disabled = false;

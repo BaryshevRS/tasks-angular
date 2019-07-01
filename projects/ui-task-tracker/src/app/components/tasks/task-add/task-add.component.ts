@@ -1,15 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
-import { TasksService } from '../services/tasks.service';
 import { Task } from '../models/task.model';
 import { Store } from '@ngrx/store';
 import { AddTask } from '../../../stores/actions/tasks.actions';
 import { Settings } from '../../settings/models/settings.model';
-import { StateUsers } from '../../../stores/reducers/users.reducer';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { NoteMessageService } from '../../../share/services/note-message.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: 'app-task-add',
@@ -25,7 +20,6 @@ export class TaskAddComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private tasksService: TasksService,
     private store$: Store<any>
   ) {
   }

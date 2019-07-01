@@ -33,7 +33,6 @@ registerLocaleData(localeRu, 'ru');
     BrowserAnimationsModule,
     HeaderModule,
     LoginModule,
-    // SettingsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

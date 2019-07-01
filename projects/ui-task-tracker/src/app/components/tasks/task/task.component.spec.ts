@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskComponent } from './task.component';
+import { TasksModule } from "../tasks.module";
+import { StoreModule } from "@ngrx/store";
+import { metaReducers, reducers } from "../../../stores/reducers";
+import { RouterModule } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe('TaskComponent', () => {
   let component: TaskComponent;
@@ -8,7 +13,11 @@ describe('TaskComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskComponent ]
+      imports: [
+        TasksModule,
+        RouterTestingModule,
+        StoreModule.forRoot(reducers, { metaReducers })
+      ]
     })
     .compileComponents();
   }));

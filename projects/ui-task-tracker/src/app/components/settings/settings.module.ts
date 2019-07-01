@@ -5,7 +5,7 @@ import { SettingsComponent } from './settings.component';
 import {
   MatButtonModule,
   MatCheckboxModule,
-  MatExpansionModule,
+  MatExpansionModule, MatExpansionPanelTitle,
   MatInputModule
 } from '@angular/material';
 import { ShareModule } from '../../share/modules/share.module';

@@ -21,8 +21,8 @@ export class TasksTableComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  private displayedColumns: string[] = ['createDate', 'name', 'statusName'];
-  private displayedColumnsName = { createDate: 'Дата', name: 'Название', statusName: 'Статус' };
+  public displayedColumns: string[] = ['createDate', 'name', 'statusName'];
+  public displayedColumnsName = { createDate: 'Дата', name: 'Название', statusName: 'Статус' };
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 

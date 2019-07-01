@@ -18,9 +18,9 @@ import { UpdateStatusTask } from '../../../stores/actions/tasks.actions';
 })
 export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private statuses: Map<string, IStatus>[];
+  public statuses: Map<string, IStatus>[];
   private unsubscribe$ = new Subject<void>();
-  private tasks: Subscribable<Dictionary<string>>;
+  public tasks: Subscribable<Dictionary<string>>;
   public tasksItem: Dictionary<string>;
 
   constructor(
@@ -73,6 +73,14 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
     this.tasks.subscribe(task => this.tasksItem = task);
   }
 
+  ngAfterViewInit(): void {
+    console.log('dropList', this.dropList.toArray());
+    this.dropList.map(item => {
+      item.connectedTo = this.dropList.toArray();
+      return item;
+    });
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
@@ -102,14 +110,6 @@ export class TasksScrumComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateStatusTask(tasks: Task[], index: number, id: string) {
     return { ...tasks[index], status: id};
-  }
-
-  ngAfterViewInit(): void {
-    console.log('dropList', this.dropList.toArray());
-    this.dropList.map(item => {
-      item.connectedTo = this.dropList.toArray();
-      return item;
-    });
   }
 
   trackByFn(index, item) {

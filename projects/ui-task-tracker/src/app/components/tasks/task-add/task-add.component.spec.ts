@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TaskAddComponent } from './task-add.component';
+import { TasksModule } from "../tasks.module";
+import { StoreModule } from "@ngrx/store";
+import { metaReducers, reducers } from "../../../stores/reducers";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe('TaskAddComponent', () => {
   let component: TaskAddComponent;
@@ -8,7 +12,11 @@ describe('TaskAddComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskAddComponent ]
+      imports: [
+        TasksModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot(reducers, { metaReducers }),
+      ]
     })
     .compileComponents();
   }));

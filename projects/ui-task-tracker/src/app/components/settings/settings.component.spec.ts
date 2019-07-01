@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
+import { SettingsModule } from "./settings.module";
+import { MatExpansionPanelTitle } from "@angular/material";
+import { StoreModule } from "@ngrx/store";
+import { metaReducers, reducers } from "../../stores/reducers";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -8,9 +13,13 @@ describe('SettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      imports: [
+        SettingsModule,
+        BrowserAnimationsModule,
+        StoreModule.forRoot(reducers, { metaReducers }),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

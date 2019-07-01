@@ -53,7 +53,7 @@ import { getRuPaginatorIntl } from '../../ru-paginator-intl';
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    ShareModule,
+    ShareModule
   ],
   exports: [
     TasksComponent
