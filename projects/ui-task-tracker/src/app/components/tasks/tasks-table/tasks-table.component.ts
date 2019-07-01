@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { Task, TaskView } from '../models/task.model';
 import { select, Store } from '@ngrx/store';
@@ -17,7 +17,7 @@ import { Priority, Status } from '../../settings/models/settings.model';
 export class TasksTableComponent implements OnInit, OnDestroy {
 
   public dataSource: MatTableDataSource<Task> | null;
-  public pageSize: 5;
+  public pageSize: 10;
 
   private unsubscribe$ = new Subject<void>();
 
@@ -32,7 +32,6 @@ export class TasksTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.store$.pipe(select(selectTaskWithSettings))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(([tasks, settings]: [TaskView[], StateSettings]) => {

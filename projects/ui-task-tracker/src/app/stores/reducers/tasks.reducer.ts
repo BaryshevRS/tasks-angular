@@ -46,6 +46,9 @@ export function TasksReducer(state = initialState, action: TasksActionsUnion): S
       return adapter.addAll(action.payload, state);
 
     case TasksActionTypes.LoadTask:
+
+      console.log('!!!action.payload', action.payload);
+
       return adapter.upsertOne(action.payload, state);
 
     case TasksActionTypes.FilterPriorityTasks:

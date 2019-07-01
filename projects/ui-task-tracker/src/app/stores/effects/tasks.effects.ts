@@ -9,17 +9,16 @@ import {
   TasksActionTypes,
   GetTasks, AddTask, UpdateTask, FilterPriorityTasks,
 } from '../actions/tasks.actions';
-import { catchError, delay, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { TasksService } from '../../components/tasks/services/tasks.service';
 import { Task } from '../../components/tasks/models/task.model';
 import { Store } from '@ngrx/store';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
-import { selectCurrentTask, selectTaskEntities, selectTaskState, selectFiltersTask } from '../selectors/tasks.selector';
+import { selectCurrentTask, selectFiltersTask } from '../selectors/tasks.selector';
 import { NoteMessageService } from '../../share/services/note-message.service';
 import { NoteMessage } from '../../share/classes/note-message.class';
 import { State } from "../reducers";
-import { StateTasks } from "../reducers/tasks.reducer";
 
 @Injectable()
 export class TasksEffects {

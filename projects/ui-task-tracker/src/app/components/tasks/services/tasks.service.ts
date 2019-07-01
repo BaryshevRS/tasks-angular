@@ -18,14 +18,21 @@ export class TasksService {
 
     let tasksCollection: AngularFirestoreCollection<Task>;
 
-    tasksCollection = this.afs.collection<Task>('tasks');
+    tasksCollection = this.afs.collection<Task>(
+      'tasks',
+      ref => ref.orderBy('createDate', 'desc')
+    );
 
     if (priority) {
       console.log('priority', priority);
-      tasksCollection = this.afs.collection('tasks', ref => ref.where('priority', '==', priority));
+      tasksCollection = this.afs.collection(
+        'tasks',
+        ref => ref.where('priority', '==', priority).orderBy('createDate')
+      );
     }
 
     return tasksCollection.snapshotChanges().pipe(
+      tap((a) => console.log('X', a)),
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as Task;
         data.id = a.payload.doc.id;

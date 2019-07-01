@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Task } from '../../tasks/models/task.model';
-import { delay, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import {
   SessionUnion,
   Settings
