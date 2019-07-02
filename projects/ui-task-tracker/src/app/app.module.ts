@@ -1,49 +1,46 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
 
-import {AppComponent} from './app.component';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuthModule} from "@angular/fire/auth";
-import {environment} from "../environments/environment";
-import {ErrorPageComponent} from './error-page/error-page.component';
-import {AppRoutingModule} from "./app-routing.module";
-import {StoreModule} from '@ngrx/store';
-import {reducers, metaReducers} from './store/reducers';
-import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {EffectsModule} from '@ngrx/effects';
-import {AppEffects} from './store/effects/app.effects';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import {LoginModule} from "./login/login.module";
-import {TasksModule} from "./tasks/tasks.module";
-import {SettingsModule} from "./settings/settings.module";
-import { RegsComponent } from './regs/regs.component';
-import {RegsModule} from "./regs/regs.module";
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { HeaderModule } from './components/header/header.module';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginModule } from './components/users/login/login.module';
+import { metaReducers, reducers } from './stores/reducers';
+import { effectsList } from './stores/effects';
+
+registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorPageComponent,
-    RegsComponent
+    ErrorPageComponent
   ],
   imports: [
-    LoginModule,
-    RegsModule,
-    TasksModule,
-    SettingsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    BrowserAnimationsModule,
+    HeaderModule,
+    LoginModule,
+    AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
+    EffectsModule.forRoot(effectsList),
     AppRoutingModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
-    !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
-    EffectsModule.forRoot([AppEffects]),
-    BrowserAnimationsModule
+    StoreRouterConnectingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

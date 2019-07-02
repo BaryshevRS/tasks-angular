@@ -1,0 +1,78 @@
+<div class="header">
+  <h2>Управление настройками</h2>
+</div>
+
+<mat-accordion>
+
+  <mat-expansion-panel  *ngFor="let panel of settingsPanels; let y = index;">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{panel.name}}
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <form
+        *ngIf="settingsFormControl[y].controls"
+        [formGroup]="settingsFormControl[y]"
+        (ngSubmit)="onSubmit($event, y, panel.key)"
+        class="setting-container">
+
+      <div [formArrayName]="panel.key">
+
+        <div
+            class="setting-block"
+            [formGroupName]="i"
+            *ngFor="let priority of settingsFormControl[y].controls[panel.key].controls;  let i = index">
+          <h4>
+            {{priority.value.name}}
+          </h4>
+          <div class="setting-block-row">
+
+            <div class="checkbox-row">
+
+            <mat-checkbox formControlName="checked" [value]="i"></mat-checkbox>
+
+            </div>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Порядок</mat-label>
+              <input matInput type="number" formControlName="order" placeholder="Порядок">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Ключ</mat-label>
+              <input matInput formControlName="key" placeholder="Ключ">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Название</mat-label>
+              <input matInput formControlName="name" placeholder="Название">
+            </mat-form-field>
+
+            <mat-form-field *ngIf="panel.key === 'priorities'" appearance="fill">
+              <mat-label>Цвет</mat-label>
+              <input matInput formControlName="color" type="color" placeholder="Цвет">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div  class="setting-block-submit">
+
+        <button (click)="remove($event, y, panel.key)" mat-button color="primary">Удалить</button>
+        <button (click)="add($event, y, panel.key)" mat-button color="primary">Добавить</button>
+
+        <button mat-raised-button color="primary">Сохранить</button>
+      </div>
+
+    </form>
+
+  </mat-expansion-panel>
+
+</mat-accordion>
+

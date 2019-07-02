@@ -1,0 +1,37 @@
+:host {
+  width: 100%;
+}
+.task-edit-page {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.row-justify {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  @media screen and (max-width: 960px) {
+    display: block;
+  }
+}
+
+mat-form-field {
+  &:first-child {
+    margin-right: 5px;
+  }
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+}
+
+.button-spinner {
+  display: flex;
+  align-items: center;
+  mat-spinner {
+    margin-right: 10px;
+  }
+}

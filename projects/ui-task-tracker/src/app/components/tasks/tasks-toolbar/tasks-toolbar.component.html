@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <mat-form-field>
+    <mat-label>Приоритет</mat-label>
+    <mat-select (valueChange)="changePriority($event)" >
+      <mat-option>По умолчанию</mat-option>
+      <mat-option
+          *ngFor="let priority of (settings | async).priorities | keyvalue | orderBy: null : 'value' : 'order';
+            trackBy: trackByFn"
+          [value]="priority.key"
+      >
+        {{priority.value.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="view-mode">
+    <mat-button-toggle-group>
+      <mat-button-toggle (change)="colorButton = 'left'; setView()" routerLink="" value="left" aria-label="Text align left">
+        <mat-icon [color]="colorButton === 'left' ? 'primary' : ''"> view_headline</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle (change)="colorButton = 'right'; setView(true)" routerLink="scrum" value="right"
+                         aria-label="Text align right">
+        <mat-icon [color]="colorButton === 'right' ? 'primary' : ''">view_column</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+</div>

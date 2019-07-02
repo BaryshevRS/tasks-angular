@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/ui-task-tracker",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

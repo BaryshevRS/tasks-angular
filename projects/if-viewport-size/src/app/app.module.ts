@@ -1,8 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
+import {AppComponent} from './app.component';
+import {TestComponent} from './test/test.component';
+import {ViewportSizeModule} from './viewport-size/viewport-size.module';
+
 
 @NgModule({
   declarations: [
@@ -10,9 +12,14 @@ import { TestComponent } from './test/test.component';
     TestComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ViewportSizeModule.forRoot({
+      medium: 320,
+      large: 480
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,0 +1,17 @@
+:host {
+  width: 100%;
+}
+
+.task {
+  margin-top: 10px;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  > div {
+    width: 100%;
+  }
+  mat-card {
+    width: 100%;
+  }
+}
+

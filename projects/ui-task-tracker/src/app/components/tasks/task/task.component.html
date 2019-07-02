@@ -1,0 +1,66 @@
+<div class="back">
+  <ng-container *ngIf="(viewTask | async)">
+    <button routerLink="/tasks/scrum" mat-button>Назад</button>
+  </ng-container>
+  <ng-container *ngIf="!(viewTask | async)">
+    <button routerLink="/tasks" mat-button>Назад</button>
+  </ng-container>
+</div>
+
+<div class="task">
+
+  <ng-container *ngIf="settings | async as s">
+
+    <mat-card *ngIf="task | async as t" class="example-card">
+
+      <mat-card-title>{{t.name}}</mat-card-title>
+      <mat-card-subtitle>{{t.createDate | date: 'dd/MM/yy HH:mm'}}</mat-card-subtitle>
+
+      <mat-card-content>
+        <p><b>Описание</b></p>
+
+        <p>
+          {{t.description}}
+        </p>
+
+        <ng-container *ngIf="s.priorities && s.priorities[t.priority]">
+          <p><b>Приоритет</b></p>
+          <p [style.color]="s.priorities[t.priority]?.color">
+            {{s.priorities[t.priority]?.name}}
+          </p>
+        </ng-container>
+
+        <ng-container *ngIf="s.statuses && s.statuses[t.status]">
+          <p><b>Cтатус выполнения</b></p>
+          <p>
+            <i>{{s.statuses[t.status]?.name}}</i>
+          </p>
+        </ng-container>
+
+        <ng-container *ngIf="t.plannedTime">
+          <p><b>Планируемое время</b></p>
+          <p>
+            {{t.plannedTime}} ч.
+          </p>
+        </ng-container>
+
+
+        <ng-container *ngIf="t.usedTime">
+          <p><b>Затраченное время</b></p>
+          <p>
+            {{t.usedTime}} ч.
+          </p>
+        </ng-container>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button routerLink="/tasks/edit/{{t.id}}" mat-button>Редактировать</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </ng-container>
+
+</div>
+
+
+

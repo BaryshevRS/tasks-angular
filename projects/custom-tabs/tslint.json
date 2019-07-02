@@ -7,11 +7,14 @@
       "app",
       "camelCase"
     ],
+    "quotemark": [
+      true,
+      "single"
+    ],
     "component-selector": [
       true,
       "element",
-      "app",
-      "kebab-case"
+      "app"
     ]
   }
 }
