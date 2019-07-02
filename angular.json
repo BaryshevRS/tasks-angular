@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "if-viewport-size": {
-      "root": "projects/if-viewport-size/",
+      "root": "",
       "sourceRoot": "projects/if-viewport-size/src",
       "projectType": "application",
       "prefix": "app",
