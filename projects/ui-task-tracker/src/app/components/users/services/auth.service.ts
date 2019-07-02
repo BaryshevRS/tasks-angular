@@ -40,7 +40,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        this.router.navigate(['/tasks']);
+        const x = this.router.navigate(['/tasks']);
         return user as IUser;
       });
   }

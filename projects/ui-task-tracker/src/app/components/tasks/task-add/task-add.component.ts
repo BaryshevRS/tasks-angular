@@ -16,7 +16,7 @@ export class TaskAddComponent implements OnInit, OnDestroy {
   public settings: Observable<Settings>;
   public taskAddControl: FormGroup;
   private unsubscribe$ = new Subject<void>();
-  private disabled: boolean;
+  public disabled: boolean;
 
   constructor(
     private fb: FormBuilder,

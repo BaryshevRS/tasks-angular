@@ -15,7 +15,6 @@ const RuRangeLabel = (page: number, pageSize: number, length: number) => {
   return `${startIndex + 1} - ${endIndex} из ${length}`;
 };
 
-
 export function getRuPaginatorIntl() {
   const paginatorIntl = new MatPaginatorIntl();
 

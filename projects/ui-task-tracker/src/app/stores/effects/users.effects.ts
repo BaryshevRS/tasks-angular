@@ -9,12 +9,11 @@ import {
   ErrorUsers,
   LoginUserSuccess
 } from '../actions/users.actions';
+
 import { AuthService } from '../../components/users/services/auth.service';
 import { IUser, User } from '../../components/users/models/users.model';
-
 import { NoteMessageService } from '../../share/services/note-message.service';
 import { NoteMessage } from '../../share/classes/note-message.class';
-
 
 @Injectable()
 export class UsersEffects {
@@ -32,6 +31,7 @@ export class UsersEffects {
     exhaustMap(({ payload }) => {
       return this.authService.emailLogin(payload.email, payload.password).then(
         (user: IUser) => {
+          console.log('user.uid, user.email', user.uid, user.email);
           return new LoginUserSuccess(new User(user.uid, user.email));
         })
         .catch(error => {
@@ -55,5 +55,4 @@ export class UsersEffects {
         });
     })
   );
-
 }
