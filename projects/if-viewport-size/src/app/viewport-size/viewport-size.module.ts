@@ -1,7 +1,7 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {IfViewportSizeDirective} from './if-viewport-size.directive';
-import {ViewportSizeService} from './viewport-size.service';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IfViewportSizeDirective } from './if-viewport-size.directive';
+import { ViewportSizeService } from './viewport-size.service';
 import IConfig from './interface/config';
 
 @NgModule({
