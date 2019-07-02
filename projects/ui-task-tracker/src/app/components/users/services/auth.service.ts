@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { IUser } from '../models/users.model';
 import { Store } from '@ngrx/store';
-import { LoginUserCheck, LoginUserSuccess } from '../../../stores/actions/users.actions';
+import { LoginUserCheck } from '../../../stores/actions/users.actions';
 
 @Injectable({
   providedIn: 'root'

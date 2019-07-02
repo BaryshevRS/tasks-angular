@@ -1,7 +1,6 @@
-import { createEntityAdapter, Dictionary, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Task } from '../../components/tasks/models/task.model';
 import { TasksActionsUnion, TasksActionTypes } from '../actions/tasks.actions';
-import { LoadInits } from '../actions/inits.actions';
 
 export interface StateTasks extends EntityState<Task> {
   // additional entities state properties

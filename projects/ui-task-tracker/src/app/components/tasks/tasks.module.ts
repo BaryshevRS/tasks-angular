@@ -12,7 +12,6 @@ import { TasksRoutingModule } from './tasks-routing.module';
 import { TaskComponent } from './task/task.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
-import { TasksScrumComponent } from './tasks-scrum/tasks-scrum.component';
 import {
   MatDatepickerModule,
   MatNativeDateModule,

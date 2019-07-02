@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, EffectNotification, ofType, OnRunEffects } from '@ngrx/effects';
-import { ErrorMessage, InitsActionsUnion, InitsActionTypes, LoadInits } from '../actions/inits.actions';
-import { ErrorUsers, LoginUserSuccess, UsersActionTypes } from '../actions/users.actions';
-import { catchError, exhaustMap, flatMap, map, switchMap, takeUntil, tap, withLatestFrom } from 'rxjs/operators';
-import { ErrorTasks, GetTasks, LoadTasks, TasksActionTypes } from '../actions/tasks.actions';
+import { ErrorMessage, InitsActionTypes, LoadInits } from '../actions/inits.actions';
+import { UsersActionTypes } from '../actions/users.actions';
+import { catchError, exhaustMap, flatMap, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { GetTasks } from '../actions/tasks.actions';
 import { Observable, of } from 'rxjs';
 import { GetSettings, SettingsActionTypes } from '../actions/settings.actions';
 import { Store } from '@ngrx/store';

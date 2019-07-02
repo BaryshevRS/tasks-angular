@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of, Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { UpdateSettings } from '../../stores/actions/settings.actions';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
@@ -109,4 +109,8 @@ export class SettingsComponent implements OnInit {
     this.store$.dispatch(new UpdateSettings( this.settingsFormControl[index].value));
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }
