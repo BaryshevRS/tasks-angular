@@ -5,7 +5,8 @@
 <details>
 <summary>Описание решения</summary>
 <div>
- <br /> <br />
+ <br />
+ 
 Взять шаблон приложения (https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/custom-tab) и на его основе реализовать табы по указанной в `app.component.html` разметке (в отдельном модуле, в отдельном каталоге). И содержимое, и заголовок должны поддерживать отображение других компонентов/произвольного html. 
 
 По умолчанию активен первый таб. Должна поддерживаться возможность динамически добавить/убрать таб. При удалении активного таба, активным становится первый таб (если остался хотя бы один). Для оформления табов достаточно использовать 3 класса из `styles.css`. Приложение должно работать без `NO_ERRORS_SCHEMA/CUSTOM_ELEMENTS_SCHEMA` в `AppModule`.
@@ -20,7 +21,7 @@
 <details>
 <summary>Основное задание</summary>
 <div>
-<br /> <br />
+<br />
  
  **Пояснение к исходникам. Описание порядка действий**.
 
@@ -109,7 +110,7 @@ https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/custom-tab-answer
 <details>
 <summary>Бонусное задание</summary>
 <div>
- <br /> <br />
+ <br /> 
  
 **Пояснение к исходникам. Описание порядка действий**.
 
@@ -161,7 +162,8 @@ https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/custom-tab-bonus-ans
 <details>
 <summary>Описание задачи</summary>
 <div>
- <br /> <br />
+ <br /> 
+ 
   Форкнуть шаблон приложения 
   (https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/if-viewport-size) 
   и на его основе реализовать:
@@ -196,7 +198,7 @@ https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/custom-tab-bonus-ans
 <details>
 <summary>Описание решения</summary>
 <div>
- <br /> <br />
+ <br />
  
 1. Создадим структурную директиву `IfViewportSizeDirective`, в которую заинжектим ссылку на шаблон `TemplateRef` и на контейнер шаблона `ViewContainerRef`. 
 
@@ -299,7 +301,7 @@ https://stackblitz.com/github/BaryshevRS/tasks-angular/tree/custom-tab-bonus-ans
 <details>
 <summary>Описание задачи</summary>
 <div>
-<br /> <br />
+<br /> 
 
 **Допускается использовать:** Библиотеки компонентов или CSS фреймворки (Ant Design, Material UI,
 Twitter Bootstrap и др.), a также любые JS-библиотеки, но в адекватном количестве.
@@ -361,7 +363,7 @@ Twitter Bootstrap и др.), a также любые JS-библиотеки, н
 <details>
 <summary>Описание решения</summary>
 <div>
-<br /> <br />
+<br />
  
 Для реализации были использованы компоненты `Angular Material`, менеджер состояния `NgRx` и облачная реалтайм база `Cloud Firestore`.
 
