@@ -1,6 +1,10 @@
 {
   "hosting": {
     "public": "dist/ui-task-tracker",
+    "rewrites": [ {
+      "source": "**",
+      "destination": "/index.html"
+    } ],
     "ignore": [
       "firebase.json",
       "**/.*",
