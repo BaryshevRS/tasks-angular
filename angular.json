@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "custom-tabs": {
-      "root": "projects/custom-tabs/",
+      "root": "",
       "sourceRoot": "projects/custom-tabs/src",
       "projectType": "application",
       "prefix": "",
@@ -96,34 +96,6 @@
               "projects/custom-tabs/tsconfig.app.json",
               "projects/custom-tabs/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "custom-tabs-e2e": {
-      "root": "projects/custom-tabs-e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/custom-tabs-e2e/protractor.conf.js",
-            "devServerTarget": "custom-tabs:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "custom-tabs:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "projects/custom-tabs-e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
