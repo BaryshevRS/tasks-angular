@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "custom-tabs": {
-      "root": "projects/custom-tabs/",
+      "root": "",
       "sourceRoot": "projects/custom-tabs/src",
       "projectType": "application",
       "prefix": "",
