@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "ui-task-tracker": {
-      "root": "projects/ui-task-tracker/",
+      "root": "",
       "sourceRoot": "projects/ui-task-tracker/src",
       "projectType": "application",
       "prefix": "app",
